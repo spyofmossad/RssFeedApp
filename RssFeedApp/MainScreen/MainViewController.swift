@@ -10,6 +10,7 @@ import UIKit
 protocol MainViewDelegate: class {
     func openAddFeed()
     func openAddFolder()
+    func openFeedNews()
 }
 
 class MainViewController: UIViewController {
@@ -34,3 +35,18 @@ class MainViewController: UIViewController {
     }
 }
 
+extension MainViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+}
+
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.openFeedNews()
+    }
+}

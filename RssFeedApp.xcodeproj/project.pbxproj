@@ -18,6 +18,10 @@
 		0AC6687D2563B7A2009F5732 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6687C2563B7A2009F5732 /* Coordinator.swift */; };
 		0AC668852563E90C009F5732 /* AddEditFolder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AC668842563E90C009F5732 /* AddEditFolder.storyboard */; };
 		0AC668882563E91A009F5732 /* AddEditFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668872563E91A009F5732 /* AddEditFolderViewController.swift */; };
+		0AC6688D25642F0E009F5732 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AC6688C25642F0E009F5732 /* News.storyboard */; };
+		0AC6689025642F25009F5732 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6688F25642F25009F5732 /* NewsViewController.swift */; };
+		0AC6689425643196009F5732 /* NewsDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AC6689325643196009F5732 /* NewsDetails.storyboard */; };
+		0AC66897256431B0009F5732 /* NewsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC66896256431B0009F5732 /* NewsDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		0AC6687C2563B7A2009F5732 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		0AC668842563E90C009F5732 /* AddEditFolder.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddEditFolder.storyboard; sourceTree = "<group>"; };
 		0AC668872563E91A009F5732 /* AddEditFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditFolderViewController.swift; sourceTree = "<group>"; };
+		0AC6688C25642F0E009F5732 /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
+		0AC6688F25642F25009F5732 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		0AC6689325643196009F5732 /* NewsDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewsDetails.storyboard; sourceTree = "<group>"; };
+		0AC66896256431B0009F5732 /* NewsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +78,8 @@
 				0AC668722563B228009F5732 /* MainScreen */,
 				0AC668752563B3AB009F5732 /* AddEditFeedScreen */,
 				0AC668832563E8DB009F5732 /* AddEditFolderScreen */,
+				0AC6688B25642EE5009F5732 /* NewsScreen */,
+				0AC6689225643178009F5732 /* NewsDetailsScreen */,
 				0A696C1A2562B68F009FBAC7 /* AppDelegate.swift */,
 				0A696C1C2562B68F009FBAC7 /* SceneDelegate.swift */,
 				0A696C232562B68F009FBAC7 /* Assets.xcassets */,
@@ -104,6 +114,24 @@
 				0AC668872563E91A009F5732 /* AddEditFolderViewController.swift */,
 			);
 			path = AddEditFolderScreen;
+			sourceTree = "<group>";
+		};
+		0AC6688B25642EE5009F5732 /* NewsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0AC6688C25642F0E009F5732 /* News.storyboard */,
+				0AC6688F25642F25009F5732 /* NewsViewController.swift */,
+			);
+			path = NewsScreen;
+			sourceTree = "<group>";
+		};
+		0AC6689225643178009F5732 /* NewsDetailsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0AC6689325643196009F5732 /* NewsDetails.storyboard */,
+				0AC66896256431B0009F5732 /* NewsDetailsViewController.swift */,
+			);
+			path = NewsDetailsScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,9 +192,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AC668772563B3D2009F5732 /* AddEditFeed.storyboard in Resources */,
+				0AC6688D25642F0E009F5732 /* News.storyboard in Resources */,
 				0A696C272562B68F009FBAC7 /* LaunchScreen.storyboard in Resources */,
 				0AC668852563E90C009F5732 /* AddEditFolder.storyboard in Resources */,
 				0A696C242562B68F009FBAC7 /* Assets.xcassets in Resources */,
+				0AC6689425643196009F5732 /* NewsDetails.storyboard in Resources */,
 				0A696C222562B68F009FBAC7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,6 +212,8 @@
 				0A696C1F2562B68F009FBAC7 /* MainViewController.swift in Sources */,
 				0AC668882563E91A009F5732 /* AddEditFolderViewController.swift in Sources */,
 				0AC6687D2563B7A2009F5732 /* Coordinator.swift in Sources */,
+				0AC66897256431B0009F5732 /* NewsDetailsViewController.swift in Sources */,
+				0AC6689025642F25009F5732 /* NewsViewController.swift in Sources */,
 				0A696C1B2562B68F009FBAC7 /* AppDelegate.swift in Sources */,
 				0A696C1D2562B68F009FBAC7 /* SceneDelegate.swift in Sources */,
 			);

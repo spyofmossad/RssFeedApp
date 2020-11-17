@@ -34,16 +34,37 @@ class AppCoordinator: Coordinator {
         let addEditFolder = UIStoryboard.init(name: "AddEditFolder", bundle: nil).instantiateViewController(identifier: "AddEditFolderViewController") as! AddEditFolderViewController
         navController.pushViewController(addEditFolder, animated: true)
     }
+    
+    func initNews() {
+        let news = UIStoryboard.init(name: "News", bundle: nil).instantiateViewController(identifier: "NewsViewController") as! NewsViewController
+        news.delegate = self
+        navController.pushViewController(news, animated: true)
+    }
+    
+    func initNewsDetails() {
+        let newsDetails = UIStoryboard.init(name: "NewsDetails", bundle: nil).instantiateViewController(identifier: "NewsDetailsViewController") as! NewsDetailsViewController
+        navController.pushViewController(newsDetails, animated: true)
+    }
 
 }
 
 extension AppCoordinator: MainViewDelegate {
+    func openFeedNews() {
+        initNews()
+    }
+    
     func openAddFolder() {
         initAddEditFolder()
     }
     
     func openAddFeed() {
         initAddEditFeed()
+    }
+}
+
+extension AppCoordinator: NewsDelegate {
+    func openNewsDetails() {
+        initNewsDetails()
     }
     
     
