@@ -9,21 +9,31 @@
 /* Begin PBXBuildFile section */
 		0A696C1B2562B68F009FBAC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1A2562B68F009FBAC7 /* AppDelegate.swift */; };
 		0A696C1D2562B68F009FBAC7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1C2562B68F009FBAC7 /* SceneDelegate.swift */; };
-		0A696C1F2562B68F009FBAC7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1E2562B68F009FBAC7 /* ViewController.swift */; };
+		0A696C1F2562B68F009FBAC7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1E2562B68F009FBAC7 /* MainViewController.swift */; };
 		0A696C222562B68F009FBAC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A696C202562B68F009FBAC7 /* Main.storyboard */; };
 		0A696C242562B68F009FBAC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A696C232562B68F009FBAC7 /* Assets.xcassets */; };
 		0A696C272562B68F009FBAC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A696C252562B68F009FBAC7 /* LaunchScreen.storyboard */; };
+		0AC668772563B3D2009F5732 /* AddEditFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AC668762563B3D2009F5732 /* AddEditFeed.storyboard */; };
+		0AC6687A2563B3E2009F5732 /* AddEditFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668792563B3E2009F5732 /* AddEditFeedViewController.swift */; };
+		0AC6687D2563B7A2009F5732 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6687C2563B7A2009F5732 /* Coordinator.swift */; };
+		0AC668852563E90C009F5732 /* AddEditFolder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AC668842563E90C009F5732 /* AddEditFolder.storyboard */; };
+		0AC668882563E91A009F5732 /* AddEditFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668872563E91A009F5732 /* AddEditFolderViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A696C172562B68F009FBAC7 /* RssFeedApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RssFeedApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A696C1A2562B68F009FBAC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A696C1C2562B68F009FBAC7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0A696C1E2562B68F009FBAC7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0A696C1E2562B68F009FBAC7 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0A696C212562B68F009FBAC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0A696C232562B68F009FBAC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A696C262562B68F009FBAC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A696C282562B68F009FBAC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0AC668762563B3D2009F5732 /* AddEditFeed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddEditFeed.storyboard; sourceTree = "<group>"; };
+		0AC668792563B3E2009F5732 /* AddEditFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditFeedViewController.swift; sourceTree = "<group>"; };
+		0AC6687C2563B7A2009F5732 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		0AC668842563E90C009F5732 /* AddEditFolder.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddEditFolder.storyboard; sourceTree = "<group>"; };
+		0AC668872563E91A009F5732 /* AddEditFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditFolderViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +66,44 @@
 		0A696C192562B68F009FBAC7 /* RssFeedApp */ = {
 			isa = PBXGroup;
 			children = (
+				0AC6687C2563B7A2009F5732 /* Coordinator.swift */,
+				0AC668722563B228009F5732 /* MainScreen */,
+				0AC668752563B3AB009F5732 /* AddEditFeedScreen */,
+				0AC668832563E8DB009F5732 /* AddEditFolderScreen */,
 				0A696C1A2562B68F009FBAC7 /* AppDelegate.swift */,
 				0A696C1C2562B68F009FBAC7 /* SceneDelegate.swift */,
-				0A696C1E2562B68F009FBAC7 /* ViewController.swift */,
-				0A696C202562B68F009FBAC7 /* Main.storyboard */,
 				0A696C232562B68F009FBAC7 /* Assets.xcassets */,
 				0A696C252562B68F009FBAC7 /* LaunchScreen.storyboard */,
 				0A696C282562B68F009FBAC7 /* Info.plist */,
 			);
 			path = RssFeedApp;
+			sourceTree = "<group>";
+		};
+		0AC668722563B228009F5732 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0A696C1E2562B68F009FBAC7 /* MainViewController.swift */,
+				0A696C202562B68F009FBAC7 /* Main.storyboard */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		0AC668752563B3AB009F5732 /* AddEditFeedScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0AC668762563B3D2009F5732 /* AddEditFeed.storyboard */,
+				0AC668792563B3E2009F5732 /* AddEditFeedViewController.swift */,
+			);
+			path = AddEditFeedScreen;
+			sourceTree = "<group>";
+		};
+		0AC668832563E8DB009F5732 /* AddEditFolderScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0AC668842563E90C009F5732 /* AddEditFolder.storyboard */,
+				0AC668872563E91A009F5732 /* AddEditFolderViewController.swift */,
+			);
+			path = AddEditFolderScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,7 +163,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AC668772563B3D2009F5732 /* AddEditFeed.storyboard in Resources */,
 				0A696C272562B68F009FBAC7 /* LaunchScreen.storyboard in Resources */,
+				0AC668852563E90C009F5732 /* AddEditFolder.storyboard in Resources */,
 				0A696C242562B68F009FBAC7 /* Assets.xcassets in Resources */,
 				0A696C222562B68F009FBAC7 /* Main.storyboard in Resources */,
 			);
@@ -137,7 +178,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A696C1F2562B68F009FBAC7 /* ViewController.swift in Sources */,
+				0AC6687A2563B3E2009F5732 /* AddEditFeedViewController.swift in Sources */,
+				0A696C1F2562B68F009FBAC7 /* MainViewController.swift in Sources */,
+				0AC668882563E91A009F5732 /* AddEditFolderViewController.swift in Sources */,
+				0AC6687D2563B7A2009F5732 /* Coordinator.swift in Sources */,
 				0A696C1B2562B68F009FBAC7 /* AppDelegate.swift in Sources */,
 				0A696C1D2562B68F009FBAC7 /* SceneDelegate.swift in Sources */,
 			);

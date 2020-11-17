@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uAQ-fm-lgL">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Add Edit Folder View Controller-->
+        <scene sceneID="0Dx-eG-fVR">
+            <objects>
+                <viewController storyboardIdentifier="AddEditFolderViewController" id="uAQ-fm-lgL" customClass="AddEditFolderViewController" customModule="RssFeedApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uCr-Z3-VdI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter folder name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bQK-V3-dEt">
+                                <rect key="frame" x="8" y="60" width="398" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tSz-on-dfv">
+                                <rect key="frame" x="16" y="126" width="382" height="303"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tIZ-pH-aVT">
+                                <rect key="frame" x="16" y="445" width="382" height="303"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="E7r-rb-NFE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bQK-V3-dEt" firstAttribute="top" secondItem="E7r-rb-NFE" secondAttribute="top" constant="16" id="6fV-1q-MZg"/>
+                            <constraint firstItem="E7r-rb-NFE" firstAttribute="trailing" secondItem="bQK-V3-dEt" secondAttribute="trailing" constant="8" id="6vl-aZ-U2Q"/>
+                            <constraint firstItem="tIZ-pH-aVT" firstAttribute="leading" secondItem="E7r-rb-NFE" secondAttribute="leading" constant="16" id="DZj-nn-cqm"/>
+                            <constraint firstItem="tSz-on-dfv" firstAttribute="top" secondItem="bQK-V3-dEt" secondAttribute="bottom" constant="32" id="Ies-CP-PpQ"/>
+                            <constraint firstItem="tIZ-pH-aVT" firstAttribute="top" secondItem="tSz-on-dfv" secondAttribute="bottom" constant="16" id="Khr-44-7gY"/>
+                            <constraint firstItem="E7r-rb-NFE" firstAttribute="trailing" secondItem="tIZ-pH-aVT" secondAttribute="trailing" constant="16" id="RNz-Js-JJm"/>
+                            <constraint firstItem="tSz-on-dfv" firstAttribute="height" secondItem="uCr-Z3-VdI" secondAttribute="height" multiplier="0.33817" id="Rj2-bP-Zea"/>
+                            <constraint firstItem="bQK-V3-dEt" firstAttribute="leading" secondItem="E7r-rb-NFE" secondAttribute="leading" constant="8" id="Rwh-58-LPS"/>
+                            <constraint firstItem="tSz-on-dfv" firstAttribute="leading" secondItem="E7r-rb-NFE" secondAttribute="leading" constant="16" id="V7r-CP-bQg"/>
+                            <constraint firstItem="tIZ-pH-aVT" firstAttribute="height" secondItem="tSz-on-dfv" secondAttribute="height" id="dcX-2A-XCX"/>
+                            <constraint firstItem="E7r-rb-NFE" firstAttribute="trailing" secondItem="tSz-on-dfv" secondAttribute="trailing" constant="16" id="pfT-bg-un6"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="assignedFeedsTable" destination="tSz-on-dfv" id="yXa-um-9Ub"/>
+                        <outlet property="folderName" destination="bQK-V3-dEt" id="YU3-5s-Lim"/>
+                        <outlet property="freeFeedsTable" destination="tIZ-pH-aVT" id="e81-FA-mey"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="78o-S8-5C5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-226.08695652173915" y="223.66071428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
