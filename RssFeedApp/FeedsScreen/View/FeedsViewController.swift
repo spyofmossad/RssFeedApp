@@ -63,6 +63,15 @@ extension FeedsViewController: UITableViewDataSource {
 }
 
 extension FeedsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.feedsTable.beginUpdates()
+            presenter.delete(at: indexPath)
+            feedsTable.deleteRows(at: [indexPath], with: .fade)
+            self.feedsTable.endUpdates()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }

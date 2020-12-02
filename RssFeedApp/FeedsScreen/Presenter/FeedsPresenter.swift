@@ -21,6 +21,7 @@ protocol FeedsPresenterProtocol: class {
     func getFeedsCount() -> Int?
     func getTitle(indexPath: IndexPath) -> String?
     func getCategories(indexPath: IndexPath) -> String?
+    func delete(at indexPath: IndexPath)
 }
 
 class FeedsPresenter: FeedsPresenterProtocol {
@@ -54,6 +55,10 @@ class FeedsPresenter: FeedsPresenterProtocol {
     
     func getFeedsCount() -> Int? {
         return rssFeeds?.count
+    }
+    
+    func delete(at indexPath: IndexPath) {
+        rssFeeds?.remove(at: indexPath.row)
     }
     
     // MARK - Navigation
