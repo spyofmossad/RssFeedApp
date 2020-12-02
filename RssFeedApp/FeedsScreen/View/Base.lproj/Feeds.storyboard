@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Feeds View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="FeedsViewController" id="BYZ-38-t0r" customClass="FeedsViewController" customModule="RssFeedApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hbw-9t-aEV">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="feedCell" id="Xd0-b9-4zl" customClass="FeedTableViewCell" customModule="RssFeedApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xd0-b9-4zl" id="sKh-UJ-A6c">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rss-icon" translatesAutoresizingMaskIntoConstraints="NO" id="LPY-La-lZd">
+                                                    <rect key="frame" x="8" y="3" width="38" height="38"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="38" id="6cv-JK-eRb"/>
+                                                        <constraint firstAttribute="width" constant="38" id="ZXq-gM-tq8"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5B-a8-neq">
+                                                    <rect key="frame" x="54" y="2" width="352" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drd-Sg-2z3">
+                                                    <rect key="frame" x="54" y="22" width="352" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="LPY-La-lZd" firstAttribute="centerY" secondItem="sKh-UJ-A6c" secondAttribute="centerY" id="0nY-It-txo"/>
+                                                <constraint firstItem="f5B-a8-neq" firstAttribute="top" secondItem="sKh-UJ-A6c" secondAttribute="top" constant="2" id="AVZ-OY-zKx"/>
+                                                <constraint firstAttribute="trailing" secondItem="f5B-a8-neq" secondAttribute="trailing" constant="8" id="BMs-F8-eFt"/>
+                                                <constraint firstItem="LPY-La-lZd" firstAttribute="leading" secondItem="sKh-UJ-A6c" secondAttribute="leading" constant="8" id="D4K-hT-XFs"/>
+                                                <constraint firstAttribute="trailing" secondItem="drd-Sg-2z3" secondAttribute="trailing" constant="8" id="avB-br-Uah"/>
+                                                <constraint firstItem="drd-Sg-2z3" firstAttribute="leading" secondItem="LPY-La-lZd" secondAttribute="trailing" constant="8" symbolic="YES" id="rWs-hF-VDU"/>
+                                                <constraint firstItem="drd-Sg-2z3" firstAttribute="top" secondItem="sKh-UJ-A6c" secondAttribute="top" constant="22" id="wNq-Ni-u0e"/>
+                                                <constraint firstItem="f5B-a8-neq" firstAttribute="leading" secondItem="LPY-La-lZd" secondAttribute="trailing" constant="8" symbolic="YES" id="zUW-60-6rm"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="category" destination="drd-Sg-2z3" id="gKV-Vr-Cof"/>
+                                            <outlet property="title" destination="f5B-a8-neq" id="VOF-xN-Lka"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="eoV-v0-9Sc"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ERr-JA-pge"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hbw-9t-aEV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5PR-yt-c9o"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hbw-9t-aEV" secondAttribute="trailing" id="9sT-wG-jIk"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hbw-9t-aEV" secondAttribute="bottom" id="dxg-uC-NsZ"/>
+                            <constraint firstItem="hbw-9t-aEV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hK4-cS-E8A"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="feedsTable" destination="hbw-9t-aEV" id="irs-rH-aji"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="94"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="rss-icon" width="1200" height="1200"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
