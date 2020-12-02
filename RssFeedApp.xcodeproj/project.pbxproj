@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0A696C1B2562B68F009FBAC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1A2562B68F009FBAC7 /* AppDelegate.swift */; };
 		0A696C1D2562B68F009FBAC7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1C2562B68F009FBAC7 /* SceneDelegate.swift */; };
-		0A696C1F2562B68F009FBAC7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1E2562B68F009FBAC7 /* MainViewController.swift */; };
-		0A696C222562B68F009FBAC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A696C202562B68F009FBAC7 /* Main.storyboard */; };
+		0A696C1F2562B68F009FBAC7 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1E2562B68F009FBAC7 /* FeedsViewController.swift */; };
+		0A696C222562B68F009FBAC7 /* Feeds.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A696C202562B68F009FBAC7 /* Feeds.storyboard */; };
 		0A696C242562B68F009FBAC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A696C232562B68F009FBAC7 /* Assets.xcassets */; };
 		0A696C272562B68F009FBAC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A696C252562B68F009FBAC7 /* LaunchScreen.storyboard */; };
 		0AC668772563B3D2009F5732 /* AddEditFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AC668762563B3D2009F5732 /* AddEditFeed.storyboard */; };
@@ -22,14 +22,26 @@
 		0AC6689025642F25009F5732 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6688F25642F25009F5732 /* NewsViewController.swift */; };
 		0AC6689425643196009F5732 /* NewsDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AC6689325643196009F5732 /* NewsDetails.storyboard */; };
 		0AC66897256431B0009F5732 /* NewsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC66896256431B0009F5732 /* NewsDetailsViewController.swift */; };
+		0AC668B3256509B7009F5732 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668B2256509B7009F5732 /* Feed.swift */; };
+		0AC668B925650A12009F5732 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668B825650A12009F5732 /* DataProvider.swift */; };
+		0AC668BD25650BF6009F5732 /* FeedsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668BC25650BF6009F5732 /* FeedsPresenter.swift */; };
+		0AC668C0256513DC009F5732 /* ScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668BF256513DC009F5732 /* ScreenBuilder.swift */; };
+		0AC668CD25651E74009F5732 /* AddFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668CC25651E74009F5732 /* AddFeedPresenter.swift */; };
+		0AC668D225656314009F5732 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668D125656314009F5732 /* NetworkService.swift */; };
+		0AC668F4256802AE009F5732 /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668F3256802AE009F5732 /* Validations.swift */; };
+		0AC668F7256805F9009F5732 /* UIViewController+SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668F6256805F9009F5732 /* UIViewController+SpinnerView.swift */; };
+		0AC668FB25681038009F5732 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668FA25681038009F5732 /* UIViewController+Alert.swift */; };
+		0AC79BF82577BFDA00E44CB6 /* UIViewController+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC79BF72577BFDA00E44CB6 /* UIViewController+Placeholder.swift */; };
+		0AC79C032577DFA700E44CB6 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC79C022577DFA700E44CB6 /* FeedTableViewCell.swift */; };
+		19B5BA12126EEAAFFD2CF641 /* Pods_RssFeedApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9BFA64C926007ECB5DF2E2 /* Pods_RssFeedApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A696C172562B68F009FBAC7 /* RssFeedApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RssFeedApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A696C1A2562B68F009FBAC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A696C1C2562B68F009FBAC7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0A696C1E2562B68F009FBAC7 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		0A696C212562B68F009FBAC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0A696C1E2562B68F009FBAC7 /* FeedsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsViewController.swift; sourceTree = "<group>"; };
+		0A696C212562B68F009FBAC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Feeds.storyboard; sourceTree = "<group>"; };
 		0A696C232562B68F009FBAC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A696C262562B68F009FBAC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A696C282562B68F009FBAC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -42,6 +54,20 @@
 		0AC6688F25642F25009F5732 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		0AC6689325643196009F5732 /* NewsDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewsDetails.storyboard; sourceTree = "<group>"; };
 		0AC66896256431B0009F5732 /* NewsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailsViewController.swift; sourceTree = "<group>"; };
+		0AC668B2256509B7009F5732 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		0AC668B825650A12009F5732 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		0AC668BC25650BF6009F5732 /* FeedsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsPresenter.swift; sourceTree = "<group>"; };
+		0AC668BF256513DC009F5732 /* ScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenBuilder.swift; sourceTree = "<group>"; };
+		0AC668CC25651E74009F5732 /* AddFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedPresenter.swift; sourceTree = "<group>"; };
+		0AC668D125656314009F5732 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		0AC668F3256802AE009F5732 /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
+		0AC668F6256805F9009F5732 /* UIViewController+SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SpinnerView.swift"; sourceTree = "<group>"; };
+		0AC668FA25681038009F5732 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		0AC79BF72577BFDA00E44CB6 /* UIViewController+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Placeholder.swift"; sourceTree = "<group>"; };
+		0AC79C022577DFA700E44CB6 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		1CAC42856DF8360032A0611B /* Pods-RssFeedApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RssFeedApp.release.xcconfig"; path = "Target Support Files/Pods-RssFeedApp/Pods-RssFeedApp.release.xcconfig"; sourceTree = "<group>"; };
+		85FBB23478BBA7D963E9BA7C /* Pods-RssFeedApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RssFeedApp.debug.xcconfig"; path = "Target Support Files/Pods-RssFeedApp/Pods-RssFeedApp.debug.xcconfig"; sourceTree = "<group>"; };
+		EB9BFA64C926007ECB5DF2E2 /* Pods_RssFeedApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RssFeedApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19B5BA12126EEAAFFD2CF641 /* Pods_RssFeedApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +87,8 @@
 			children = (
 				0A696C192562B68F009FBAC7 /* RssFeedApp */,
 				0A696C182562B68F009FBAC7 /* Products */,
+				6CD0E91E291F875F54612739 /* Pods */,
+				F432324ABBDD78C2E1E2222D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,8 +103,10 @@
 		0A696C192562B68F009FBAC7 /* RssFeedApp */ = {
 			isa = PBXGroup;
 			children = (
+				0AC668BF256513DC009F5732 /* ScreenBuilder.swift */,
+				0AC668B825650A12009F5732 /* DataProvider.swift */,
 				0AC6687C2563B7A2009F5732 /* Coordinator.swift */,
-				0AC668722563B228009F5732 /* MainScreen */,
+				0AC668722563B228009F5732 /* FeedsScreen */,
 				0AC668752563B3AB009F5732 /* AddEditFeedScreen */,
 				0AC668832563E8DB009F5732 /* AddEditFolderScreen */,
 				0AC6688B25642EE5009F5732 /* NewsScreen */,
@@ -85,24 +116,28 @@
 				0A696C232562B68F009FBAC7 /* Assets.xcassets */,
 				0A696C252562B68F009FBAC7 /* LaunchScreen.storyboard */,
 				0A696C282562B68F009FBAC7 /* Info.plist */,
+				0AC668D125656314009F5732 /* NetworkService.swift */,
+				0AC668F3256802AE009F5732 /* Validations.swift */,
+				0AC668FD256812E6009F5732 /* Extensions */,
 			);
 			path = RssFeedApp;
 			sourceTree = "<group>";
 		};
-		0AC668722563B228009F5732 /* MainScreen */ = {
+		0AC668722563B228009F5732 /* FeedsScreen */ = {
 			isa = PBXGroup;
 			children = (
-				0A696C1E2562B68F009FBAC7 /* MainViewController.swift */,
-				0A696C202562B68F009FBAC7 /* Main.storyboard */,
+				0AC668B6256509E1009F5732 /* Model */,
+				0AC668C62565149E009F5732 /* View */,
+				0AC668C425651496009F5732 /* Presenter */,
 			);
-			path = MainScreen;
+			path = FeedsScreen;
 			sourceTree = "<group>";
 		};
 		0AC668752563B3AB009F5732 /* AddEditFeedScreen */ = {
 			isa = PBXGroup;
 			children = (
-				0AC668762563B3D2009F5732 /* AddEditFeed.storyboard */,
-				0AC668792563B3E2009F5732 /* AddEditFeedViewController.swift */,
+				0AC668CF25651E7D009F5732 /* Presenter */,
+				0AC668CA25651E5E009F5732 /* View */,
 			);
 			path = AddEditFeedScreen;
 			sourceTree = "<group>";
@@ -134,6 +169,76 @@
 			path = NewsDetailsScreen;
 			sourceTree = "<group>";
 		};
+		0AC668B6256509E1009F5732 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0AC668B2256509B7009F5732 /* Feed.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0AC668C425651496009F5732 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				0AC668BC25650BF6009F5732 /* FeedsPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		0AC668C62565149E009F5732 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0A696C202562B68F009FBAC7 /* Feeds.storyboard */,
+				0A696C1E2562B68F009FBAC7 /* FeedsViewController.swift */,
+				0AC79C022577DFA700E44CB6 /* FeedTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0AC668CA25651E5E009F5732 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0AC668762563B3D2009F5732 /* AddEditFeed.storyboard */,
+				0AC668792563B3E2009F5732 /* AddEditFeedViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0AC668CF25651E7D009F5732 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				0AC668CC25651E74009F5732 /* AddFeedPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		0AC668FD256812E6009F5732 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0AC668F6256805F9009F5732 /* UIViewController+SpinnerView.swift */,
+				0AC668FA25681038009F5732 /* UIViewController+Alert.swift */,
+				0AC79BF72577BFDA00E44CB6 /* UIViewController+Placeholder.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6CD0E91E291F875F54612739 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				85FBB23478BBA7D963E9BA7C /* Pods-RssFeedApp.debug.xcconfig */,
+				1CAC42856DF8360032A0611B /* Pods-RssFeedApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F432324ABBDD78C2E1E2222D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EB9BFA64C926007ECB5DF2E2 /* Pods_RssFeedApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -141,9 +246,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A696C2B2562B68F009FBAC7 /* Build configuration list for PBXNativeTarget "RssFeedApp" */;
 			buildPhases = (
+				2723B8F57534AB5DEA77909B /* [CP] Check Pods Manifest.lock */,
 				0A696C132562B68F009FBAC7 /* Sources */,
 				0A696C142562B68F009FBAC7 /* Frameworks */,
 				0A696C152562B68F009FBAC7 /* Resources */,
+				2B5533F6E4A04E61E2AB92CD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -197,11 +304,53 @@
 				0AC668852563E90C009F5732 /* AddEditFolder.storyboard in Resources */,
 				0A696C242562B68F009FBAC7 /* Assets.xcassets in Resources */,
 				0AC6689425643196009F5732 /* NewsDetails.storyboard in Resources */,
-				0A696C222562B68F009FBAC7 /* Main.storyboard in Resources */,
+				0A696C222562B68F009FBAC7 /* Feeds.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2723B8F57534AB5DEA77909B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RssFeedApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2B5533F6E4A04E61E2AB92CD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RssFeedApp/Pods-RssFeedApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RssFeedApp/Pods-RssFeedApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RssFeedApp/Pods-RssFeedApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0A696C132562B68F009FBAC7 /* Sources */ = {
@@ -209,12 +358,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AC6687A2563B3E2009F5732 /* AddEditFeedViewController.swift in Sources */,
-				0A696C1F2562B68F009FBAC7 /* MainViewController.swift in Sources */,
+				0AC668F7256805F9009F5732 /* UIViewController+SpinnerView.swift in Sources */,
+				0AC79C032577DFA700E44CB6 /* FeedTableViewCell.swift in Sources */,
+				0AC668B3256509B7009F5732 /* Feed.swift in Sources */,
+				0AC668FB25681038009F5732 /* UIViewController+Alert.swift in Sources */,
+				0AC668C0256513DC009F5732 /* ScreenBuilder.swift in Sources */,
+				0AC668B925650A12009F5732 /* DataProvider.swift in Sources */,
+				0AC668F4256802AE009F5732 /* Validations.swift in Sources */,
+				0AC668CD25651E74009F5732 /* AddFeedPresenter.swift in Sources */,
+				0A696C1F2562B68F009FBAC7 /* FeedsViewController.swift in Sources */,
+				0AC668D225656314009F5732 /* NetworkService.swift in Sources */,
 				0AC668882563E91A009F5732 /* AddEditFolderViewController.swift in Sources */,
 				0AC6687D2563B7A2009F5732 /* Coordinator.swift in Sources */,
 				0AC66897256431B0009F5732 /* NewsDetailsViewController.swift in Sources */,
 				0AC6689025642F25009F5732 /* NewsViewController.swift in Sources */,
+				0AC668BD25650BF6009F5732 /* FeedsPresenter.swift in Sources */,
 				0A696C1B2562B68F009FBAC7 /* AppDelegate.swift in Sources */,
+				0AC79BF82577BFDA00E44CB6 /* UIViewController+Placeholder.swift in Sources */,
 				0A696C1D2562B68F009FBAC7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,12 +382,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0A696C202562B68F009FBAC7 /* Main.storyboard */ = {
+		0A696C202562B68F009FBAC7 /* Feeds.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				0A696C212562B68F009FBAC7 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Feeds.storyboard;
 			sourceTree = "<group>";
 		};
 		0A696C252562B68F009FBAC7 /* LaunchScreen.storyboard */ = {
@@ -359,6 +519,7 @@
 		};
 		0A696C2C2562B68F009FBAC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85FBB23478BBA7D963E9BA7C /* Pods-RssFeedApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -378,6 +539,7 @@
 		};
 		0A696C2D2562B68F009FBAC7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CAC42856DF8360032A0611B /* Pods-RssFeedApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
