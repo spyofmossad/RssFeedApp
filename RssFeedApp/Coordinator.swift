@@ -33,8 +33,8 @@ class AppCoordinator: Coordinator {
         navigationController.setViewControllers([feedsView], animated: false)
     }
     
-    func goToAddEditFeedScreen() {
-        let addFeedView = screenBuilder.addFeedView(coordinator: self)
+    func goToAddEditFeedScreen(feed: Rss?) {
+        let addFeedView = screenBuilder.addEditFeedView(coordinator: self, feed: feed)
         navigationController.pushViewController(addFeedView, animated: true)
     }
     

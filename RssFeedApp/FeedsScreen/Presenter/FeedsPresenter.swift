@@ -21,6 +21,8 @@ protocol FeedsPresenterProtocol: class {
     func getFeedsCount() -> Int?
     func getTitle(indexPath: IndexPath) -> String?
     func getCategories(indexPath: IndexPath) -> String?
+    func deleteRows(at indexPath: IndexPath)
+    func onTapEditFeed(at indexPath: IndexPath)
 }
 
 class FeedsPresenter: FeedsPresenterProtocol {
@@ -56,9 +58,18 @@ class FeedsPresenter: FeedsPresenterProtocol {
         return rssFeeds?.count
     }
     
+    func deleteRows(at indexPath: IndexPath) {
+        rssFeeds?.remove(at: indexPath.row)
+        dataProvider.deleteFeed(at: indexPath.row)
+    }
+    
     // MARK - Navigation
     func onTapAddFeed() {
-        coordinator.goToAddEditFeedScreen()
+        coordinator.goToAddEditFeedScreen(feed: nil)
+    }
+    
+    func onTapEditFeed(at indexPath: IndexPath) {
+        coordinator.goToAddEditFeedScreen(feed: rssFeeds![indexPath.row])
     }
 }
 

@@ -63,6 +63,42 @@ extension FeedsViewController: UITableViewDataSource {
 }
 
 extension FeedsViewController: UITableViewDelegate {
+    private func delete(at indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
+            self.feedsTable.beginUpdates()
+            self.presenter.deleteRows(at: indexPath)
+            self.feedsTable.deleteRows(at: [indexPath], with: .fade)
+            self.feedsTable.endUpdates()
+        }
+        
+        return action
+    }
+    
+    private func edit(at indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .normal, title: "Edit") { (_, _, _) in
+            self.presenter.onTapEditFeed(at: indexPath)
+        }
+        
+        return action
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = self.delete(at: indexPath)
+        let edit = self.edit(at: indexPath)
+        let swipe = UISwipeActionsConfiguration(actions: [delete, edit])
+        
+        return swipe
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.feedsTable.beginUpdates()
+            presenter.deleteRows(at: indexPath)
+            feedsTable.deleteRows(at: [indexPath], with: .fade)
+            self.feedsTable.endUpdates()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }
