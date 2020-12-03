@@ -10,7 +10,7 @@ import UIKit
 
 protocol ScreenBuilderProtocol {
     func feedsView(coordinator: AppCoordinator) -> UIViewController
-    func addFeedView(coordinator: AppCoordinator) -> UIViewController
+    func addEditFeedView(coordinator: AppCoordinator, feed: Rss?) -> UIViewController
 }
 
 class ScreenBuilder: ScreenBuilderProtocol {
@@ -25,9 +25,9 @@ class ScreenBuilder: ScreenBuilderProtocol {
         return feedsView
     }
     
-    func addFeedView(coordinator: AppCoordinator) -> UIViewController {
+    func addEditFeedView(coordinator: AppCoordinator, feed: Rss?) -> UIViewController {
         let dataProvider = DataProvider.shared
-        let addFeedPresenter = AddFeedPresenter(dataProvider: dataProvider, coordinator: coordinator)
+        let addFeedPresenter = AddFeedPresenter(dataProvider: dataProvider, coordinator: coordinator, rss: feed)
         let addFeedView = UIStoryboard.init(name: "AddEditFeed", bundle: nil).instantiateViewController(identifier: "AddEditFeedViewController") { (coder) in
             return AddEditFeedViewController(coder: coder, presenter: addFeedPresenter)
         }
@@ -35,7 +35,4 @@ class ScreenBuilder: ScreenBuilderProtocol {
         
         return addFeedView
     }
-    
-    
-    
 }

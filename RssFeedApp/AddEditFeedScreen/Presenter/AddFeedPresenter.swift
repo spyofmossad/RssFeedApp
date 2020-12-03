@@ -13,30 +13,39 @@ protocol AddFeedViewProtocol: class {
     func removeSpinner()
     func showError(message: String)
     func showTitle(title: String?)
+    func showUrl(url: String?)
     func showCategories(categories: [String])
     func showPlaceholder()
     func activateSaveButton()
 }
 
 protocol AddFeedPresenterProtocol: class {
-    init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator)
+    init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, rss: Rss?)
     func textFieldShouldReturn(userInput: String?)
     func saveChanges()
+    func setRss()
 }
 
 class AddFeedPresenter: AddFeedPresenterProtocol {
-    
     weak var view: AddFeedViewProtocol?
     
     private var dataProvider: DataProviderProtocol
     private var coordinator: AppCoordinator
     private var networkService: Network
     private var rss: Rss?
+    private var newRss: Rss?
     
-    required init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator) {
+    private var isEdit = false
+    
+    required init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, rss: Rss?) {
         self.coordinator = coordinator
         self.dataProvider = dataProvider
+        self.rss = rss
         networkService = NetworkService()
+        
+        if rss != nil {
+            isEdit = true
+        }
     }
     
     func textFieldShouldReturn(userInput: String?) {
@@ -47,8 +56,8 @@ class AddFeedPresenter: AddFeedPresenterProtocol {
                 self.view?.removeSpinner()
                 switch result {
                 case .success(let feed):
-                    self.rss = feed
-                    self.rss?.channel.url = userInput
+                    self.newRss = feed
+                    self.newRss?.channel.url = userInput
                     self.view?.showTitle(title: feed?.channel.title)
                     if let categories = feed?.channel.categories {
                         self.view?.showCategories(categories: categories)
@@ -64,9 +73,22 @@ class AddFeedPresenter: AddFeedPresenterProtocol {
     }
     
     func saveChanges() {
-        if let rss = rss {
-            dataProvider.saveFeed(feed: rss)
+        if let newRss = newRss {
+            isEdit ? dataProvider.update(old: rss!, with: newRss) : dataProvider.saveFeed(feed: newRss)
         }
         coordinator.popToRoot()
+    }
+    
+    func setRss() {
+        if let rss = rss {
+            self.view?.showUrl(url: rss.channel.url)
+            self.view?.showTitle(title: rss.channel.title)
+            
+            if let categories = rss.channel.categories {
+                self.view?.showCategories(categories: categories)
+            } else {
+                self.view?.showPlaceholder()
+            }
+        }
     }
 }

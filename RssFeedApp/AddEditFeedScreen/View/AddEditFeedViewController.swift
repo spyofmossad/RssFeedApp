@@ -30,6 +30,7 @@ class AddEditFeedViewController: UIViewController {
         url.delegate = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem?.isEnabled = false
+        presenter.setRss()
     }
     
     override func viewWillLayoutSubviews() {
@@ -44,6 +45,10 @@ class AddEditFeedViewController: UIViewController {
 }
 
 extension AddEditFeedViewController: AddFeedViewProtocol {
+    func showUrl(url: String?) {
+        self.url.text = url
+    }
+    
     func showTitle(title: String?) {
         self.rssTitle.text = title
     }
