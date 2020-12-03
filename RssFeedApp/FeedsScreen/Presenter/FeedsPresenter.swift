@@ -12,16 +12,14 @@ protocol FeedsViewProtocol: class {
 }
 
 protocol FeedsPresenterProtocol: class {
-    var rssFeeds: [Rss]? { get set }
-    
     init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator)
     
-    func getFeeds()
-    func onTapAddFeed()
     func getFeedsCount() -> Int?
     func getTitle(indexPath: IndexPath) -> String?
     func getCategories(indexPath: IndexPath) -> String?
-    func deleteRows(at indexPath: IndexPath)
+    
+    func onTapAddFeed()
+    func deleteFeed(at indexPath: IndexPath)
     func onTapEditFeed(at indexPath: IndexPath)
 }
 
@@ -29,38 +27,27 @@ class FeedsPresenter: FeedsPresenterProtocol {
     weak var view: FeedsViewProtocol?
     let dataProvider: DataProviderProtocol
     let coordinator: AppCoordinator
-    var rssFeeds: [Rss]?
     
     required init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator) {
         self.dataProvider = dataProvider
         self.coordinator = coordinator
     }
     
-    func getFeeds() {
-        dataProvider.getFeeds { [weak self] (feeds) in
-            guard let self = self else { return }
-            self.rssFeeds = feeds
-            self.view?.updateView()
-        }
-    }
-    
     func getTitle(indexPath: IndexPath) -> String? {
-        let title = rssFeeds?[indexPath.row].channel.title
-        return title
+        return dataProvider.feedsList[indexPath.row].title
     }
     
     func getCategories(indexPath: IndexPath) -> String? {
-        let categories = rssFeeds?[indexPath.row].channel.categories?.first
-        return categories
+        return dataProvider.feedsList[indexPath.row].categories.joined(separator: ",")
     }
     
     func getFeedsCount() -> Int? {
-        return rssFeeds?.count
+        return dataProvider.feedsList.count
     }
     
-    func deleteRows(at indexPath: IndexPath) {
-        rssFeeds?.remove(at: indexPath.row)
-        dataProvider.deleteFeed(at: indexPath.row)
+    func deleteFeed(at indexPath: IndexPath) {
+        let deletedFeed = dataProvider.feedsList[indexPath.row]
+        dataProvider.delete(feed: deletedFeed)
     }
     
     // MARK - Navigation
@@ -69,7 +56,7 @@ class FeedsPresenter: FeedsPresenterProtocol {
     }
     
     func onTapEditFeed(at indexPath: IndexPath) {
-        coordinator.goToAddEditFeedScreen(feed: rssFeeds![indexPath.row])
+        coordinator.goToAddEditFeedScreen(feed: dataProvider.feedsList[indexPath.row])
     }
 }
 

@@ -6,12 +6,7 @@
 //
 
 import Foundation
-
-struct Feed {
-    let url: String
-    let name: String
-    let category: String
-}
+import RealmSwift
 
 struct Rss: Decodable {
     var channel: Channel
@@ -23,4 +18,8 @@ struct Channel: Decodable {
     let categories: [String]?
 }
 
-
+class RealmRss: Object {
+    @objc dynamic var url = ""
+    @objc dynamic var title = ""
+    var categories = List<String>()
+}

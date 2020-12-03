@@ -30,7 +30,7 @@ class AddEditFeedViewController: UIViewController {
         url.delegate = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem?.isEnabled = false
-        presenter.setRss()
+        presenter.updateUI()
     }
     
     override func viewWillLayoutSubviews() {

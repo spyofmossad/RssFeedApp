@@ -31,7 +31,7 @@ class FeedsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter.getFeeds()
+        feedsTable.reloadData()
     }
     
     @objc private func addFeed() {
@@ -66,7 +66,7 @@ extension FeedsViewController: UITableViewDelegate {
     private func delete(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
             self.feedsTable.beginUpdates()
-            self.presenter.deleteRows(at: indexPath)
+            self.presenter.deleteFeed(at: indexPath)
             self.feedsTable.deleteRows(at: [indexPath], with: .fade)
             self.feedsTable.endUpdates()
         }
@@ -93,7 +93,7 @@ extension FeedsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             self.feedsTable.beginUpdates()
-            presenter.deleteRows(at: indexPath)
+            presenter.deleteFeed(at: indexPath)
             feedsTable.deleteRows(at: [indexPath], with: .fade)
             self.feedsTable.endUpdates()
         }

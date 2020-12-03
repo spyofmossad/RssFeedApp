@@ -28,7 +28,6 @@
 		0AC668C0256513DC009F5732 /* ScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668BF256513DC009F5732 /* ScreenBuilder.swift */; };
 		0AC668CD25651E74009F5732 /* AddFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668CC25651E74009F5732 /* AddFeedPresenter.swift */; };
 		0AC668D225656314009F5732 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668D125656314009F5732 /* NetworkService.swift */; };
-		0AC668F4256802AE009F5732 /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668F3256802AE009F5732 /* Validations.swift */; };
 		0AC668F7256805F9009F5732 /* UIViewController+SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668F6256805F9009F5732 /* UIViewController+SpinnerView.swift */; };
 		0AC668FB25681038009F5732 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC668FA25681038009F5732 /* UIViewController+Alert.swift */; };
 		0AC79BF82577BFDA00E44CB6 /* UIViewController+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC79BF72577BFDA00E44CB6 /* UIViewController+Placeholder.swift */; };
@@ -60,7 +59,6 @@
 		0AC668BF256513DC009F5732 /* ScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenBuilder.swift; sourceTree = "<group>"; };
 		0AC668CC25651E74009F5732 /* AddFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedPresenter.swift; sourceTree = "<group>"; };
 		0AC668D125656314009F5732 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		0AC668F3256802AE009F5732 /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
 		0AC668F6256805F9009F5732 /* UIViewController+SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SpinnerView.swift"; sourceTree = "<group>"; };
 		0AC668FA25681038009F5732 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		0AC79BF72577BFDA00E44CB6 /* UIViewController+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Placeholder.swift"; sourceTree = "<group>"; };
@@ -103,9 +101,7 @@
 		0A696C192562B68F009FBAC7 /* RssFeedApp */ = {
 			isa = PBXGroup;
 			children = (
-				0AC668BF256513DC009F5732 /* ScreenBuilder.swift */,
-				0AC668B825650A12009F5732 /* DataProvider.swift */,
-				0AC6687C2563B7A2009F5732 /* Coordinator.swift */,
+				0A745C9A2579718C007E1395 /* Utilities */,
 				0AC668722563B228009F5732 /* FeedsScreen */,
 				0AC668752563B3AB009F5732 /* AddEditFeedScreen */,
 				0AC668832563E8DB009F5732 /* AddEditFolderScreen */,
@@ -116,11 +112,20 @@
 				0A696C232562B68F009FBAC7 /* Assets.xcassets */,
 				0A696C252562B68F009FBAC7 /* LaunchScreen.storyboard */,
 				0A696C282562B68F009FBAC7 /* Info.plist */,
-				0AC668D125656314009F5732 /* NetworkService.swift */,
-				0AC668F3256802AE009F5732 /* Validations.swift */,
 				0AC668FD256812E6009F5732 /* Extensions */,
 			);
 			path = RssFeedApp;
+			sourceTree = "<group>";
+		};
+		0A745C9A2579718C007E1395 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0AC668BF256513DC009F5732 /* ScreenBuilder.swift */,
+				0AC668B825650A12009F5732 /* DataProvider.swift */,
+				0AC6687C2563B7A2009F5732 /* Coordinator.swift */,
+				0AC668D125656314009F5732 /* NetworkService.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		0AC668722563B228009F5732 /* FeedsScreen */ = {
@@ -364,7 +369,6 @@
 				0AC668FB25681038009F5732 /* UIViewController+Alert.swift in Sources */,
 				0AC668C0256513DC009F5732 /* ScreenBuilder.swift in Sources */,
 				0AC668B925650A12009F5732 /* DataProvider.swift in Sources */,
-				0AC668F4256802AE009F5732 /* Validations.swift in Sources */,
 				0AC668CD25651E74009F5732 /* AddFeedPresenter.swift in Sources */,
 				0A696C1F2562B68F009FBAC7 /* FeedsViewController.swift in Sources */,
 				0AC668D225656314009F5732 /* NetworkService.swift in Sources */,

@@ -1,16 +1,26 @@
 PODS:
+  - Realm (10.2.0):
+    - Realm/Headers (= 10.2.0)
+  - Realm/Headers (10.2.0)
+  - RealmSwift (10.2.0):
+    - Realm (= 10.2.0)
   - XMLCoder (0.11.1)
 
 DEPENDENCIES:
+  - RealmSwift
   - XMLCoder (~> 0.11.1)
 
 SPEC REPOS:
   trunk:
+    - Realm
+    - RealmSwift
     - XMLCoder
 
 SPEC CHECKSUMS:
+  Realm: d7914ebf66bb182469726f997c4c38eff286aab0
+  RealmSwift: aad08b7dc8c732b7b5794286e9df83739bf834f1
   XMLCoder: c4638336674de7ba279cd23f2005817d69f538e0
 
-PODFILE CHECKSUM: 20466926614f9fb50e4b2d76cf030859eace63a6
+PODFILE CHECKSUM: 83ddcf4135b234be35fac1d4f9154d9cf74c3ee5
 
 COCOAPODS: 1.10.0
