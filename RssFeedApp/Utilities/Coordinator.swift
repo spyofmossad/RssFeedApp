@@ -39,8 +39,8 @@ class AppCoordinator: Coordinator {
     }
     
     func goToAddEditFolderScreen() {
-        let addEditFolder = UIStoryboard.init(name: "AddEditFolder", bundle: nil).instantiateViewController(identifier: "AddEditFolderViewController") as! AddEditFolderViewController
-        navigationController.pushViewController(addEditFolder, animated: true)
+        let addEditFolderView = screenBuilder.addEditFolderView(coordinator: self)
+        navigationController.pushViewController(addEditFolderView, animated: true)
     }
     
     func goToNewsScren() {

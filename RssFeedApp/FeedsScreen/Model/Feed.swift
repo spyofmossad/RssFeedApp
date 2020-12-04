@@ -23,3 +23,8 @@ class RealmRss: Object {
     @objc dynamic var title = ""
     var categories = List<String>()
 }
+
+class Folder: Object {
+    @objc dynamic var name = ""
+    var feeds = List<RealmRss>()
+}

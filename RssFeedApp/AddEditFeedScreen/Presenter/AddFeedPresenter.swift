@@ -69,10 +69,18 @@ class AddFeedPresenter: AddFeedPresenterProtocol {
     func saveChanges() {
         if let currentFeed = currentFeed {
             dataProvider.update(feed: currentFeed, with: newFeed!)
-        } else {
-            dataProvider.save(feed: newFeed!)
         }
-        
+        if let newFeed = newFeed {
+            let defaultFolder = dataProvider.foldersList.filter("name == 'Default'").first
+            if let defaultFolder = defaultFolder {
+                dataProvider.save(feed: newFeed, to: defaultFolder)
+            } else {
+                let defaultFolder = Folder()
+                defaultFolder.name = "Default"
+                dataProvider.save(folder: defaultFolder)
+                dataProvider.save(feed: newFeed, to: defaultFolder)
+            }
+        }
         coordinator.popToRoot()
     }
     

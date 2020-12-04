@@ -11,6 +11,7 @@ import UIKit
 protocol ScreenBuilderProtocol: class {
     func feedsView(coordinator: AppCoordinator) -> UIViewController
     func addEditFeedView(coordinator: AppCoordinator, feed: RealmRss?) -> UIViewController
+    func addEditFolderView(coordinator: AppCoordinator) -> UIViewController
     init(dataProvider: DataProviderProtocol)
 }
 
@@ -23,7 +24,8 @@ class ScreenBuilder: ScreenBuilderProtocol {
     
     func feedsView(coordinator: AppCoordinator) -> UIViewController {
         let feedsPresenter = FeedsPresenter(dataProvider: dataProvider, coordinator: coordinator)
-        let feedsView = UIStoryboard.init(name: "Feeds", bundle: nil).instantiateViewController(identifier: "FeedsViewController") { (coder) in
+        let feedsView = UIStoryboard.init(name: "Feeds", bundle: nil)
+            .instantiateViewController(identifier: "FeedsViewController") { (coder) in
             return FeedsViewController(coder: coder, presenter: feedsPresenter)
         }
         feedsPresenter.view = feedsView
@@ -33,11 +35,23 @@ class ScreenBuilder: ScreenBuilderProtocol {
     
     func addEditFeedView(coordinator: AppCoordinator, feed: RealmRss?) -> UIViewController {
         let addFeedPresenter = AddFeedPresenter(dataProvider: dataProvider, coordinator: coordinator, rss: feed)
-        let addFeedView = UIStoryboard.init(name: "AddEditFeed", bundle: nil).instantiateViewController(identifier: "AddEditFeedViewController") { (coder) in
+        let addFeedView = UIStoryboard.init(name: "AddEditFeed", bundle: nil)
+            .instantiateViewController(identifier: "AddEditFeedViewController") { (coder) in
             return AddEditFeedViewController(coder: coder, presenter: addFeedPresenter)
         }
         addFeedPresenter.view = addFeedView
         
         return addFeedView
+    }
+    
+    func addEditFolderView(coordinator: AppCoordinator) -> UIViewController {
+        let addFolderPresenter = AddEditFolderPresenter(dataProvider: dataProvider, coordinator: coordinator)
+        let addEditFolderView = UIStoryboard.init(name: "AddEditFolder", bundle: nil)
+            .instantiateViewController(identifier: "AddEditFolderViewController") { (coder) in
+            return AddEditFolderViewController(coder: coder, presenter: addFolderPresenter)
+        }
+        addFolderPresenter.view = addEditFolderView
+        
+        return addEditFolderView
     }
 }

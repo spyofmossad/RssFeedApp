@@ -39,6 +39,7 @@ class FeedsViewController: UIViewController {
     }
     
     @objc private func addFolder() {
+        presenter.onTapAddFolder()
     }
 }
 
@@ -49,8 +50,16 @@ extension FeedsViewController: FeedsViewProtocol {
 }
 
 extension FeedsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return presenter.numberOfSections() ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return presenter.titleForHeaderInSection(section)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.getFeedsCount() ?? 0
+        return presenter.numberOfRowsInSection(section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -97,8 +106,5 @@ extension FeedsViewController: UITableViewDelegate {
             feedsTable.deleteRows(at: [indexPath], with: .fade)
             self.feedsTable.endUpdates()
         }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }

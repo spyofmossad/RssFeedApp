@@ -14,13 +14,19 @@ protocol FeedsViewProtocol: class {
 protocol FeedsPresenterProtocol: class {
     init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator)
     
-    func getFeedsCount() -> Int?
-    func getTitle(indexPath: IndexPath) -> String?
-    func getCategories(indexPath: IndexPath) -> String?
+    
     
     func onTapAddFeed()
     func deleteFeed(at indexPath: IndexPath)
     func onTapEditFeed(at indexPath: IndexPath)
+    
+    func onTapAddFolder()
+    
+    func numberOfSections() -> Int?
+    func titleForHeaderInSection(_ section: Int) -> String
+    func numberOfRowsInSection(_ section: Int) -> Int?
+    func getTitle(indexPath: IndexPath) -> String?
+    func getCategories(indexPath: IndexPath) -> String?
 }
 
 class FeedsPresenter: FeedsPresenterProtocol {
@@ -34,15 +40,15 @@ class FeedsPresenter: FeedsPresenterProtocol {
     }
     
     func getTitle(indexPath: IndexPath) -> String? {
-        return dataProvider.feedsList[indexPath.row].title
+        return dataProvider.foldersList[indexPath.section].feeds[indexPath.row].title
     }
     
     func getCategories(indexPath: IndexPath) -> String? {
-        return dataProvider.feedsList[indexPath.row].categories.joined(separator: ",")
+        return dataProvider.foldersList[indexPath.section].feeds[indexPath.row].categories.joined(separator: ",")
     }
     
-    func getFeedsCount() -> Int? {
-        return dataProvider.feedsList.count
+    func numberOfRowsInSection(_ section: Int) -> Int? {
+        return dataProvider.foldersList[section].feeds.count
     }
     
     func deleteFeed(at indexPath: IndexPath) {
@@ -50,13 +56,25 @@ class FeedsPresenter: FeedsPresenterProtocol {
         dataProvider.delete(feed: deletedFeed)
     }
     
-    // MARK - Navigation
+    func numberOfSections() -> Int? {
+        return dataProvider.foldersList.count
+    }
+    
+    func titleForHeaderInSection(_ section: Int) -> String {
+        return dataProvider.foldersList[section].name
+    }
+    
+    // MARK: - Navigation
     func onTapAddFeed() {
         coordinator.goToAddEditFeedScreen(feed: nil)
     }
     
     func onTapEditFeed(at indexPath: IndexPath) {
         coordinator.goToAddEditFeedScreen(feed: dataProvider.feedsList[indexPath.row])
+    }
+    
+    func onTapAddFolder() {
+        coordinator.goToAddEditFolderScreen()
     }
 }
 

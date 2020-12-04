@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A22EA05257A29FC00876BF4 /* AddEditFolderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22EA04257A29FC00876BF4 /* AddEditFolderPresenter.swift */; };
+		0A22EA0B257A5E8200876BF4 /* SelectedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22EA0A257A5E8200876BF4 /* SelectedTableViewCell.swift */; };
 		0A696C1B2562B68F009FBAC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1A2562B68F009FBAC7 /* AppDelegate.swift */; };
 		0A696C1D2562B68F009FBAC7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1C2562B68F009FBAC7 /* SceneDelegate.swift */; };
 		0A696C1F2562B68F009FBAC7 /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1E2562B68F009FBAC7 /* FeedsViewController.swift */; };
@@ -36,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A22EA04257A29FC00876BF4 /* AddEditFolderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditFolderPresenter.swift; sourceTree = "<group>"; };
+		0A22EA0A257A5E8200876BF4 /* SelectedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTableViewCell.swift; sourceTree = "<group>"; };
 		0A696C172562B68F009FBAC7 /* RssFeedApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RssFeedApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A696C1A2562B68F009FBAC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A696C1C2562B68F009FBAC7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +84,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A22EA02257A29E700876BF4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0AC668842563E90C009F5732 /* AddEditFolder.storyboard */,
+				0AC668872563E91A009F5732 /* AddEditFolderViewController.swift */,
+				0A22EA0A257A5E8200876BF4 /* SelectedTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0A22EA08257A2A0800876BF4 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				0A22EA04257A29FC00876BF4 /* AddEditFolderPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		0A696C0E2562B68F009FBAC7 = {
 			isa = PBXGroup;
 			children = (
@@ -150,8 +172,8 @@
 		0AC668832563E8DB009F5732 /* AddEditFolderScreen */ = {
 			isa = PBXGroup;
 			children = (
-				0AC668842563E90C009F5732 /* AddEditFolder.storyboard */,
-				0AC668872563E91A009F5732 /* AddEditFolderViewController.swift */,
+				0A22EA08257A2A0800876BF4 /* Presenter */,
+				0A22EA02257A29E700876BF4 /* View */,
 			);
 			path = AddEditFolderScreen;
 			sourceTree = "<group>";
@@ -368,11 +390,13 @@
 				0AC668B3256509B7009F5732 /* Feed.swift in Sources */,
 				0AC668FB25681038009F5732 /* UIViewController+Alert.swift in Sources */,
 				0AC668C0256513DC009F5732 /* ScreenBuilder.swift in Sources */,
+				0A22EA0B257A5E8200876BF4 /* SelectedTableViewCell.swift in Sources */,
 				0AC668B925650A12009F5732 /* DataProvider.swift in Sources */,
 				0AC668CD25651E74009F5732 /* AddFeedPresenter.swift in Sources */,
 				0A696C1F2562B68F009FBAC7 /* FeedsViewController.swift in Sources */,
 				0AC668D225656314009F5732 /* NetworkService.swift in Sources */,
 				0AC668882563E91A009F5732 /* AddEditFolderViewController.swift in Sources */,
+				0A22EA05257A29FC00876BF4 /* AddEditFolderPresenter.swift in Sources */,
 				0AC6687D2563B7A2009F5732 /* Coordinator.swift in Sources */,
 				0AC66897256431B0009F5732 /* NewsDetailsViewController.swift in Sources */,
 				0AC6689025642F25009F5732 /* NewsViewController.swift in Sources */,
