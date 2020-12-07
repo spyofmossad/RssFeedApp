@@ -21,14 +21,15 @@ protocol AddFeedViewProtocol: class {
 }
 
 protocol AddFeedPresenterProtocol: class {
-    init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: AddFeedViewProtocol, rss: RealmRss?)
+    init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: AddFeedViewProtocol, rss: RealmRss?)
     func textFieldShouldReturn(userInput: String?)
     func saveChanges()
     func updateUI()
 }
 
 class AddEditFeedPresenter: AddFeedPresenterProtocol {
-    weak var view: AddFeedViewProtocol?
+    
+    private unowned var view: AddFeedViewProtocol
     
     private var dataProvider: DataProviderProtocol
     private var coordinator: AppCoordinator
@@ -37,31 +38,33 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
     private var currentFeed: RealmRss?
     private var newFeed: RealmRss?
         
-    required init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: AddFeedViewProtocol, rss: RealmRss?) {
+    required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: AddFeedViewProtocol, rss: RealmRss?) {
         self.coordinator = coordinator
         self.dataProvider = dataProvider
+        self.networkService = networkService
         self.view = view
         self.currentFeed = rss
-        networkService = NetworkService()
     }
     
     func textFieldShouldReturn(userInput: String?) {
         guard let userInput = userInput else { return }
-        view?.showSpinner()
+        view.showSpinner()
         networkService.fetchData(from: userInput) { (result) in
             DispatchQueue.main.async {
-                self.view?.removeSpinner()
+                self.view.removeSpinner()
                 switch result {
                 case .success(let feed):
+                    
                     self.newFeed = RealmRss()
                     self.newFeed?.title = feed?.channel.title ?? ""
                     self.newFeed?.url = userInput
                     self.newFeed?.categories.append(objectsIn: feed?.channel.categories ?? [])
                     
                     self.updateUI()
-                    self.view?.activateSaveButton()
+                    self.view.activateSaveButton()
+                
                 case .failure(let error):
-                    self.view?.showError(message: error.localizedDescription)
+                    self.view.showError(message: error.localizedDescription)
                 }
             }
         }
@@ -88,12 +91,12 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
     func updateUI() {
         [currentFeed, newFeed].forEach { (feed) in
             if let feed = feed {
-                self.view?.showUrl(url: feed.url)
-                self.view?.showTitle(title: feed.title)
+                self.view.showUrl(url: feed.url)
+                self.view.showTitle(title: feed.title)
                 
                 feed.categories.count > 0 ?
-                    self.view?.showCategories(categories: Array(feed.categories)) :
-                    self.view?.showPlaceholder()
+                    self.view.showCategories(categories: Array(feed.categories)) :
+                    self.view.showPlaceholder()
             }
         }
     }

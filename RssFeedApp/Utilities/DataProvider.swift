@@ -15,8 +15,11 @@ protocol DataProviderProtocol {
     func save(folder: Folder)
     func save(feed: RealmRss, to folder: Folder)
     func delete(feed: RealmRss)
+    func delete(folder: Folder)
     func update(feed: RealmRss, with newFeed: RealmRss)
+    func update(folder: Folder, title: String)
     func move(feed: RealmRss, to newFolder: Folder)
+    func moveToDefault(feed: RealmRss, from: Folder)
 }
 
 class DataProvider: DataProviderProtocol {
@@ -49,11 +52,26 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
+    func delete(folder: Folder) {
+        folder.feeds.forEach { (feed) in
+            self.delete(feed: feed)
+        }
+        write {
+            realm.delete(folder)
+        }
+    }
+    
     func update(feed: RealmRss, with newFeed: RealmRss) {
         write {
             feed.title = newFeed.title
             feed.url = newFeed.url
             feed.categories = newFeed.categories
+        }
+    }
+    
+    func update(folder: Folder, title: String) {
+        write {
+            folder.name = title
         }
     }
     
@@ -65,6 +83,16 @@ class DataProvider: DataProviderProtocol {
             guard let index = defaultFolder.feeds.index(of: feed) else { return }
             defaultFolder.feeds.remove(at: index)
             newFolder.feeds.append(feed)
+        }
+    }
+    
+    func moveToDefault(feed: RealmRss, from: Folder) {
+        write {
+            if let defaultFolder = foldersList.filter("name == 'Default'").first {
+                guard let index = from.feeds.index(of: feed) else { return }
+                from.feeds.remove(at: index)
+                defaultFolder.feeds.append(feed)
+            }
         }
     }
     

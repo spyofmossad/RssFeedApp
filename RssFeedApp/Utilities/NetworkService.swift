@@ -8,11 +8,11 @@
 import Foundation
 import XMLCoder
 
-protocol Network {
+protocol NetworkServiceProtocol {
     func fetchData(from url: String, completion: @escaping ((Result<Rss?, Error>) -> Void))
 }
 
-class NetworkService: Network {
+class NetworkService: NetworkServiceProtocol {
     func fetchData(from url: String, completion: @escaping ((Result<Rss?, Error>) -> Void)) {
         guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: url) { (data, _, error) in

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SelectedTableViewCell: UITableViewCell {
+class FeedsTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -18,5 +18,4 @@ class SelectedTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         self.accessoryType = selected ? .checkmark : .none
     }
-
 }

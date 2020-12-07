@@ -8,46 +8,47 @@
 import Foundation
 
 protocol FeedsViewProtocol: class {
-    func updateView()
+    func expandCollapse(_ section: Int)
 }
 
 protocol FeedsPresenterProtocol: class {
-    init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator)
+    var numberOfSections: Int { get }
     
-    
+    init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: FeedsViewProtocol)
     
     func onTapAddFeed()
-    func deleteFeed(at indexPath: IndexPath)
     func onTapEditFeed(at indexPath: IndexPath)
-    
+    func deleteFeed(at indexPath: IndexPath)
     func onTapAddFolder()
     
-    func numberOfSections() -> Int?
     func titleForHeaderInSection(_ section: Int) -> String
-    func numberOfRowsInSection(_ section: Int) -> Int?
-    func getTitle(indexPath: IndexPath) -> String?
-    func getCategories(indexPath: IndexPath) -> String?
+    func numberOfRowsInSection(_ section: Int) -> Int
+    func indexPaths(for section: Int) -> [IndexPath]
+    
+    func headerPresenter(for section: Int) -> FeedsTableHeaderPresenterProtocol
+    func cellPresenter(for indexPath: IndexPath) -> FeedsTableCellPresenterProtocol
+    func headerOnTap(section: Int)
+    func headerOnLongTap(section: Int)
 }
 
 class FeedsPresenter: FeedsPresenterProtocol {
-    weak var view: FeedsViewProtocol?
-    let dataProvider: DataProviderProtocol
-    let coordinator: AppCoordinator
     
-    required init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator) {
+    private let dataProvider: DataProviderProtocol
+    private let coordinator: AppCoordinator
+    
+    private unowned var view: FeedsViewProtocol
+    
+    var numberOfSections: Int {
+        return dataProvider.foldersList.count
+    }
+    
+    required init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: FeedsViewProtocol) {
         self.dataProvider = dataProvider
         self.coordinator = coordinator
+        self.view = view
     }
     
-    func getTitle(indexPath: IndexPath) -> String? {
-        return dataProvider.foldersList[indexPath.section].feeds[indexPath.row].title
-    }
-    
-    func getCategories(indexPath: IndexPath) -> String? {
-        return dataProvider.foldersList[indexPath.section].feeds[indexPath.row].categories.joined(separator: ",")
-    }
-    
-    func numberOfRowsInSection(_ section: Int) -> Int? {
+    func numberOfRowsInSection(_ section: Int) -> Int {
         return dataProvider.foldersList[section].feeds.count
     }
     
@@ -56,12 +57,30 @@ class FeedsPresenter: FeedsPresenterProtocol {
         dataProvider.delete(feed: deletedFeed)
     }
     
-    func numberOfSections() -> Int? {
-        return dataProvider.foldersList.count
-    }
-    
     func titleForHeaderInSection(_ section: Int) -> String {
         return dataProvider.foldersList[section].name
+    }
+    
+    func indexPaths(for section: Int) -> [IndexPath] {
+        var indexPaths = [IndexPath]()
+        for row in 0..<dataProvider.foldersList[section].feeds.count {
+            indexPaths.append(IndexPath(row: row, section: section))
+        }
+        
+        return indexPaths
+    }
+    
+    func headerPresenter(for section: Int) -> FeedsTableHeaderPresenterProtocol {
+        return TableHeaderPresenter(parentPresenter: self, section: section)
+    }
+    
+    func cellPresenter(for indexPath: IndexPath) -> FeedsTableCellPresenterProtocol {
+        let feed = dataProvider.foldersList[indexPath.section].feeds[indexPath.row]
+        return FeedsTableCellPresenter(feed: feed)
+    }
+    
+    func headerOnTap(section: Int) {
+        view.expandCollapse(section)
     }
     
     // MARK: - Navigation
@@ -74,7 +93,12 @@ class FeedsPresenter: FeedsPresenterProtocol {
     }
     
     func onTapAddFolder() {
-        coordinator.goToAddEditFolderScreen()
+        coordinator.goToAddEditFolderScreen(folder: nil)
+    }
+    
+    func headerOnLongTap(section: Int) {
+        let folder = dataProvider.foldersList[section]
+        coordinator.goToAddEditFolderScreen(folder: folder)
     }
 }
 

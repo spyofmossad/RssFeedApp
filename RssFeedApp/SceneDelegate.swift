@@ -19,7 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navController = UINavigationController()
         let dataProvider = DataProvider()
-        let screenBuilder = ScreenBuilder(dataProvider: dataProvider)
+        let networkService = NetworkService()
+        let screenBuilder = ScreenBuilder(dataProvider: dataProvider, networkService: networkService)
         
         
         appCoordinator = AppCoordinator(naviationController: navController, screenBuilder: screenBuilder)

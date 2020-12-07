@@ -7,26 +7,22 @@
 
 import UIKit
 
-class FeedsViewController: UIViewController {
-        
-    private var presenter: FeedsPresenterProtocol
+class FeedsViewController: UIViewController, StoryboardInit {
+    
+    private var hiddenSections = Set<Int>()
+    private let headerHeight: CGFloat = 44
+    
+    var presenter: FeedsPresenterProtocol?
         
     @IBOutlet weak var feedsTable: UITableView!
-    
-    init?(coder: NSCoder, presenter: FeedsPresenterProtocol) {
-        self.presenter = presenter
-        super.init(coder: coder)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("Do not forget to remove entry point")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let addEditFeedItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFeed))
         let addEditFolderItem = UIBarButtonItem(image: UIImage(systemName: "folder.badge.plus"), style: .plain, target: self, action: #selector(addFolder))
         navigationItem.rightBarButtonItems = [addEditFeedItem, addEditFolderItem]
+        let nib = UINib(nibName: "TableViewHeaderCell", bundle: nil)
+        feedsTable.register(nib, forHeaderFooterViewReuseIdentifier: "customHeader")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,39 +31,70 @@ class FeedsViewController: UIViewController {
     }
     
     @objc private func addFeed() {
-        presenter.onTapAddFeed()
+        presenter?.onTapAddFeed()
     }
     
     @objc private func addFolder() {
-        presenter.onTapAddFolder()
+        presenter?.onTapAddFolder()
     }
 }
 
 extension FeedsViewController: FeedsViewProtocol {
-    func updateView() {
-        feedsTable.reloadData()
+    func expandCollapse(_ section: Int) {
+        guard let indexPaths = presenter?.indexPaths(for: section) else { return }
+        
+        if self.hiddenSections.contains(section) {
+            self.hiddenSections.remove(section)
+            self.feedsTable.insertRows(at: indexPaths, with: .fade)
+        } else {
+            self.hiddenSections.insert(section)
+            self.feedsTable.deleteRows(at: indexPaths, with: .fade)
+        }
     }
+
 }
 
 extension FeedsViewController: UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter.numberOfSections() ?? 0
+        return presenter?.numberOfSections ?? 0
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return presenter.titleForHeaderInSection(section)
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return headerHeight
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfRowsInSection(section) ?? 0
+        if hiddenSections.contains(section) { return 0 }
+        return presenter?.numberOfRowsInSection(section) ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = feedsTable.dequeueReusableHeaderFooterView(withIdentifier: "customHeader") as? TableViewHeaderCell
+        let headerPresenter = presenter?.headerPresenter(for: section)
+        
+        guard let header = headerView else {
+            assertionFailure("Failed to init TableViewHeaderCell")
+            return UIView()
+        }
+        
+        header.presenter = headerPresenter
+        
+        return header
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = feedsTable.dequeueReusableCell(withIdentifier: "feedCell", for: indexPath) as? FeedTableViewCell
-        cell?.title.text = presenter.getTitle(indexPath: indexPath)
-        cell?.category.text = presenter.getCategories(indexPath: indexPath)
+        let cellPresenter = presenter?.cellPresenter(for: indexPath)
         
-        return cell!
+        guard let tableCell = cell else {
+            assertionFailure("Failed to init FeedTableViewCell")
+            return UITableViewCell()
+        }
+        
+        tableCell.presenter = cellPresenter
+        
+        return tableCell
     }
 }
 
@@ -75,7 +102,7 @@ extension FeedsViewController: UITableViewDelegate {
     private func delete(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
             self.feedsTable.beginUpdates()
-            self.presenter.deleteFeed(at: indexPath)
+            self.presenter?.deleteFeed(at: indexPath)
             self.feedsTable.deleteRows(at: [indexPath], with: .fade)
             self.feedsTable.endUpdates()
         }
@@ -85,7 +112,7 @@ extension FeedsViewController: UITableViewDelegate {
     
     private func edit(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: "Edit") { (_, _, _) in
-            self.presenter.onTapEditFeed(at: indexPath)
+            self.presenter?.onTapEditFeed(at: indexPath)
         }
         
         return action
@@ -97,14 +124,5 @@ extension FeedsViewController: UITableViewDelegate {
         let swipe = UISwipeActionsConfiguration(actions: [delete, edit])
         
         return swipe
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            self.feedsTable.beginUpdates()
-            presenter.deleteFeed(at: indexPath)
-            feedsTable.deleteRows(at: [indexPath], with: .fade)
-            self.feedsTable.endUpdates()
-        }
     }
 }

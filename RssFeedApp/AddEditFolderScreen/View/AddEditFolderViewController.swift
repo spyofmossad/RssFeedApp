@@ -7,64 +7,98 @@
 
 import UIKit
 
-class AddEditFolderViewController: UIViewController {
+class AddEditFolderViewController: UIViewController, StoryboardInit {
     
-    private var presenter: AddEditFolderProtocol
+    var presenter: AddEditFolderProtocol?
     
     @IBOutlet weak var folderName: UITextField!
-    @IBOutlet weak var assignedFeedsTable: UITableView!
+    @IBOutlet weak var selectedFeedsTable: UITableView!
     @IBOutlet weak var freeFeedsTable: UITableView!
-    
-    init?(coder: NSCoder, presenter: AddEditFolderProtocol) {
-        self.presenter = presenter
-        super.init(coder: coder)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("Do not forget to remove entry point")
+    @IBAction func deleteOnTap(_ sender: Any) {
+        let alert = UIAlertController(title: "Are you sure?", message: "All feeds in this folder will be deleted as well", preferredStyle: .alert)
+        let alertCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let alertOkAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+            self.presenter?.deleteOnTap()
+        }
+        alert.addAction(alertCancelAction)
+        alert.addAction(alertOkAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveChanges))
-        assignedFeedsTable.isHidden = true
-        updateUI()
+        selectedFeedsTable.isHidden = true
+        presenter?.updateUI()
     }
     
     override func viewWillLayoutSubviews() {
-        [assignedFeedsTable, freeFeedsTable].forEach { (tableView) in
+        [selectedFeedsTable, freeFeedsTable].forEach { (tableView) in
             tableView?.layer.borderColor = UIColor.lightGray.cgColor
             tableView?.layer.borderWidth = 1.0
         }
     }
     
     @objc private func saveChanges() {
-        presenter.saveChanges()
+        presenter?.saveChanges()
     }
 }
 
 extension AddEditFolderViewController: AddEditFolderView {
-    func getFolderName() -> String? {
+    var folderTitle: String? {
         return folderName.text
     }
     
-    func getSelectedRows() -> [IndexPath]? {
+    var freeFeedsTableSelectedRows: [IndexPath]? {
         return freeFeedsTable.indexPathsForSelectedRows
     }
     
-    func updateUI() {
+    var selectedFeedsTableSelectedRows: [IndexPath]? {
+        return selectedFeedsTable.indexPathsForSelectedRows
+    }
+    
+    func updateUI(with folder: String?) {
+        if let folder = folder {
+            self.folderName.text = folder
+            selectedFeedsTable.isHidden = false
+        }
+        
         freeFeedsTable.reloadData()
+        selectedFeedsTable.reloadData()
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Oops!", message: "Folder name is required", preferredStyle: .alert)
+        let alertCancelAction = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+        alert.addAction(alertCancelAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
 extension AddEditFolderViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.freeFeedsList.count
+        switch tableView {
+        case freeFeedsTable:
+            return presenter!.freeFeedsList.count
+        case selectedFeedsTable:
+            return presenter!.selectedFeeds.count
+        default:
+            fatalError("Expected table wasn't found")
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = freeFeedsTable.dequeueReusableCell(withIdentifier: "freeFeed") as! SelectedTableViewCell
-        cell.textLabel?.text = presenter.freeFeedsList[indexPath.row].title
-        return cell
+        switch tableView {
+        case freeFeedsTable:
+            let cell = freeFeedsTable.dequeueReusableCell(withIdentifier: "freeFeedCell") as! FeedsTableViewCell
+            cell.textLabel?.text = presenter!.freeFeedsList[indexPath.row].title
+            return cell
+        case selectedFeedsTable:
+            let cell = selectedFeedsTable.dequeueReusableCell(withIdentifier: "feedInFolderCell") as! FeedsTableViewCell
+            cell.textLabel?.text = presenter!.selectedFeeds[indexPath.row].title
+            return cell
+        default:
+            fatalError("Expected table wasn't found")
+        }
     }
 }

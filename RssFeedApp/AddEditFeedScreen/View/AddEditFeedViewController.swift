@@ -7,30 +7,22 @@
 
 import UIKit
 
-class AddEditFeedViewController: UIViewController {
+class AddEditFeedViewController: UIViewController, StoryboardInit {
     
-    private var presenter: AddFeedPresenterProtocol
+    var presenter: AddFeedPresenterProtocol?
+    
     private var categories: [String]?
 
     @IBOutlet weak var url: UITextField!
     @IBOutlet weak var categoriesTable: UITableView!
     @IBOutlet weak var rssTitle: UILabel!
     
-    init?(coder: NSCoder, presenter: AddFeedPresenterProtocol) {
-        self.presenter = presenter
-        super.init(coder: coder)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("Do not forget to remove storyboard entry point")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         url.delegate = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem?.isEnabled = false
-        presenter.updateUI()
+        presenter?.updateUI()
     }
     
     override func viewWillLayoutSubviews() {
@@ -67,32 +59,28 @@ extension AddEditFeedViewController: AddFeedViewProtocol {
     }
     
     func showError(message: String) {
-        self.showErrorAlert(message: message)
+        showErrorAlert(message: message)
     }
     
     func showSpinner() {
-        self.showActivityIndicator()
+        showActivityIndicator()
     }
     
     func removeSpinner() {
-        self.hideActivityIndicator()
+        hideActivityIndicator()
     }
     
     func saveChanges() {
-        presenter.saveChanges()
+        presenter?.saveChanges()
     }
     
 }
 
 extension AddEditFeedViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        presenter.textFieldShouldReturn(userInput: textField.text)
+        presenter?.textFieldShouldReturn(userInput: textField.text)
         return true
     }
-}
-
-extension AddEditFeedViewController: UITableViewDelegate {
-    
 }
 
 extension AddEditFeedViewController: UITableViewDataSource {
@@ -105,6 +93,4 @@ extension AddEditFeedViewController: UITableViewDataSource {
         cell.textLabel?.text = categories?[indexPath.row]
         return cell
     }
-    
-    
 }

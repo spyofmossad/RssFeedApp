@@ -38,8 +38,8 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(addFeedView, animated: true)
     }
     
-    func goToAddEditFolderScreen() {
-        let addEditFolderView = screenBuilder.addEditFolderView(coordinator: self)
+    func goToAddEditFolderScreen(folder: Folder?) {
+        let addEditFolderView = screenBuilder.addEditFolderView(coordinator: self, folder: folder)
         navigationController.pushViewController(addEditFolderView, animated: true)
     }
     
@@ -64,6 +64,4 @@ extension AppCoordinator: NewsDelegate {
     func openNewsDetails() {
         goToNewsDetailsScreen()
     }
-    
-    
 }
