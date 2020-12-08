@@ -13,6 +13,7 @@
 		0A22EA0E257ACFD300876BF4 /* TableViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22EA0D257ACFD300876BF4 /* TableViewHeaderCell.swift */; };
 		0A22EA11257ACFE600876BF4 /* TableViewHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A22EA10257ACFE600876BF4 /* TableViewHeaderCell.xib */; };
 		0A22EA14257B7A9400876BF4 /* TableHeaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22EA13257B7A9400876BF4 /* TableHeaderPresenter.swift */; };
+		0A2C3A12257F884D00BF0842 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C3A11257F884D00BF0842 /* Constants.swift */; };
 		0A3E1C51257E612000670EFB /* UIViewController+StoryboardInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E1C50257E612000670EFB /* UIViewController+StoryboardInit.swift */; };
 		0A696C1B2562B68F009FBAC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1A2562B68F009FBAC7 /* AppDelegate.swift */; };
 		0A696C1D2562B68F009FBAC7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A696C1C2562B68F009FBAC7 /* SceneDelegate.swift */; };
@@ -49,6 +50,7 @@
 		0A22EA0D257ACFD300876BF4 /* TableViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeaderCell.swift; sourceTree = "<group>"; };
 		0A22EA10257ACFE600876BF4 /* TableViewHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewHeaderCell.xib; sourceTree = "<group>"; };
 		0A22EA13257B7A9400876BF4 /* TableHeaderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderPresenter.swift; sourceTree = "<group>"; };
+		0A2C3A11257F884D00BF0842 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0A3E1C50257E612000670EFB /* UIViewController+StoryboardInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+StoryboardInit.swift"; sourceTree = "<group>"; };
 		0A696C172562B68F009FBAC7 /* RssFeedApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RssFeedApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A696C1A2562B68F009FBAC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				0A696C252562B68F009FBAC7 /* LaunchScreen.storyboard */,
 				0A696C282562B68F009FBAC7 /* Info.plist */,
 				0AC668FD256812E6009F5732 /* Extensions */,
+				0A2C3A11257F884D00BF0842 /* Constants.swift */,
 			);
 			path = RssFeedApp;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A2C3A12257F884D00BF0842 /* Constants.swift in Sources */,
 				0AC6687A2563B3E2009F5732 /* AddEditFeedViewController.swift in Sources */,
 				0AC668F7256805F9009F5732 /* UIViewController+SpinnerView.swift in Sources */,
 				0AC79C032577DFA700E44CB6 /* FeedTableViewCell.swift in Sources */,

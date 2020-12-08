@@ -17,44 +17,46 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="URL" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2Ou-WI-4ci">
-                                <rect key="frame" x="8" y="60" width="398" height="34"/>
+                                <rect key="frame" x="16" y="60" width="382" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES" textContentType="url"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES" textContentType="url"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BOM-G0-frb">
-                                <rect key="frame" x="16" y="127" width="382" height="292"/>
+                                <rect key="frame" x="16" y="160" width="382" height="292"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Vx4-4T-oh6" id="Qey-Jh-aad"/>
                                     <outlet property="delegate" destination="Vx4-4T-oh6" id="xkT-eI-bZJ"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOM-wn-YBg">
-                                <rect key="frame" x="16" y="112" width="382" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Feed title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f23-Ty-YRF">
+                                <rect key="frame" x="16" y="110" width="382" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Vx4-4T-oh6" id="dxZ-uh-Dxt"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mqQ-RR-bBL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="2Ou-WI-4ci" firstAttribute="leading" secondItem="mqQ-RR-bBL" secondAttribute="leading" constant="8" id="9Gf-wq-W7e"/>
+                            <constraint firstItem="2Ou-WI-4ci" firstAttribute="leading" secondItem="mqQ-RR-bBL" secondAttribute="leading" constant="16" id="9Gf-wq-W7e"/>
                             <constraint firstItem="mqQ-RR-bBL" firstAttribute="trailing" secondItem="BOM-G0-frb" secondAttribute="trailing" constant="16" id="D4L-sA-pQy"/>
-                            <constraint firstItem="mqQ-RR-bBL" firstAttribute="trailing" secondItem="2Ou-WI-4ci" secondAttribute="trailing" constant="8" id="F1O-qf-VCQ"/>
-                            <constraint firstItem="NOM-wn-YBg" firstAttribute="top" secondItem="2Ou-WI-4ci" secondAttribute="bottom" constant="18" id="bsL-da-TzX"/>
-                            <constraint firstItem="BOM-G0-frb" firstAttribute="top" secondItem="NOM-wn-YBg" secondAttribute="bottom" constant="15" id="dAd-X2-BuO"/>
+                            <constraint firstItem="mqQ-RR-bBL" firstAttribute="trailing" secondItem="2Ou-WI-4ci" secondAttribute="trailing" constant="16" id="F1O-qf-VCQ"/>
+                            <constraint firstItem="f23-Ty-YRF" firstAttribute="top" secondItem="2Ou-WI-4ci" secondAttribute="bottom" constant="16" id="FFb-nd-dwr"/>
+                            <constraint firstItem="f23-Ty-YRF" firstAttribute="leading" secondItem="mqQ-RR-bBL" secondAttribute="leading" constant="16" id="Zhh-HS-ctD"/>
                             <constraint firstItem="BOM-G0-frb" firstAttribute="height" secondItem="PiR-jZ-3CN" secondAttribute="height" multiplier="0.325893" id="hck-lg-tTm"/>
                             <constraint firstItem="BOM-G0-frb" firstAttribute="leading" secondItem="mqQ-RR-bBL" secondAttribute="leading" constant="16" id="igi-O3-MxZ"/>
+                            <constraint firstItem="mqQ-RR-bBL" firstAttribute="trailing" secondItem="f23-Ty-YRF" secondAttribute="trailing" constant="16" id="nrw-m5-PHf"/>
                             <constraint firstItem="2Ou-WI-4ci" firstAttribute="top" secondItem="mqQ-RR-bBL" secondAttribute="top" constant="16" id="o2F-K2-d2K"/>
-                            <constraint firstItem="mqQ-RR-bBL" firstAttribute="trailing" secondItem="NOM-wn-YBg" secondAttribute="trailing" constant="16" id="pyI-NG-V9d"/>
-                            <constraint firstItem="NOM-wn-YBg" firstAttribute="leading" secondItem="mqQ-RR-bBL" secondAttribute="leading" constant="16" id="wzT-15-Zjf"/>
+                            <constraint firstItem="BOM-G0-frb" firstAttribute="top" secondItem="f23-Ty-YRF" secondAttribute="bottom" constant="16" id="qpY-Wa-WCU"/>
                             <constraint firstItem="2Ou-WI-4ci" firstAttribute="centerX" secondItem="mqQ-RR-bBL" secondAttribute="centerX" id="xFX-wX-ova"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="categoriesTable" destination="BOM-G0-frb" id="JJb-jw-afy"/>
-                        <outlet property="rssTitle" destination="NOM-wn-YBg" id="fdG-eo-8Mr"/>
+                        <outlet property="feedTitle" destination="f23-Ty-YRF" id="Zlg-Qk-7uV"/>
                         <outlet property="url" destination="2Ou-WI-4ci" id="xQm-A0-hRo"/>
                     </connections>
                 </viewController>

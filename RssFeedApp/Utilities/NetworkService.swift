@@ -9,11 +9,11 @@ import Foundation
 import XMLCoder
 
 protocol NetworkServiceProtocol {
-    func fetchData(from url: String, completion: @escaping ((Result<Rss?, Error>) -> Void))
+    func fetchData(from url: String, completion: @escaping ((Result<RealmRss?, Error>) -> Void))
 }
 
 class NetworkService: NetworkServiceProtocol {
-    func fetchData(from url: String, completion: @escaping ((Result<Rss?, Error>) -> Void)) {
+    func fetchData(from url: String, completion: @escaping ((Result<RealmRss?, Error>) -> Void)) {
         guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let error = error {
@@ -22,7 +22,8 @@ class NetworkService: NetworkServiceProtocol {
             if let data = data {
                 do {
                     let feed = try XMLDecoder().decode(Rss.self, from: data)
-                    completion(.success(feed))
+                    let rssFeed = RealmRss(feed: feed)
+                    completion(.success(rssFeed))
                 } catch (let error) {
                     completion(.failure(error))
                 }

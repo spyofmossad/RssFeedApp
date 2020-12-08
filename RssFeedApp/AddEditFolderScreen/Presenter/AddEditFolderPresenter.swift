@@ -48,7 +48,7 @@ class AddEditFolderPresenter: AddEditFolderProtocol {
         if let currentFolderFeeds = self.currentFolder?.feeds {
             selectedFeeds = Array(currentFolderFeeds)
         }
-        if let defaultFolderFeeds = dataProvider.foldersList.filter("name = 'Default'").first?.feeds {
+        if let defaultFolderFeeds = dataProvider.foldersList.first(where: {$0.name == Constants.defaultFolder})?.feeds {
             freeFeedsList = Array(defaultFolderFeeds)
         }
     }

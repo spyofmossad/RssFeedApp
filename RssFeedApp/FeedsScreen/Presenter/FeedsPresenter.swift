@@ -85,7 +85,7 @@ class FeedsPresenter: FeedsPresenterProtocol {
     }
     
     func heightForHeaderInSection(section: Int) -> Int {
-        if dataProvider.foldersList[section].name == "Default" { return 0 }
+        if dataProvider.foldersList[section].name == Constants.defaultFolder { return 0 }
         return 44
     }
     

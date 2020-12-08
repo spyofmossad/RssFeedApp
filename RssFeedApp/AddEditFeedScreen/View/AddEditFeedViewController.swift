@@ -15,14 +15,14 @@ class AddEditFeedViewController: UIViewController, StoryboardInit {
 
     @IBOutlet weak var url: UITextField!
     @IBOutlet weak var categoriesTable: UITableView!
-    @IBOutlet weak var rssTitle: UILabel!
+    @IBOutlet weak var feedTitle: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         url.delegate = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem?.isEnabled = false
-        presenter?.updateUI()
+        presenter?.viewDidLoad()
     }
     
     override func viewWillLayoutSubviews() {
@@ -37,12 +37,16 @@ class AddEditFeedViewController: UIViewController, StoryboardInit {
 }
 
 extension AddEditFeedViewController: AddFeedViewProtocol {
-    func showUrl(url: String?) {
-        self.url.text = url
+    var feedTitleText: String {
+        return feedTitle.text ?? ""
     }
     
-    func showTitle(title: String?) {
-        self.rssTitle.text = title
+    var feedUrl: String {
+        return url.text ?? ""
+    }
+    
+    var feedCategories: [String] {
+        return [String]()
     }
     
     func activateSaveButton() {
@@ -51,11 +55,6 @@ extension AddEditFeedViewController: AddFeedViewProtocol {
     
     func showPlaceholder() {
         showPlaceholder(in: categoriesTable, with: "No categories")
-    }
-    
-    func showCategories(categories: [String]) {
-        self.categories = categories
-        categoriesTable.reloadData()
     }
     
     func showError(message: String) {
@@ -74,11 +73,36 @@ extension AddEditFeedViewController: AddFeedViewProtocol {
         presenter?.saveChanges()
     }
     
+    func updateUI(url: String, title: String, categories: [String]) {
+        self.url.text = url
+        self.feedTitle.text = title
+        categories.count > 0 ?
+            self.categoriesTable.reloadData() :
+            self.showPlaceholder()
+    }
 }
 
 extension AddEditFeedViewController: UITextFieldDelegate {
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        switch textField {
+        case url:
+            presenter?.textFieldShouldReturn(userInput: textField.text)
+        default:
+            break
+        }
+        return true
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        presenter?.textFieldShouldReturn(userInput: textField.text)
+        switch textField {
+        case url:
+            presenter?.textFieldShouldReturn(userInput: textField.text)
+            feedTitle.becomeFirstResponder()
+        case feedTitle:
+            feedTitle.resignFirstResponder()
+        default:
+            break
+        }
         return true
     }
 }

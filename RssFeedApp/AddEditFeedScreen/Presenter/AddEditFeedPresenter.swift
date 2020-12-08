@@ -6,16 +6,17 @@
 //
 
 import Foundation
-import RealmSwift
 
 protocol AddFeedViewProtocol: class {
+    var feedTitleText: String { get }
+    var feedUrl: String { get }
+    var feedCategories: [String] { get }
+    
+    func updateUI(url: String, title: String, categories: [String])
     func saveChanges()
     func showSpinner()
     func removeSpinner()
     func showError(message: String)
-    func showTitle(title: String?)
-    func showUrl(url: String?)
-    func showCategories(categories: [String])
     func showPlaceholder()
     func activateSaveButton()
 }
@@ -24,7 +25,7 @@ protocol AddFeedPresenterProtocol: class {
     init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: AddFeedViewProtocol, rss: RealmRss?)
     func textFieldShouldReturn(userInput: String?)
     func saveChanges()
-    func updateUI()
+    func viewDidLoad()
 }
 
 class AddEditFeedPresenter: AddFeedPresenterProtocol {
@@ -54,15 +55,10 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
                 self.view.removeSpinner()
                 switch result {
                 case .success(let feed):
-                    
-                    self.newFeed = RealmRss()
-                    self.newFeed?.title = feed?.channel.title ?? ""
-                    self.newFeed?.url = userInput
-                    self.newFeed?.categories.append(objectsIn: feed?.channel.categories ?? [])
-                    
-                    self.updateUI()
+                    if let feed = feed {
+                        self.view.updateUI(url: userInput, title: feed.title, categories: Array(feed.categories))
+                    }
                     self.view.activateSaveButton()
-                
                 case .failure(let error):
                     self.view.showError(message: error.localizedDescription)
                 }
@@ -72,33 +68,22 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
     
     func saveChanges() {
         if let currentFeed = currentFeed {
-            dataProvider.update(feed: currentFeed, with: newFeed!)
-        }
-        if let newFeed = newFeed {
-            let defaultFolder = dataProvider.foldersList.filter("name == 'Default'").first
-            if let defaultFolder = defaultFolder {
-                dataProvider.save(feed: newFeed, to: defaultFolder)
-            } else {
-                let defaultFolder = Folder()
-                defaultFolder.name = "Default"
-                dataProvider.save(folder: defaultFolder)
-                dataProvider.save(feed: newFeed, to: defaultFolder)
-            }
+            dataProvider.update(feed: currentFeed, new: view.feedUrl, new: view.feedTitleText, new: view.feedCategories)
+        } else {
+            let feed = RealmRss()
+            feed.url = view.feedUrl
+            feed.title = view.feedTitleText
+            feed.categories.append(objectsIn: view.feedCategories)
+            dataProvider.save(feed: feed, to: nil)
         }
         coordinator.popToRoot()
     }
     
-    func updateUI() {
-        self.view.showPlaceholder()
-        [currentFeed, newFeed].forEach { (feed) in
-            if let feed = feed {
-                self.view.showUrl(url: feed.url)
-                self.view.showTitle(title: feed.title)
-                
-                feed.categories.count > 0 ?
-                    self.view.showCategories(categories: Array(feed.categories)) :
-                    self.view.showPlaceholder()
-            }
+    func viewDidLoad() {
+        if let feed = currentFeed {
+            self.view.updateUI(url: feed.url, title: feed.title, categories: Array(feed.categories))
+        } else {
+            self.view.showPlaceholder()
         }
     }
 }

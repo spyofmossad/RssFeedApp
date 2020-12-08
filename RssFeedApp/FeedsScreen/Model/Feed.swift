@@ -18,10 +18,17 @@ struct Channel: Decodable {
     let categories: [String]?
 }
 
-class RealmRss: Object {
+@objcMembers class RealmRss: Object {
     @objc dynamic var url = ""
     @objc dynamic var title = ""
     var categories = List<String>()
+    
+    convenience init(feed: Rss) {
+        self.init()
+        self.url = feed.channel.url ?? ""
+        self.title = feed.channel.title
+        self.categories.append(objectsIn: feed.channel.categories ?? [String]())
+    }
 }
 
 class Folder: Object {
