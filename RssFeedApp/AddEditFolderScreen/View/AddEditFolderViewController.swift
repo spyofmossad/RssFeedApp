@@ -12,23 +12,15 @@ class AddEditFolderViewController: UIViewController, StoryboardInit {
     var presenter: AddEditFolderProtocol?
     
     @IBOutlet weak var folderName: UITextField!
+    @IBOutlet weak var selectedFeedsTableTitle: UILabel!
     @IBOutlet weak var selectedFeedsTable: UITableView!
     @IBOutlet weak var freeFeedsTable: UITableView!
-    @IBAction func deleteOnTap(_ sender: Any) {
-        let alert = UIAlertController(title: "Are you sure?", message: "All feeds in this folder will be deleted as well", preferredStyle: .alert)
-        let alertCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let alertOkAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-            self.presenter?.deleteOnTap()
-        }
-        alert.addAction(alertCancelAction)
-        alert.addAction(alertOkAction)
-        self.present(alert, animated: true, completion: nil)
-    }
+    @IBOutlet weak var delete: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveChanges))
-        selectedFeedsTable.isHidden = true
+        delete.addTarget(self, action: #selector(deleteOnTap), for: .touchUpInside)
         presenter?.updateUI()
     }
     
@@ -61,10 +53,26 @@ extension AddEditFolderViewController: AddEditFolderView {
         if let folder = folder {
             self.folderName.text = folder
             selectedFeedsTable.isHidden = false
+            selectedFeedsTableTitle.isHidden = false
+        } else {
+            delete.isHidden = true
+            selectedFeedsTable.isHidden = true
+            selectedFeedsTableTitle.isHidden = true
         }
         
         freeFeedsTable.reloadData()
         selectedFeedsTable.reloadData()
+    }
+    
+    func deleteOnTap() {
+        let alert = UIAlertController(title: "Are you sure?", message: "All feeds in this folder will be deleted as well", preferredStyle: .alert)
+        let alertCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let alertOkAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+            self.presenter?.deleteOnTap()
+        }
+        alert.addAction(alertCancelAction)
+        alert.addAction(alertOkAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func showAlert() {

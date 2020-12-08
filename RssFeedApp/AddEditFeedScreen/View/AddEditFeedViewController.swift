@@ -50,7 +50,7 @@ extension AddEditFeedViewController: AddFeedViewProtocol {
     }
     
     func showPlaceholder() {
-        showPlaceholder(in: categoriesTable, with: "No categories were found")
+        showPlaceholder(in: categoriesTable, with: "No categories")
     }
     
     func showCategories(categories: [String]) {

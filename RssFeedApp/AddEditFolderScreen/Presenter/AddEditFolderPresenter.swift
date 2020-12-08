@@ -7,12 +7,13 @@
 
 import Foundation
 
-protocol AddEditFolderView: class {
+@objc protocol AddEditFolderView: class {
     var freeFeedsTableSelectedRows: [IndexPath]? { get }
     var selectedFeedsTableSelectedRows: [IndexPath]? { get }
     var folderTitle: String? { get }
     
     func updateUI(with folder: String?)
+    @objc func deleteOnTap()
     func showAlert()
 }
 
@@ -31,7 +32,7 @@ protocol AddEditFolderProtocol {
 class AddEditFolderPresenter: AddEditFolderProtocol {
     private var dataProvider: DataProviderProtocol
     private var coordinator: AppCoordinator
-    private var folder: Folder?
+    private var currentFolder: Folder?
     
     public unowned var view: AddEditFolderView
     
@@ -43,23 +44,23 @@ class AddEditFolderPresenter: AddEditFolderProtocol {
         self.coordinator = coordinator
         self.dataProvider = dataProvider
         self.view = view
-        self.folder = folder
+        self.currentFolder = folder
+        if let currentFolderFeeds = self.currentFolder?.feeds {
+            selectedFeeds = Array(currentFolderFeeds)
+        }
+        if let defaultFolderFeeds = dataProvider.foldersList.filter("name = 'Default'").first?.feeds {
+            freeFeedsList = Array(defaultFolderFeeds)
+        }
     }
     
     func updateUI() {
-        if let defaultFolder = dataProvider.foldersList.filter("name = 'Default'").first {
-            self.freeFeedsList = Array(defaultFolder.feeds)
-        }
-        if let folder = folder {
-            selectedFeeds = Array(folder.feeds)
-        }
-        view.updateUI(with: folder?.name)
+        view.updateUI(with: currentFolder?.name)
     }
     
     func saveChanges() {
         if let folderName = view.folderTitle, !folderName.isEmpty {
             
-            if let currentFolder = self.folder {
+            if let currentFolder = self.currentFolder {
                 dataProvider.update(folder: currentFolder, title: folderName)
                 if let selectedRows = self.view.freeFeedsTableSelectedRows {
                     selectedRows.forEach { (indexPath) in
@@ -68,7 +69,7 @@ class AddEditFolderPresenter: AddEditFolderProtocol {
                 }
                 if let deselectedRows = self.view.selectedFeedsTableSelectedRows {
                     deselectedRows.forEach { (indexPath) in
-                        dataProvider.moveToDefault(feed: selectedFeeds[indexPath.row], from: folder!)
+                        dataProvider.moveToDefault(feed: selectedFeeds[indexPath.row], from: currentFolder)
                     }
                 }
             } else {
@@ -90,7 +91,7 @@ class AddEditFolderPresenter: AddEditFolderProtocol {
     }
     
     func deleteOnTap() {
-        guard let folder = folder else {
+        guard let folder = currentFolder else {
             assertionFailure("Trying to delete nil? folder")
             return
         }

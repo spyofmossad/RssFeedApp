@@ -89,6 +89,7 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
     }
     
     func updateUI() {
+        self.view.showPlaceholder()
         [currentFeed, newFeed].forEach { (feed) in
             if let feed = feed {
                 self.view.showUrl(url: feed.url)

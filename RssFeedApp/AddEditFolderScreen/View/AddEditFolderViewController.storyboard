@@ -98,9 +98,6 @@
                                                 <state key="normal" title="Delete">
                                                     <color key="titleColor" systemColor="systemRedColor"/>
                                                 </state>
-                                                <connections>
-                                                    <action selector="deleteOnTap:" destination="uAQ-fm-lgL" eventType="touchUpInside" id="ypf-JN-GbM"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -148,9 +145,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="delete" destination="y5j-f7-2na" id="ATs-Ox-z8x"/>
                         <outlet property="folderName" destination="PB0-0e-7Gq" id="77y-A4-ZAr"/>
                         <outlet property="freeFeedsTable" destination="F5l-Ee-2JO" id="8WH-fn-Lo2"/>
                         <outlet property="selectedFeedsTable" destination="2GT-C9-xgd" id="Kwi-EE-8gD"/>
+                        <outlet property="selectedFeedsTableTitle" destination="sxH-C9-dFM" id="Ict-L3-2nd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="78o-S8-5C5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

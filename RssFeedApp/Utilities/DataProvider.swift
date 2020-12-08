@@ -27,7 +27,7 @@ class DataProvider: DataProviderProtocol {
     
     var feedsList: Results<RealmRss>
     var foldersList: Results<Folder>
-        
+            
     init() {
         realm = try! Realm()
         feedsList = realm.objects(RealmRss.self)

@@ -29,6 +29,7 @@ protocol FeedsPresenterProtocol: class {
     func cellPresenter(for indexPath: IndexPath) -> FeedsTableCellPresenterProtocol
     func headerOnTap(section: Int)
     func headerOnLongTap(section: Int)
+    func heightForHeaderInSection(section: Int) -> Int
 }
 
 class FeedsPresenter: FeedsPresenterProtocol {
@@ -81,6 +82,11 @@ class FeedsPresenter: FeedsPresenterProtocol {
     
     func headerOnTap(section: Int) {
         view.expandCollapse(section)
+    }
+    
+    func heightForHeaderInSection(section: Int) -> Int {
+        if dataProvider.foldersList[section].name == "Default" { return 0 }
+        return 44
     }
     
     // MARK: - Navigation

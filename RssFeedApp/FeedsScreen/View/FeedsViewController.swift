@@ -10,7 +10,6 @@ import UIKit
 class FeedsViewController: UIViewController, StoryboardInit {
     
     private var hiddenSections = Set<Int>()
-    private let headerHeight: CGFloat = 44
     
     var presenter: FeedsPresenterProtocol?
         
@@ -61,7 +60,7 @@ extension FeedsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return headerHeight
+        return CGFloat(presenter?.heightForHeaderInSection(section: section) ?? 0)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
