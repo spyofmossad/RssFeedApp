@@ -29,11 +29,12 @@
                                     <outlet property="delegate" destination="Vx4-4T-oh6" id="xkT-eI-bZJ"/>
                                 </connections>
                             </tableView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Feed title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f23-Ty-YRF">
+                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Feed title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f23-Ty-YRF">
                                 <rect key="frame" x="16" y="110" width="382" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
+                                    <action selector="titleChanged:" destination="Vx4-4T-oh6" eventType="editingChanged" id="43F-wE-B33"/>
                                     <outlet property="delegate" destination="Vx4-4T-oh6" id="dxZ-uh-Dxt"/>
                                 </connections>
                             </textField>

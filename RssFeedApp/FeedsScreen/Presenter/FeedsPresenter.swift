@@ -18,7 +18,7 @@ protocol FeedsPresenterProtocol: class {
     
     func onTapAddFeed()
     func onTapEditFeed(at indexPath: IndexPath)
-    func deleteFeed(at indexPath: IndexPath)
+    func onTapDelete(at indexPath: IndexPath)
     func onTapAddFolder()
     
     func titleForHeaderInSection(_ section: Int) -> String
@@ -53,8 +53,8 @@ class FeedsPresenter: FeedsPresenterProtocol {
         return dataProvider.foldersList[section].feeds.count
     }
     
-    func deleteFeed(at indexPath: IndexPath) {
-        let deletedFeed = dataProvider.feedsList[indexPath.row]
+    func onTapDelete(at indexPath: IndexPath) {
+        let deletedFeed = dataProvider.foldersList[indexPath.section].feeds[indexPath.row]
         dataProvider.delete(feed: deletedFeed)
     }
     
@@ -95,7 +95,7 @@ class FeedsPresenter: FeedsPresenterProtocol {
     }
     
     func onTapEditFeed(at indexPath: IndexPath) {
-        coordinator.goToAddEditFeedScreen(feed: dataProvider.feedsList[indexPath.row])
+        coordinator.goToAddEditFeedScreen(feed: dataProvider.foldersList[indexPath.section].feeds[indexPath.row])
     }
     
     func onTapAddFolder() {

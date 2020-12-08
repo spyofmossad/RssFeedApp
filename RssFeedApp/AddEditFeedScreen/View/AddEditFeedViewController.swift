@@ -16,12 +16,15 @@ class AddEditFeedViewController: UIViewController, StoryboardInit {
     @IBOutlet weak var url: UITextField!
     @IBOutlet weak var categoriesTable: UITableView!
     @IBOutlet weak var feedTitle: UITextField!
+    @IBAction func titleChanged(_ sender: UITextField) {
+        presenter?.textFieldShouldReturn(tag: sender.tag, textFieldText: sender.text)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         url.delegate = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        self.disableSaveButton()
         presenter?.viewDidLoad()
     }
     
@@ -51,6 +54,10 @@ extension AddEditFeedViewController: AddFeedViewProtocol {
     
     func activateSaveButton() {
         navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+    
+    func disableSaveButton() {
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     func showPlaceholder() {
@@ -84,11 +91,8 @@ extension AddEditFeedViewController: AddFeedViewProtocol {
 
 extension AddEditFeedViewController: UITextFieldDelegate {
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        switch textField {
-        case url:
-            presenter?.textFieldShouldReturn(userInput: textField.text)
-        default:
-            break
+        if textField == url {
+            presenter?.textFieldShouldReturn(tag: textField.tag, textFieldText: textField.text)
         }
         return true
     }
@@ -96,7 +100,6 @@ extension AddEditFeedViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case url:
-            presenter?.textFieldShouldReturn(userInput: textField.text)
             feedTitle.becomeFirstResponder()
         case feedTitle:
             feedTitle.resignFirstResponder()

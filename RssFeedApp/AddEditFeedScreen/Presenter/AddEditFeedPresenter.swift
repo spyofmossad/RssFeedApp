@@ -19,11 +19,12 @@ protocol AddFeedViewProtocol: class {
     func showError(message: String)
     func showPlaceholder()
     func activateSaveButton()
+    func disableSaveButton()
 }
 
 protocol AddFeedPresenterProtocol: class {
     init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: AddFeedViewProtocol, rss: RealmRss?)
-    func textFieldShouldReturn(userInput: String?)
+    func textFieldShouldReturn(tag: Int, textFieldText: String?)
     func saveChanges()
     func viewDidLoad()
 }
@@ -47,21 +48,33 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
         self.currentFeed = rss
     }
     
-    func textFieldShouldReturn(userInput: String?) {
-        guard let userInput = userInput else { return }
-        view.showSpinner()
-        networkService.fetchData(from: userInput) { (result) in
-            DispatchQueue.main.async {
-                self.view.removeSpinner()
-                switch result {
-                case .success(let feed):
-                    if let feed = feed {
-                        self.view.updateUI(url: userInput, title: feed.title, categories: Array(feed.categories))
+    func textFieldShouldReturn(tag: Int, textFieldText: String?) {
+        if tag == 0 {
+            guard let textFieldText = textFieldText, !textFieldText.isEmpty else { return }
+            view.showSpinner()
+            networkService.fetchData(from: textFieldText) { (result) in
+                DispatchQueue.main.async {
+                    self.view.removeSpinner()
+                    switch result {
+                    case .success(let feed):
+                        if let feed = feed {
+                            self.view.updateUI(url: textFieldText, title: feed.title, categories: Array(feed.categories))
+                        }
+                        self.view.activateSaveButton()
+                    case .failure(let error):
+                        self.view.showError(message: error.localizedDescription)
+                        self.view.disableSaveButton()
                     }
-                    self.view.activateSaveButton()
-                case .failure(let error):
-                    self.view.showError(message: error.localizedDescription)
+                    return
                 }
+            }
+        }
+        if tag == 1 {
+            guard let textFieldText = textFieldText, let currentFeed = currentFeed else { return }
+            if currentFeed.title != textFieldText {
+                self.view.activateSaveButton()
+            } else {
+                self.view.disableSaveButton()
             }
         }
     }

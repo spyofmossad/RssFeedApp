@@ -101,7 +101,7 @@ extension FeedsViewController: UITableViewDelegate {
     private func delete(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
             self.feedsTable.beginUpdates()
-            self.presenter?.deleteFeed(at: indexPath)
+            self.presenter?.onTapDelete(at: indexPath)
             self.feedsTable.deleteRows(at: [indexPath], with: .fade)
             self.feedsTable.endUpdates()
         }
