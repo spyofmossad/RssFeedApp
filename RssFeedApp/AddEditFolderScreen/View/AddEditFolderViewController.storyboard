@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uAQ-fm-lgL">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,39 +13,39 @@
             <objects>
                 <viewController storyboardIdentifier="AddEditFolderViewController" id="uAQ-fm-lgL" customClass="AddEditFolderViewController" customModule="RssFeedApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uCr-Z3-VdI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wtn-sN-LOd">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RKc-bA-pX0">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="826"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="734"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter folder name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PB0-0e-7Gq">
-                                                <rect key="frame" x="20" y="8" width="374" height="34"/>
+                                                <rect key="frame" x="20" y="8" width="335" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select to add feed in folder:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DV0-II-B6Q">
-                                                <rect key="frame" x="20" y="50" width="374" height="21"/>
+                                                <rect key="frame" x="20" y="50" width="335" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="F5l-Ee-2JO">
-                                                <rect key="frame" x="20" y="79" width="374" height="315"/>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="F5l-Ee-2JO">
+                                                <rect key="frame" x="20" y="79" width="335" height="260"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="freeFeedCell" textLabel="klz-aW-GG3" style="IBUITableViewCellStyleDefault" id="qE9-1a-wfV" customClass="FeedsTableViewCell" customModule="RssFeedApp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="374" height="43.5"/>
+                                                        <rect key="frame" x="0.0" y="28" width="335" height="43.666667938232422"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qE9-1a-wfV" id="ATV-Hn-pMm">
-                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="43.666667938232422"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="klz-aW-GG3">
-                                                                    <rect key="frame" x="20" y="0.0" width="334" height="43.5"/>
+                                                                    <rect key="frame" x="16" y="0.0" width="303" height="43.666667938232422"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -61,24 +61,24 @@
                                                 </connections>
                                             </tableView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feeds in folder (select to remove):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxH-C9-dFM">
-                                                <rect key="frame" x="20" y="410" width="374" height="21"/>
+                                                <rect key="frame" x="20" y="355" width="335" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2GT-C9-xgd">
-                                                <rect key="frame" x="20" y="439" width="374" height="315"/>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2GT-C9-xgd">
+                                                <rect key="frame" x="20" y="384" width="335" height="259.66666666666674"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="feedInFolderCell" textLabel="ApP-DT-veV" style="IBUITableViewCellStyleDefault" id="2r2-tk-jZ4" customClass="FeedsTableViewCell" customModule="RssFeedApp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="374" height="43.5"/>
+                                                        <rect key="frame" x="0.0" y="28" width="335" height="43.666667938232422"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2r2-tk-jZ4" id="hdQ-2G-BuY">
-                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="43.666667938232422"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ApP-DT-veV">
-                                                                    <rect key="frame" x="20" y="0.0" width="334" height="43.5"/>
+                                                                    <rect key="frame" x="16" y="0.0" width="303" height="43.666667938232422"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -94,7 +94,7 @@
                                                 </connections>
                                             </tableView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5j-f7-2na">
-                                                <rect key="frame" x="184.5" y="778" width="45" height="30"/>
+                                                <rect key="frame" x="165" y="667.66666666666663" width="45" height="30"/>
                                                 <state key="normal" title="Delete">
                                                     <color key="titleColor" systemColor="systemRedColor"/>
                                                 </state>
@@ -118,7 +118,6 @@
                                             <constraint firstAttribute="trailing" secondItem="PB0-0e-7Gq" secondAttribute="trailing" constant="20" symbolic="YES" id="egd-j3-enP"/>
                                             <constraint firstAttribute="trailing" secondItem="F5l-Ee-2JO" secondAttribute="trailing" constant="20" symbolic="YES" id="hZl-yI-Vty"/>
                                             <constraint firstItem="DV0-II-B6Q" firstAttribute="top" secondItem="PB0-0e-7Gq" secondAttribute="bottom" constant="8" symbolic="YES" id="ixT-VX-qDU"/>
-                                            <constraint firstAttribute="bottom" secondItem="y5j-f7-2na" secondAttribute="bottom" constant="18" id="mQ6-1X-ZHZ"/>
                                             <constraint firstAttribute="trailing" secondItem="2GT-C9-xgd" secondAttribute="trailing" constant="20" symbolic="YES" id="wui-Em-nSb"/>
                                             <constraint firstItem="2GT-C9-xgd" firstAttribute="leading" secondItem="RKc-bA-pX0" secondAttribute="leading" constant="20" symbolic="YES" id="yZd-SP-Kjj"/>
                                         </constraints>
@@ -137,8 +136,8 @@
                         <viewLayoutGuide key="safeArea" id="E7r-rb-NFE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="F5l-Ee-2JO" firstAttribute="height" secondItem="uCr-Z3-VdI" secondAttribute="height" multiplier="0.351562" id="1bt-UL-WHf"/>
                             <constraint firstItem="wtn-sN-LOd" firstAttribute="leading" secondItem="E7r-rb-NFE" secondAttribute="leading" id="LEq-JA-oJ2"/>
+                            <constraint firstItem="F5l-Ee-2JO" firstAttribute="height" secondItem="uCr-Z3-VdI" secondAttribute="height" multiplier="0.32" id="hwk-cz-rHE"/>
                             <constraint firstItem="E7r-rb-NFE" firstAttribute="bottom" secondItem="wtn-sN-LOd" secondAttribute="bottom" id="iit-Jd-pz7"/>
                             <constraint firstItem="wtn-sN-LOd" firstAttribute="top" secondItem="E7r-rb-NFE" secondAttribute="top" id="llh-Ww-1Zr"/>
                             <constraint firstItem="E7r-rb-NFE" firstAttribute="trailing" secondItem="wtn-sN-LOd" secondAttribute="trailing" id="q2g-qi-OHU"/>
