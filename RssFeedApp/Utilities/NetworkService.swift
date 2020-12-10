@@ -21,7 +21,9 @@ class NetworkService: NetworkServiceProtocol {
             }
             if let data = data {
                 do {
-                    let feed = try XMLDecoder().decode(Rss.self, from: data)
+                    let decoder = XMLDecoder()
+                    decoder.shouldProcessNamespaces = true
+                    let feed = try decoder.decode(Rss.self, from: data)
                     let rssFeed = RealmRss(feed: feed)
                     completion(.success(rssFeed))
                 } catch (let error) {

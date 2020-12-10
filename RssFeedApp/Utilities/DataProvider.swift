@@ -14,8 +14,10 @@ protocol DataProviderProtocol {
     
     func save(folder: Folder)
     func save(feed: RealmRss, to folder: Folder?)
+    func delete(news: RealmNews)
     func delete(feed: RealmRss)
     func delete(folder: Folder)
+    func update(news: RealmNews, isRead: Bool)
     func update(feed: RealmRss, new url: String?, new title: String?, new categories: [String]?)
     func update(folder: Folder, title: String)
     func move(feed: RealmRss, to folder: Folder)
@@ -59,18 +61,29 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
+    func delete(news: RealmNews) {
+        write {
+            realm.delete(news)
+        }
+    }
+    
     func delete(feed: RealmRss) {
+        feed.news.forEach({self.delete(news: $0)})
         write {
             realm.delete(feed)
         }
     }
     
     func delete(folder: Folder) {
-        folder.feeds.forEach { (feed) in
-            self.delete(feed: feed)
-        }
+        folder.feeds.forEach {self.delete(feed: $0)}
         write {
             realm.delete(folder)
+        }
+    }
+    
+    func update(news: RealmNews, isRead: Bool) {
+        write {
+            news.isRead = isRead
         }
     }
     

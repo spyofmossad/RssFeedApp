@@ -30,6 +30,8 @@ protocol FeedsPresenterProtocol: class {
     func headerOnTap(section: Int)
     func headerOnLongTap(section: Int)
     func heightForHeaderInSection(section: Int) -> Int
+    
+    func didSelectRowAt(indexPath: IndexPath)
 }
 
 class FeedsPresenter: FeedsPresenterProtocol {
@@ -105,6 +107,11 @@ class FeedsPresenter: FeedsPresenterProtocol {
     func headerOnLongTap(section: Int) {
         let folder = dataProvider.foldersList[section]
         coordinator.goToAddEditFolderScreen(folder: folder)
+    }
+    
+    func didSelectRowAt(indexPath: IndexPath) {
+        let news = dataProvider.foldersList[indexPath.section].feeds[indexPath.row].news
+        coordinator.goToNewsScren(news: Array(news))
     }
 }
 

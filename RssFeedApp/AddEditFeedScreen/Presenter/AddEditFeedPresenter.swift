@@ -58,6 +58,8 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
                     switch result {
                     case .success(let feed):
                         if let feed = feed {
+                            self.newFeed = feed
+                            self.newFeed?.url = textFieldText
                             self.view.updateUI(url: textFieldText, title: feed.title, categories: Array(feed.categories))
                         }
                         self.view.activateSaveButton()
@@ -82,12 +84,9 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
     func saveChanges() {
         if let currentFeed = currentFeed {
             dataProvider.update(feed: currentFeed, new: view.feedUrl, new: view.feedTitleText, new: view.feedCategories)
-        } else {
-            let feed = RealmRss()
-            feed.url = view.feedUrl
-            feed.title = view.feedTitleText
-            feed.categories.append(objectsIn: view.feedCategories)
-            dataProvider.save(feed: feed, to: nil)
+        }
+        if let newFeed = newFeed {
+            dataProvider.save(feed: newFeed, to: nil)
         }
         coordinator.popToRoot()
     }

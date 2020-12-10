@@ -14,6 +14,7 @@ protocol FeedsTableCellProtocol {
 protocol FeedsTableCellPresenterProtocol {
     var title: String { get }
     var category: String { get }
+    var newsCount: Int { get }
     
     init(feed: RealmRss)
 }
@@ -32,5 +33,9 @@ class FeedsTableCellPresenter: FeedsTableCellPresenterProtocol {
     
     var category: String {
         return feed.categories.joined(separator: ", ")
+    }
+    
+    var newsCount: Int {
+        return feed.news.count
     }
 }

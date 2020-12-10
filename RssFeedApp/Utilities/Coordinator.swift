@@ -43,10 +43,9 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(addEditFolderView, animated: true)
     }
     
-    func goToNewsScren() {
-        let news = UIStoryboard.init(name: "News", bundle: nil).instantiateViewController(identifier: "NewsViewController") as! NewsViewController
-        news.delegate = self
-        navigationController.pushViewController(news, animated: true)
+    func goToNewsScren(news: [RealmNews]) {
+        let newsView = screenBuilder.newsView(coordinator: self, news: news)
+        navigationController.pushViewController(newsView, animated: true)
     }
     
     func goToNewsDetailsScreen() {
@@ -60,8 +59,3 @@ class AppCoordinator: Coordinator {
 
 }
 
-extension AppCoordinator: NewsDelegate {
-    func openNewsDetails() {
-        goToNewsDetailsScreen()
-    }
-}

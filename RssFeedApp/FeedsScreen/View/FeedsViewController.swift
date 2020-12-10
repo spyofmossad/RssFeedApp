@@ -50,7 +50,6 @@ extension FeedsViewController: FeedsViewProtocol {
             self.feedsTable.deleteRows(at: indexPaths, with: .fade)
         }
     }
-
 }
 
 extension FeedsViewController: UITableViewDataSource {
@@ -98,6 +97,18 @@ extension FeedsViewController: UITableViewDataSource {
 }
 
 extension FeedsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = self.delete(at: indexPath)
+        let edit = self.edit(at: indexPath)
+        let swipe = UISwipeActionsConfiguration(actions: [delete, edit])
+        
+        return swipe
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.didSelectRowAt(indexPath: indexPath)
+    }
+    
     private func delete(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
             self.feedsTable.beginUpdates()
@@ -115,13 +126,5 @@ extension FeedsViewController: UITableViewDelegate {
         }
         
         return action
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = self.delete(at: indexPath)
-        let edit = self.edit(at: indexPath)
-        let swipe = UISwipeActionsConfiguration(actions: [delete, edit])
-        
-        return swipe
     }
 }

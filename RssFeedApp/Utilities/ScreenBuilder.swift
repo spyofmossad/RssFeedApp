@@ -9,17 +9,18 @@ import Foundation
 import UIKit
 
 protocol ScreenBuilderProtocol: class {
-    init(dataProvider: DataProviderProtocol, networkService: NetworkService)
+    init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol)
     func feedsView(coordinator: AppCoordinator) -> UIViewController
     func addEditFeedView(coordinator: AppCoordinator, feed: RealmRss?) -> UIViewController
     func addEditFolderView(coordinator: AppCoordinator, folder: Folder?) -> UIViewController
+    func newsView(coordinator: AppCoordinator, news: [RealmNews]) -> UIViewController
 }
 
 class ScreenBuilder: ScreenBuilderProtocol {
     private var dataProvider: DataProviderProtocol
     private var networkService: NetworkServiceProtocol
     
-    required init(dataProvider: DataProviderProtocol, networkService: NetworkService) {
+    required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol) {
         self.dataProvider = dataProvider
         self.networkService = networkService
     }
@@ -46,5 +47,13 @@ class ScreenBuilder: ScreenBuilderProtocol {
         addEditFolderView.presenter = addEditFolderPresenter
         
         return addEditFolderView
+    }
+    
+    func newsView(coordinator: AppCoordinator, news: [RealmNews]) -> UIViewController {
+        let newsView = NewsViewController.instantiate()
+        let newsViewPresenter = NewsViewPresenter(dataProvider: dataProvider, networkService: networkService, coordinator: coordinator, view: newsView, news: news)
+        newsView.presenter = newsViewPresenter
+        
+        return newsView
     }
 }
