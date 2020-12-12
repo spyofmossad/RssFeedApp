@@ -48,14 +48,12 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(newsView, animated: true)
     }
     
-    func goToNewsDetailsScreen() {
-        let newsDetails = UIStoryboard.init(name: "NewsDetails", bundle: nil).instantiateViewController(identifier: "NewsDetailsViewController") as! NewsDetailsViewController
-        navigationController.pushViewController(newsDetails, animated: true)
+    func goToNewsDetailsScreen(news: RealmNews) {
+        let newsDetailsView = screenBuilder.newsDetailsView(coordinator: self, news: news)
+        navigationController.pushViewController(newsDetailsView, animated: true)
     }
     
     func popToRoot() {
         navigationController.popToRootViewController(animated: true)
     }
-
 }
-

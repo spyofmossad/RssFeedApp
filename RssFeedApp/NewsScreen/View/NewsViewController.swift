@@ -52,6 +52,11 @@ extension NewsViewController: UITableViewDataSource {
         
         return cell!
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.didSelectRowAt(indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 extension NewsViewController: UITableViewDelegate {

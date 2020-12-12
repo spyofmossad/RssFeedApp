@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rDe-GM-7SJ">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--News Details View Controller-->
+        <scene sceneID="HaY-6x-k2p">
+            <objects>
+                <viewController storyboardIdentifier="NewsDetailsViewController" id="rDe-GM-7SJ" customClass="NewsDetailsViewController" customModule="RssFeedApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ikn-13-DEI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXL-6v-NwK">
+                                <rect key="frame" x="16" y="375" width="382" height="203"/>
+                                <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PLy-W7-wI8">
+                                <rect key="frame" x="16" y="52" width="382" height="215"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="PLy-W7-wI8" secondAttribute="height" multiplier="16:9" id="OvC-Oz-chK"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NgK-VT-Tmv">
+                                <rect key="frame" x="16" y="275" width="382" height="92"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="92" id="gbu-RD-9nc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="nQt-jq-INZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="PLy-W7-wI8" firstAttribute="leading" secondItem="nQt-jq-INZ" secondAttribute="leading" constant="16" id="6pc-3k-vf0"/>
+                            <constraint firstItem="PLy-W7-wI8" firstAttribute="top" secondItem="nQt-jq-INZ" secondAttribute="top" constant="8" id="82K-sD-8fC"/>
+                            <constraint firstItem="nQt-jq-INZ" firstAttribute="trailing" secondItem="NgK-VT-Tmv" secondAttribute="trailing" constant="16" id="FYP-ji-ljd"/>
+                            <constraint firstItem="QXL-6v-NwK" firstAttribute="top" secondItem="NgK-VT-Tmv" secondAttribute="bottom" constant="8" id="UhC-Ds-O6P"/>
+                            <constraint firstItem="NgK-VT-Tmv" firstAttribute="leading" secondItem="nQt-jq-INZ" secondAttribute="leading" constant="16" id="Ujq-7l-ZWV"/>
+                            <constraint firstItem="nQt-jq-INZ" firstAttribute="trailing" secondItem="PLy-W7-wI8" secondAttribute="trailing" constant="16" id="oJn-20-ZXq"/>
+                            <constraint firstItem="nQt-jq-INZ" firstAttribute="trailing" secondItem="QXL-6v-NwK" secondAttribute="trailing" constant="16" id="qpr-bm-cIh"/>
+                            <constraint firstItem="NgK-VT-Tmv" firstAttribute="top" secondItem="PLy-W7-wI8" secondAttribute="bottom" constant="8" symbolic="YES" id="rUY-Ck-6Q9"/>
+                            <constraint firstItem="QXL-6v-NwK" firstAttribute="leading" secondItem="nQt-jq-INZ" secondAttribute="leading" constant="16" id="t3b-ya-KCn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="newsDescr" destination="QXL-6v-NwK" id="87J-pa-MOP"/>
+                        <outlet property="newsImage" destination="PLy-W7-wI8" id="nTD-dA-tzQ"/>
+                        <outlet property="newsTitle" destination="NgK-VT-Tmv" id="a6E-lZ-vzz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lp4-16-Q4U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-31.884057971014496" y="162.72321428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
