@@ -60,7 +60,7 @@ class ScreenBuilder: ScreenBuilderProtocol {
     
     func newsDetailsView(coordinator: AppCoordinator, news: RealmNews) -> UIViewController {
         let newsDetailsView = NewsDetailsViewController.instantiate()
-        let newsDetailsPresenter = NewsDetailsPresenter(coordinator: coordinator, view: newsDetailsView, news: news)
+        let newsDetailsPresenter = NewsDetailsPresenter(dataProvider: dataProvider, coordinator: coordinator, view: newsDetailsView, news: news)
         newsDetailsView.presenter = newsDetailsPresenter
         
         return newsDetailsView

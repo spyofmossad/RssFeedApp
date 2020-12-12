@@ -18,6 +18,7 @@ protocol DataProviderProtocol {
     func delete(feed: RealmRss)
     func delete(folder: Folder)
     func update(news: RealmNews, isRead: Bool)
+    func update(news: RealmNews, addToFavorite: Bool)
     func update(feed: RealmRss, new url: String?, new title: String?, new categories: [String]?)
     func update(folder: Folder, title: String)
     func move(feed: RealmRss, to folder: Folder)
@@ -84,6 +85,12 @@ class DataProvider: DataProviderProtocol {
     func update(news: RealmNews, isRead: Bool) {
         write {
             news.isRead = isRead
+        }
+    }
+    
+    func update(news: RealmNews, addToFavorite: Bool) {
+        write {
+            news.favorite = addToFavorite
         }
     }
     

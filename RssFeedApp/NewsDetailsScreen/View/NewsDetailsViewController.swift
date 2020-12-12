@@ -18,20 +18,20 @@ class NewsDetailsViewController: UIViewController, StoryboardInit {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let favNewsItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(favOnTap))
         let shareNewsItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareOnTap))
         let safariItem = UIBarButtonItem(image: UIImage(systemName: "safari"), style: .plain, target: self, action: #selector(safariOnTap))
-        navigationItem.rightBarButtonItems = [shareNewsItem, favNewsItem, safariItem]
+        navigationItem.rightBarButtonItems = [shareNewsItem, safariItem]
         presenter?.updateUI()
     }
     
 }
 
 extension NewsDetailsViewController: NewsDetailsViewProtocol {
-    func updateUI(imageUrl: String, title: String, descr: String) {
+    func updateUI(imageUrl: String, title: String, descr: String, favorite: Bool) {
         newsImage.sd_setImage(with: URL(string: imageUrl), completed: nil)
         newsTitle.text = title
         newsDescr.text = descr
+        updateTabBar(addToFav: favorite)
     }
     
     @objc func shareOnTap() {
@@ -39,7 +39,7 @@ extension NewsDetailsViewController: NewsDetailsViewProtocol {
     }
     
     @objc func favOnTap() {
-        
+        presenter?.favOnTap()
     }
     
     @objc func safariOnTap() {
@@ -56,4 +56,20 @@ extension NewsDetailsViewController: NewsDetailsViewProtocol {
         alert.addAction(okButton)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func updateTabBar(addToFav: Bool) {
+        var buttonImage: UIImage?
+        if addToFav {
+            buttonImage = UIImage(systemName: "star.fill")
+        } else {
+            buttonImage = UIImage(systemName: "star")
+        }
+        
+        let favNewsItem = UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: #selector(favOnTap))
+        if self.navigationItem.rightBarButtonItems?.count ?? 0 > 2 {
+            self.navigationItem.rightBarButtonItems?.removeLast()
+        }
+        self.navigationItem.rightBarButtonItems?.append(favNewsItem)
+    }
+
 }
