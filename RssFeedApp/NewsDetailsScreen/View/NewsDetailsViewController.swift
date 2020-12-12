@@ -35,7 +35,7 @@ extension NewsDetailsViewController: NewsDetailsViewProtocol {
     }
     
     @objc func shareOnTap() {
-        
+        presenter?.shareOnTap()
     }
     
     @objc func favOnTap() {
@@ -71,5 +71,9 @@ extension NewsDetailsViewController: NewsDetailsViewProtocol {
         }
         self.navigationItem.rightBarButtonItems?.append(favNewsItem)
     }
-
+    
+    func share(url: URL) {
+        let activityView = UIActivityViewController(activityItems: [url], applicationActivities: [])
+        present(activityView, animated: true)
+    }
 }

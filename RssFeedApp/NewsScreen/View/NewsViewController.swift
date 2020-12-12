@@ -19,6 +19,11 @@ class NewsViewController: UIViewController, StoryboardInit {
         newsTable.register(nib, forCellReuseIdentifier: "newsCell")
         presenter?.updateUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        newsTable.reloadData()
+    }
 }
 
 extension NewsViewController: NewsViewProtocol {

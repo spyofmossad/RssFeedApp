@@ -14,6 +14,7 @@ protocol NewsDetailsViewProtocol: class {
     func shareOnTap()
     func safariOnTap()
     func openSafari(url: URL)
+    func share(url: URL)
     func showAlert(title: String, text: String)
 }
 
@@ -22,6 +23,7 @@ protocol NewsDetailsPresenterProtocol {
     func updateUI()
     func safariOnTap()
     func favOnTap()
+    func shareOnTap()
 }
 
 class NewsDetailsPresenter: NewsDetailsPresenterProtocol {
@@ -35,6 +37,7 @@ class NewsDetailsPresenter: NewsDetailsPresenterProtocol {
         self.dataProvider = dataProvider
         self.view = view
         self.news = news
+        dataProvider.update(news: self.news, isRead: true)
     }
     
     func updateUI() {
@@ -45,12 +48,19 @@ class NewsDetailsPresenter: NewsDetailsPresenterProtocol {
         if let url = URL(string: news.link) {
             return view.openSafari(url: url)
         }
-        view.showAlert(title: "Unable to open", text: "Link is corrupted or empry, unable to open link")
+        view.showAlert(title: "Unable to proceed", text: "Link is corrupted or empry, unable to open link")
     }
     
     func favOnTap() {
         let flag = !news.favorite
         dataProvider.update(news: news, addToFavorite: flag)
         view.updateTabBar(addToFav: flag)
+    }
+    
+    func shareOnTap() {
+        if let url = URL(string: news.link) {
+            return view.share(url: url)
+        }
+        view.showAlert(title: "Unable to proceed", text: "Link is corrupted or empry, unable to open link")
     }
 }
