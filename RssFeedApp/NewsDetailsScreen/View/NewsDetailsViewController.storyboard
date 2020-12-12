@@ -17,22 +17,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXL-6v-NwK">
-                                <rect key="frame" x="16" y="375" width="382" height="203"/>
+                                <rect key="frame" x="16" y="341.5" width="382" height="203"/>
                                 <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PLy-W7-wI8">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PLy-W7-wI8">
                                 <rect key="frame" x="16" y="52" width="382" height="215"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="PLy-W7-wI8" secondAttribute="height" multiplier="16:9" id="OvC-Oz-chK"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NgK-VT-Tmv">
-                                <rect key="frame" x="16" y="275" width="382" height="92"/>
+                                <rect key="frame" x="16" y="283" width="382" height="26.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="92" id="gbu-RD-9nc"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="gbu-RD-9nc"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
@@ -45,11 +45,11 @@
                             <constraint firstItem="PLy-W7-wI8" firstAttribute="leading" secondItem="nQt-jq-INZ" secondAttribute="leading" constant="16" id="6pc-3k-vf0"/>
                             <constraint firstItem="PLy-W7-wI8" firstAttribute="top" secondItem="nQt-jq-INZ" secondAttribute="top" constant="8" id="82K-sD-8fC"/>
                             <constraint firstItem="nQt-jq-INZ" firstAttribute="trailing" secondItem="NgK-VT-Tmv" secondAttribute="trailing" constant="16" id="FYP-ji-ljd"/>
-                            <constraint firstItem="QXL-6v-NwK" firstAttribute="top" secondItem="NgK-VT-Tmv" secondAttribute="bottom" constant="8" id="UhC-Ds-O6P"/>
+                            <constraint firstItem="QXL-6v-NwK" firstAttribute="top" secondItem="NgK-VT-Tmv" secondAttribute="bottom" constant="32" id="UhC-Ds-O6P"/>
                             <constraint firstItem="NgK-VT-Tmv" firstAttribute="leading" secondItem="nQt-jq-INZ" secondAttribute="leading" constant="16" id="Ujq-7l-ZWV"/>
                             <constraint firstItem="nQt-jq-INZ" firstAttribute="trailing" secondItem="PLy-W7-wI8" secondAttribute="trailing" constant="16" id="oJn-20-ZXq"/>
                             <constraint firstItem="nQt-jq-INZ" firstAttribute="trailing" secondItem="QXL-6v-NwK" secondAttribute="trailing" constant="16" id="qpr-bm-cIh"/>
-                            <constraint firstItem="NgK-VT-Tmv" firstAttribute="top" secondItem="PLy-W7-wI8" secondAttribute="bottom" constant="8" symbolic="YES" id="rUY-Ck-6Q9"/>
+                            <constraint firstItem="NgK-VT-Tmv" firstAttribute="top" secondItem="PLy-W7-wI8" secondAttribute="bottom" constant="16" id="rUY-Ck-6Q9"/>
                             <constraint firstItem="QXL-6v-NwK" firstAttribute="leading" secondItem="nQt-jq-INZ" secondAttribute="leading" constant="16" id="t3b-ya-KCn"/>
                         </constraints>
                     </view>
