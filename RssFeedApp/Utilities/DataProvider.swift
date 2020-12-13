@@ -20,6 +20,7 @@ protocol DataProviderProtocol {
     func update(news: RealmNews, isRead: Bool)
     func update(news: RealmNews, addToFavorite: Bool)
     func update(feed: RealmRss, _ url: String?, _ title: String?, _ categories: [String]?)
+    func update(feed: RealmRss, with news: [RealmNews])
     func update(folder: Folder, title: String)
     func move(feed: RealmRss, to folder: Folder)
     func moveToDefault(feed: RealmRss, from folder: Folder)
@@ -103,6 +104,12 @@ class DataProvider: DataProviderProtocol {
                 feed.categories.removeAll()
                 feed.categories.append(objectsIn: categories)
             }
+        }
+    }
+    
+    func update(feed: RealmRss, with news: [RealmNews]) {
+        write {
+            feed.news.append(objectsIn: news)
         }
     }
     

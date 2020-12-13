@@ -9,13 +9,16 @@ import Foundation
 
 protocol NewsViewProtocol: class {
     func updateUI()
+    func onRefresh()
+    func endRefresh()
 }
 
 protocol NewsViewPresenterProtocol {
     var numberOfSections: Int { get }
-    init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, news: [RealmNews])
+    init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, feed: RealmRss)
     
     func updateUI()
+    func onRefresh()
     func titleForHeaderInSection(section: Int) -> String
     func numberOfRowsInSection(section: Int) -> Int
     func tableViewCellPresenterAt(indexPath: IndexPath, cell: NewsCellViewProtocol) -> NewsCellPresenterProtocol
@@ -35,24 +38,24 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
     private var dataProvider: DataProviderProtocol
     private var networkService: NetworkServiceProtocol
     private var coordinator: AppCoordinator
-    private var news: [RealmNews]
+    private var feed: RealmRss
     private var todayNews: [RealmNews] {
-        return news.filter{ (news) in
+        return feed.news.filter{ (news) in
             news.date! > Date().beginOfDay && news.date! < Date()
         }
     }
     private var yesterdayNews: [RealmNews] {
-        return news.filter { (news) in
+        return feed.news.filter { (news) in
             news.date! > Date().yesterday.beginOfDay && news.date! < Date().yesterday.endOfDay
         }
     }
     private var lastWeekNews: [RealmNews] {
-        return news.filter { (news) in
+        return feed.news.filter { (news) in
             news.date! > Date().lastWeek.beginOfDay && news.date! < Date().yesterday.beginOfDay
         }
     }
     private var olderNews: [RealmNews] {
-        return news.filter { (news) in
+        return feed.news.filter { (news) in
             news.date! < Date().lastWeek.beginOfDay
         }
     }
@@ -63,19 +66,19 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
     private unowned var view: NewsViewProtocol
     
     var numberOfRowsInSection: Int {
-        return news.count
+        return feed.news.count
     }
     
     var numberOfSections: Int {
         return 4
     }
     
-    required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, news: [RealmNews]) {
+    required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, feed: RealmRss) {
         self.dataProvider = dataProvider
         self.networkService = networkService
         self.coordinator = coordinator
         self.view = view
-        self.news = news
+        self.feed = feed
     }
     
     func updateUI() {
@@ -119,5 +122,33 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
     func swipeActionTitleForRowAt(indexPath: IndexPath) -> String {
         let news = allNews[indexPath.section][indexPath.row]
         return news.isRead ? "Mark as unread" : "Mask as read"
+    }
+    
+    func onRefresh() {
+        networkService.fetchData(from: feed.url) { (result) in
+            switch result {
+            case .success(let update):
+                if let update = update {
+                    DispatchQueue.main.async {
+                        let newNewsCollection = update.news.filter { (updNews) in
+                            for news in self.feed.news {
+                                if news.link == updNews.link {
+                                    return false
+                                }
+                            }
+                            return true
+                        }
+                        self.dataProvider.update(feed: self.feed, with: Array(newNewsCollection))
+                        self.view.updateUI()
+                        self.view.endRefresh()
+                    }
+                }
+            case .failure(let error):
+                assertionFailure(error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.view.endRefresh()
+                }
+            }
+        }
     }
 }

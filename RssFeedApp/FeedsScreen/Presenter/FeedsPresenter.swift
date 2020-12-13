@@ -121,8 +121,7 @@ class FeedsPresenter: FeedsPresenterProtocol {
     }
     
     func didSelectRowAt(indexPath: IndexPath) {
-        let news = dataProvider.foldersList[indexPath.section].feeds[indexPath.row].news
-        coordinator.goToNewsScren(news: Array(news))
+        let feed = dataProvider.foldersList[indexPath.section].feeds[indexPath.row]
+        coordinator.goToNewsScren(feed: feed)
     }
 }
-

@@ -17,6 +17,8 @@ class NewsViewController: UIViewController, StoryboardInit {
         super.viewDidLoad()
         let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
         newsTable.register(nib, forCellReuseIdentifier: "newsCell")
+        newsTable.refreshControl = UIRefreshControl()
+        newsTable.refreshControl?.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
         presenter?.updateUI()
     }
     
@@ -29,6 +31,14 @@ class NewsViewController: UIViewController, StoryboardInit {
 extension NewsViewController: NewsViewProtocol {
     func updateUI() {
         newsTable.reloadData()
+    }
+    
+    @objc func onRefresh() {
+        presenter?.onRefresh()
+    }
+    
+    func endRefresh() {
+        newsTable.refreshControl?.endRefreshing()
     }
 }
 

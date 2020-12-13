@@ -43,8 +43,8 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(addEditFolderView, animated: true)
     }
     
-    func goToNewsScren(news: [RealmNews]) {
-        let newsView = screenBuilder.newsView(coordinator: self, news: news)
+    func goToNewsScren(feed: RealmRss) {
+        let newsView = screenBuilder.newsView(coordinator: self, feed: feed)
         navigationController.pushViewController(newsView, animated: true)
     }
     
