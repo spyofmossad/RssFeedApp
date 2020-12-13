@@ -21,6 +21,7 @@ protocol NewsViewPresenterProtocol {
     func tableViewCellPresenterAt(indexPath: IndexPath, cell: NewsCellViewProtocol) -> NewsCellPresenterProtocol
     func markAsRead(at indexPath: IndexPath)
     func didSelectRowAt(_ indexPath: IndexPath)
+    func swipeActionTitleForRowAt(indexPath: IndexPath) -> String
 }
 
 class NewsViewPresenter: NewsViewPresenterProtocol {
@@ -107,11 +108,16 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
     
     func markAsRead(at indexPath: IndexPath) {
         let news = allNews[indexPath.section][indexPath.row]
-        dataProvider.update(news: news, isRead: true)
+        dataProvider.update(news: news, isRead: !news.isRead)
     }
     
     func didSelectRowAt(_ indexPath: IndexPath) {
         let selectedNews = allNews[indexPath.section][indexPath.row]
         coordinator.goToNewsDetailsScreen(news: selectedNews)
+    }
+    
+    func swipeActionTitleForRowAt(indexPath: IndexPath) -> String {
+        let news = allNews[indexPath.section][indexPath.row]
+        return news.isRead ? "Mark as unread" : "Mask as read"
     }
 }

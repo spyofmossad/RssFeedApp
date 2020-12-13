@@ -70,7 +70,8 @@ extension NewsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let markAsRead = UIContextualAction(style: .normal, title: "Mark as Read") { (_, _, completion) in
+        let actionTitle = presenter?.swipeActionTitleForRowAt(indexPath: indexPath)
+        let markAsRead = UIContextualAction(style: .normal, title: actionTitle) { (_, _, completion) in
             self.presenter?.markAsRead(at: indexPath)
             self.newsTable.reloadRows(at: [indexPath], with: .automatic)
             completion(true)

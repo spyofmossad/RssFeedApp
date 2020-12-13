@@ -30,9 +30,7 @@ protocol AddFeedPresenterProtocol: class {
 }
 
 class AddEditFeedPresenter: AddFeedPresenterProtocol {
-    
     private unowned var view: AddFeedViewProtocol
-    
     private var dataProvider: DataProviderProtocol
     private var coordinator: AppCoordinator
     private var networkService: NetworkServiceProtocol
@@ -49,8 +47,11 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
     }
     
     func textFieldShouldReturn(tag: Int, textFieldText: String?) {
+        guard let textFieldText = textFieldText, !textFieldText.isEmpty else {
+            self.view.disableSaveButton()
+            return
+        }
         if tag == 0 {
-            guard let textFieldText = textFieldText, !textFieldText.isEmpty else { return }
             view.showSpinner()
             networkService.fetchData(from: textFieldText) { (result) in
                 DispatchQueue.main.async {
@@ -72,20 +73,24 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
             }
         }
         if tag == 1 {
-            guard let textFieldText = textFieldText, let currentFeed = currentFeed else { return }
-            if currentFeed.title != textFieldText {
-                self.view.activateSaveButton()
-            } else {
+            guard currentFeed != nil else { return }
+            if textFieldText == " " {
                 self.view.disableSaveButton()
+            } else {
+                self.view.activateSaveButton()
             }
         }
     }
     
     func saveChanges() {
         if let currentFeed = currentFeed {
-            dataProvider.update(feed: currentFeed, new: view.feedUrl, new: view.feedTitleText, new: view.feedCategories)
-        }
-        if let newFeed = newFeed {
+            if let newFeed = newFeed {
+                dataProvider.replace(old: currentFeed, with: newFeed)
+            } else {
+                dataProvider.update(feed: currentFeed, view.feedUrl, view.feedTitleText, view.feedCategories)
+            }
+        } else if let newFeed = newFeed {
+            newFeed.title = view.feedTitleText
             dataProvider.save(feed: newFeed, to: nil)
         }
         coordinator.popToRoot()

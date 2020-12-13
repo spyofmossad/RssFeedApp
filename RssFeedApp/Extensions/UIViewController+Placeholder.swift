@@ -7,7 +7,7 @@
 
 import UIKit
 
-var placeholderView: UIView?
+var placeholder: UIView?
 
 extension UIViewController {
     func showPlaceholder(in container: UIView, with text: String) {
@@ -21,16 +21,19 @@ extension UIViewController {
             label.numberOfLines = 0
             label.textAlignment = .center
             placeholderView.addSubview(label)
+            if let placeholder = placeholder {
+                placeholder.removeFromSuperview()
+            }
             container.addSubview(placeholderView)
             
-            pView = placeholderView
+            placeholder = placeholderView
         }
     }
     
     func removePlaceholder() {
         DispatchQueue.main.async {
-            placeholderView?.removeFromSuperview()
-            placeholderView = nil
+            placeholder?.removeFromSuperview()
+            placeholder = nil
         }
     }
 }

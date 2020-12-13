@@ -26,7 +26,7 @@ class FeedsViewController: UIViewController, StoryboardInit {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        feedsTable.reloadData()
+        presenter?.updateUI()
     }
     
     @objc private func addFeed() {
@@ -39,6 +39,15 @@ class FeedsViewController: UIViewController, StoryboardInit {
 }
 
 extension FeedsViewController: FeedsViewProtocol {
+    func updateUI() {
+        removePlaceholder()
+        feedsTable.reloadData()
+    }
+    
+    func showPlaceholder(with text: String) {
+        showPlaceholder(in: self.view, with: text)
+    }
+    
     func expandCollapse(_ section: Int) {
         guard let indexPaths = presenter?.indexPaths(for: section) else { return }
         
@@ -98,33 +107,20 @@ extension FeedsViewController: UITableViewDataSource {
 
 extension FeedsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = self.delete(at: indexPath)
-        let edit = self.edit(at: indexPath)
-        let swipe = UISwipeActionsConfiguration(actions: [delete, edit])
-        
-        return swipe
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.didSelectRowAt(indexPath: indexPath)
-    }
-    
-    private func delete(at indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
             self.feedsTable.beginUpdates()
             self.presenter?.onTapDelete(at: indexPath)
             self.feedsTable.deleteRows(at: [indexPath], with: .fade)
             self.feedsTable.endUpdates()
         }
-        
-        return action
-    }
-    
-    private func edit(at indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .normal, title: "Edit") { (_, _, _) in
+        let edit = UIContextualAction(style: .normal, title: "Edit") { (_, _, _) in
             self.presenter?.onTapEditFeed(at: indexPath)
         }
         
-        return action
+        return UISwipeActionsConfiguration(actions: [delete, edit])
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.didSelectRowAt(indexPath: indexPath)
     }
 }

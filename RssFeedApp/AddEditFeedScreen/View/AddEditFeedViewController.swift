@@ -23,7 +23,7 @@ class AddEditFeedViewController: UIViewController, StoryboardInit {
     override func viewDidLoad() {
         super.viewDidLoad()
         url.delegate = self
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveChanges))
         self.disableSaveButton()
         presenter?.viewDidLoad()
     }
@@ -31,11 +31,6 @@ class AddEditFeedViewController: UIViewController, StoryboardInit {
     override func viewWillLayoutSubviews() {
         categoriesTable.layer.borderColor = UIColor.lightGray.cgColor
         categoriesTable.layer.borderWidth = 1.0
-    }
-    
-    //proxy method to avoid mark protocol as @objc
-    @objc private func save() {
-        saveChanges()
     }
 }
 
@@ -76,7 +71,7 @@ extension AddEditFeedViewController: AddFeedViewProtocol {
         hideActivityIndicator()
     }
     
-    func saveChanges() {
+    @objc func saveChanges() {
         presenter?.saveChanges()
     }
     

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-var pView: UIView?
+var activityView: UIView?
 let height = 80
 let width = 80
 
@@ -25,14 +25,14 @@ extension UIViewController {
             container.addSubview(activityIndicator)
             self.view.addSubview(container)
             
-            pView = container
+            activityView = container
         }
     }
     
     func hideActivityIndicator() {
         DispatchQueue.main.async {
-            pView?.removeFromSuperview()
-            pView = nil
+            activityView?.removeFromSuperview()
+            activityView = nil
         }
     }
 }

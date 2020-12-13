@@ -19,10 +19,11 @@ protocol DataProviderProtocol {
     func delete(folder: Folder)
     func update(news: RealmNews, isRead: Bool)
     func update(news: RealmNews, addToFavorite: Bool)
-    func update(feed: RealmRss, new url: String?, new title: String?, new categories: [String]?)
+    func update(feed: RealmRss, _ url: String?, _ title: String?, _ categories: [String]?)
     func update(folder: Folder, title: String)
     func move(feed: RealmRss, to folder: Folder)
     func moveToDefault(feed: RealmRss, from folder: Folder)
+    func replace(old feed: RealmRss, with newFeed: RealmRss)
 }
 
 class DataProvider: DataProviderProtocol {
@@ -69,14 +70,14 @@ class DataProvider: DataProviderProtocol {
     }
     
     func delete(feed: RealmRss) {
-        feed.news.forEach({self.delete(news: $0)})
+        self.delete(news: feed.news)
         write {
             realm.delete(feed)
         }
     }
     
     func delete(folder: Folder) {
-        folder.feeds.forEach {self.delete(feed: $0)}
+        self.delete(feeds: folder.feeds)
         write {
             realm.delete(folder)
         }
@@ -94,7 +95,7 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    func update(feed: RealmRss, new url: String?, new title: String?, new categories: [String]?) {
+    func update(feed: RealmRss, _ url: String?, _ title: String?, _ categories: [String]?) {
         write {
             feed.title = title ?? ""
             feed.url = url ?? ""
@@ -133,6 +134,25 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
+    func replace(old feed: RealmRss, with newFeed: RealmRss) {
+        update(feed: feed, newFeed.url, newFeed.title, Array(newFeed.categories))
+        delete(news: feed.news)
+        write {
+            feed.news.append(objectsIn: newFeed.news)
+        }
+    }
+    
+    private func delete(feeds: List<RealmRss>) {
+        write {
+            realm.delete(feeds)
+        }
+    }
+    
+    private func delete(news: List<RealmNews>) {
+        self.write {
+            realm.delete(news)
+        }
+    }
     
     private func write(_ completion: () -> Void) {
         do {

@@ -8,6 +8,8 @@
 import Foundation
 
 protocol FeedsViewProtocol: class {
+    func updateUI()
+    func showPlaceholder(with text: String)
     func expandCollapse(_ section: Int)
 }
 
@@ -16,6 +18,7 @@ protocol FeedsPresenterProtocol: class {
     
     init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: FeedsViewProtocol)
     
+    func updateUI()
     func onTapAddFeed()
     func onTapEditFeed(at indexPath: IndexPath)
     func onTapDelete(at indexPath: IndexPath)
@@ -49,6 +52,14 @@ class FeedsPresenter: FeedsPresenterProtocol {
         self.dataProvider = dataProvider
         self.coordinator = coordinator
         self.view = view
+    }
+    
+    func updateUI() {
+        if dataProvider.foldersList.contains(where: {$0.name != Constants.defaultFolder}) || dataProvider.feedsList.count > 0 {
+            view.updateUI()
+        } else {
+            view.showPlaceholder(with: "No feeds found. Tap '+' to add new rss feed.")
+        }
     }
     
     func numberOfRowsInSection(_ section: Int) -> Int {
