@@ -126,10 +126,10 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
     
     func onRefresh() {
         networkService.fetchData(from: feed.url) { (result) in
-            switch result {
-            case .success(let update):
-                if let update = update {
-                    DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let update):
+                    if let update = update {
                         let newNewsCollection = update.news.filter { (updNews) in
                             for news in self.feed.news {
                                 if news.link == updNews.link {
@@ -142,10 +142,8 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
                         self.view.updateUI()
                         self.view.endRefresh()
                     }
-                }
-            case .failure(let error):
-                assertionFailure(error.localizedDescription)
-                DispatchQueue.main.async {
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
                     self.view.endRefresh()
                 }
             }
