@@ -48,6 +48,11 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(newsView, animated: true)
     }
     
+    func goToNewsFilterScreen(filter: Filter) {
+        let newsFilterView = screenBuilder.newsFilterView(coordinator: self, filter: filter)
+        navigationController.pushViewController(newsFilterView, animated: true)
+    }
+    
     func goToNewsDetailsScreen(news: RealmNews) {
         let newsDetailsView = screenBuilder.newsDetailsView(coordinator: self, news: news)
         navigationController.pushViewController(newsDetailsView, animated: true)

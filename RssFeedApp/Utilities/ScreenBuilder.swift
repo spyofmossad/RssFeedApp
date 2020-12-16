@@ -14,6 +14,7 @@ protocol ScreenBuilderProtocol: class {
     func addEditFeedView(coordinator: AppCoordinator, feed: RealmRss?) -> UIViewController
     func addEditFolderView(coordinator: AppCoordinator, folder: Folder?) -> UIViewController
     func newsView(coordinator: AppCoordinator, feed: RealmRss) -> UIViewController
+    func newsFilterView(coordinator: AppCoordinator, filter: Filter) -> UIViewController
     func newsDetailsView(coordinator: AppCoordinator, news: RealmNews) -> UIViewController
 }
 
@@ -56,6 +57,14 @@ class ScreenBuilder: ScreenBuilderProtocol {
         newsView.presenter = newsViewPresenter
         
         return newsView
+    }
+    
+    func newsFilterView(coordinator: AppCoordinator, filter: Filter) -> UIViewController {
+        let newsFilterView = NewsFilterViewController.instantiate()
+        let newsFilterPresenter = NewsFilterPresenter(coordinator: coordinator, view: newsFilterView, filter: filter)
+        newsFilterView.presenter = newsFilterPresenter
+        
+        return newsFilterView
     }
     
     func newsDetailsView(coordinator: AppCoordinator, news: RealmNews) -> UIViewController {

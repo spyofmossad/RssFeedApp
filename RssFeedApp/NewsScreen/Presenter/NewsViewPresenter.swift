@@ -11,6 +11,7 @@ protocol NewsViewProtocol: class {
     func updateUI()
     func onRefresh()
     func endRefresh()
+    func filterOnTap()
 }
 
 protocol NewsViewPresenterProtocol {
@@ -25,6 +26,7 @@ protocol NewsViewPresenterProtocol {
     func markAsRead(at indexPath: IndexPath)
     func didSelectRowAt(_ indexPath: IndexPath)
     func swipeActionTitleForRowAt(indexPath: IndexPath) -> String
+    func filterOnTap()
 }
 
 class NewsViewPresenter: NewsViewPresenterProtocol {
@@ -73,12 +75,15 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
         return 4
     }
     
+    private var filter: Filter
+    
     required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, feed: RealmRss) {
         self.dataProvider = dataProvider
         self.networkService = networkService
         self.coordinator = coordinator
         self.view = view
         self.feed = feed
+        self.filter = Filter(favorite: false, read: false, date: false, dateTime: nil)
     }
     
     func updateUI() {
@@ -148,5 +153,9 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
                 }
             }
         }
+    }
+    
+    func filterOnTap() {
+        coordinator.goToNewsFilterScreen(filter: filter)
     }
 }

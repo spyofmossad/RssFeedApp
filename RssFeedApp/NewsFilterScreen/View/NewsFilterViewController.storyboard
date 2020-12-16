@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--News Filter View Controller-->
+        <scene sceneID="mz5-7C-8M1">
+            <objects>
+                <viewController storyboardIdentifier="NewsFilterViewController" id="hHq-YA-gRM" customClass="NewsFilterViewController" customModule="RssFeedApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9DI-Ya-zCz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vGr-Vx-T1x">
+                                <rect key="frame" x="0.0" y="44" width="414" height="128"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="QfL-XG-Mfp"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="filterCell" id="oBA-oL-dkV" customClass="FilterTableViewCell" customModule="RssFeedApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oBA-oL-dkV" id="go5-DQ-F4r">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="max-Aw-Uqp">
+                                                    <rect key="frame" x="20" y="11.5" width="305" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8FK-pw-bpt">
+                                                    <rect key="frame" x="345" y="6.5" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="max-Aw-Uqp" firstAttribute="centerY" secondItem="go5-DQ-F4r" secondAttribute="centerY" id="PPS-jP-OyW"/>
+                                                <constraint firstItem="8FK-pw-bpt" firstAttribute="leading" secondItem="max-Aw-Uqp" secondAttribute="trailing" constant="20" id="U5g-Xb-0m2"/>
+                                                <constraint firstItem="max-Aw-Uqp" firstAttribute="leading" secondItem="go5-DQ-F4r" secondAttribute="leadingMargin" id="e8D-4T-TtN"/>
+                                                <constraint firstAttribute="trailing" secondItem="8FK-pw-bpt" secondAttribute="trailing" constant="20" symbolic="YES" id="fcp-Op-Z6Y"/>
+                                                <constraint firstItem="8FK-pw-bpt" firstAttribute="centerY" secondItem="go5-DQ-F4r" secondAttribute="centerY" id="wN8-lp-PUp"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="filterLabel" destination="max-Aw-Uqp" id="hrn-gV-nHJ"/>
+                                            <outlet property="filterStatus" destination="8FK-pw-bpt" id="Nh3-8r-DSF"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="hHq-YA-gRM" id="vmn-4j-cMT"/>
+                                    <outlet property="delegate" destination="hHq-YA-gRM" id="JsE-ZZ-DTa"/>
+                                </connections>
+                            </tableView>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="soC-4z-0Jp">
+                                <rect key="frame" x="8" y="180" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="p04-ra-4Z3"/>
+                                </constraints>
+                            </datePicker>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="WkP-aB-cyl"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vGr-Vx-T1x" firstAttribute="leading" secondItem="WkP-aB-cyl" secondAttribute="leading" id="4qw-IA-egx"/>
+                            <constraint firstItem="vGr-Vx-T1x" firstAttribute="top" secondItem="WkP-aB-cyl" secondAttribute="top" id="9n7-uz-tHv"/>
+                            <constraint firstItem="vGr-Vx-T1x" firstAttribute="trailing" secondItem="WkP-aB-cyl" secondAttribute="trailing" id="NPh-26-rEu"/>
+                            <constraint firstItem="soC-4z-0Jp" firstAttribute="trailing" secondItem="WkP-aB-cyl" secondAttribute="trailing" constant="8" id="ciH-SK-5yI"/>
+                            <constraint firstItem="soC-4z-0Jp" firstAttribute="leading" secondItem="WkP-aB-cyl" secondAttribute="leading" constant="8" id="q14-vX-84l"/>
+                            <constraint firstItem="soC-4z-0Jp" firstAttribute="top" secondItem="vGr-Vx-T1x" secondAttribute="bottom" constant="8" id="tU2-pA-OPD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dateTime" destination="soC-4z-0Jp" id="Rmu-Y0-qpp"/>
+                        <outlet property="filtersTable" destination="vGr-Vx-T1x" id="7Y9-zP-gB3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0c0-Rr-zlx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-485.50724637681162" y="164.73214285714286"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

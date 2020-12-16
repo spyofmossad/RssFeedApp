@@ -19,6 +19,7 @@ class NewsViewController: UIViewController, StoryboardInit {
         newsTable.register(nib, forCellReuseIdentifier: "newsCell")
         newsTable.refreshControl = UIRefreshControl()
         newsTable.refreshControl?.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filterOnTap))]
         presenter?.updateUI()
     }
     
@@ -39,6 +40,10 @@ extension NewsViewController: NewsViewProtocol {
     
     func endRefresh() {
         newsTable.refreshControl?.endRefreshing()
+    }
+    
+    @objc func filterOnTap() {
+        presenter?.filterOnTap()
     }
 }
 
