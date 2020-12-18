@@ -31,7 +31,7 @@ class NewsViewController: UIViewController, StoryboardInit {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter?.updateUI()
+        presenter.updateUI()
     }
 }
 

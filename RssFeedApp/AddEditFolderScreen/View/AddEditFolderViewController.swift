@@ -9,7 +9,7 @@ import UIKit
 
 class AddEditFolderViewController: UIViewController, StoryboardInit {
     
-    var presenter: AddEditFolderProtocol?
+    var presenter: AddEditFolderProtocol!
     
     @IBOutlet weak var folderName: UITextField!
     @IBOutlet weak var selectedFeedsTableTitle: UILabel!
@@ -21,7 +21,7 @@ class AddEditFolderViewController: UIViewController, StoryboardInit {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveChanges))
         delete.addTarget(self, action: #selector(deleteOnTap), for: .touchUpInside)
-        presenter?.updateUI()
+        presenter.updateUI()
     }
     
     override func viewWillLayoutSubviews() {
@@ -32,7 +32,7 @@ class AddEditFolderViewController: UIViewController, StoryboardInit {
     }
     
     @objc private func saveChanges() {
-        presenter?.saveChanges()
+        presenter.saveChanges()
     }
 }
 
@@ -68,7 +68,7 @@ extension AddEditFolderViewController: AddEditFolderView {
         let alert = UIAlertController(title: "Are you sure?", message: "All feeds in this folder will be deleted as well", preferredStyle: .alert)
         let alertCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let alertOkAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-            self.presenter?.deleteOnTap()
+            self.presenter.deleteOnTap()
         }
         alert.addAction(alertCancelAction)
         alert.addAction(alertOkAction)

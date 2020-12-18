@@ -11,7 +11,7 @@ class FeedsViewController: UIViewController, StoryboardInit {
     
     private var hiddenSections = Set<Int>()
     
-    var presenter: FeedsPresenterProtocol?
+    var presenter: FeedsPresenterProtocol!
         
     @IBOutlet weak var feedsTable: UITableView!
     
@@ -26,15 +26,15 @@ class FeedsViewController: UIViewController, StoryboardInit {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter?.updateUI()
+        presenter.updateUI()
     }
     
     @objc private func addFeed() {
-        presenter?.onTapAddFeed()
+        presenter.onTapAddFeed()
     }
     
     @objc private func addFolder() {
-        presenter?.onTapAddFolder()
+        presenter.onTapAddFolder()
     }
 }
 
@@ -49,7 +49,7 @@ extension FeedsViewController: FeedsViewProtocol {
     }
     
     func expandCollapse(_ section: Int) {
-        guard let indexPaths = presenter?.indexPaths(for: section) else { return }
+        let indexPaths = presenter.indexPaths(for: section)
         
         if self.hiddenSections.contains(section) {
             self.hiddenSections.remove(section)
@@ -64,21 +64,21 @@ extension FeedsViewController: FeedsViewProtocol {
 extension FeedsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter?.numberOfSections ?? 0
+        return presenter.numberOfSections
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(presenter?.heightForHeaderInSection(section: section) ?? 0)
+        return CGFloat(presenter.heightForHeaderInSection(section: section))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if hiddenSections.contains(section) { return 0 }
-        return presenter?.numberOfRowsInSection(section) ?? 0
+        return presenter.numberOfRowsInSection(section)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = feedsTable.dequeueReusableHeaderFooterView(withIdentifier: "customHeader") as? TableViewHeaderCell
-        let headerPresenter = presenter?.headerPresenter(for: section)
+        let headerPresenter = presenter.headerPresenter(for: section)
         
         guard let header = headerView else {
             assertionFailure("Failed to init TableViewHeaderCell")
@@ -92,7 +92,7 @@ extension FeedsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = feedsTable.dequeueReusableCell(withIdentifier: "feedCell", for: indexPath) as? FeedTableViewCell
-        let cellPresenter = presenter?.cellPresenter(for: indexPath)
+        let cellPresenter = presenter.cellPresenter(for: indexPath)
         
         guard let tableCell = cell else {
             assertionFailure("Failed to init FeedTableViewCell")
@@ -109,18 +109,18 @@ extension FeedsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
             self.feedsTable.beginUpdates()
-            self.presenter?.onTapDelete(at: indexPath)
+            self.presenter.onTapDelete(at: indexPath)
             self.feedsTable.deleteRows(at: [indexPath], with: .fade)
             self.feedsTable.endUpdates()
         }
         let edit = UIContextualAction(style: .normal, title: "Edit") { (_, _, _) in
-            self.presenter?.onTapEditFeed(at: indexPath)
+            self.presenter.onTapEditFeed(at: indexPath)
         }
         
         return UISwipeActionsConfiguration(actions: [delete, edit])
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.didSelectRowAt(indexPath: indexPath)
+        presenter.didSelectRowAt(indexPath: indexPath)
     }
 }

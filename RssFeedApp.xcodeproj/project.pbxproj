@@ -334,8 +334,8 @@
 		0AC668752563B3AB009F5732 /* AddEditFeedScreen */ = {
 			isa = PBXGroup;
 			children = (
-				0AC668CF25651E7D009F5732 /* Presenter */,
 				0AC668CA25651E5E009F5732 /* View */,
+				0AC668CF25651E7D009F5732 /* Presenter */,
 			);
 			path = AddEditFeedScreen;
 			sourceTree = "<group>";
@@ -343,8 +343,8 @@
 		0AC668832563E8DB009F5732 /* AddEditFolderScreen */ = {
 			isa = PBXGroup;
 			children = (
-				0A22EA08257A2A0800876BF4 /* Presenter */,
 				0A22EA02257A29E700876BF4 /* View */,
+				0A22EA08257A2A0800876BF4 /* Presenter */,
 			);
 			path = AddEditFolderScreen;
 			sourceTree = "<group>";

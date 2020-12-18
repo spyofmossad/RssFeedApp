@@ -10,7 +10,7 @@ import SDWebImage
 
 class NewsDetailsViewController: UIViewController, StoryboardInit {
     
-    var presenter: NewsDetailsPresenterProtocol?
+    var presenter: NewsDetailsPresenterProtocol!
     
     @IBOutlet weak var newsImage: UIImageView!
     @IBOutlet weak var newsTitle: UILabel!
@@ -21,7 +21,7 @@ class NewsDetailsViewController: UIViewController, StoryboardInit {
         let shareNewsItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareOnTap))
         let safariItem = UIBarButtonItem(image: UIImage(systemName: "safari"), style: .plain, target: self, action: #selector(safariOnTap))
         navigationItem.rightBarButtonItems = [shareNewsItem, safariItem]
-        presenter?.updateUI()
+        presenter.updateUI()
     }
     
 }
@@ -35,15 +35,15 @@ extension NewsDetailsViewController: NewsDetailsViewProtocol {
     }
     
     @objc func shareOnTap() {
-        presenter?.shareOnTap()
+        presenter.shareOnTap()
     }
     
     @objc func favOnTap() {
-        presenter?.favOnTap()
+        presenter.favOnTap()
     }
     
     @objc func safariOnTap() {
-        presenter?.safariOnTap()
+        presenter.safariOnTap()
     }
     
     func openSafari(url: URL) {

@@ -9,15 +9,13 @@ import UIKit
 
 class AddEditFeedViewController: UIViewController, StoryboardInit {
     
-    var presenter: AddFeedPresenterProtocol?
+    var presenter: AddFeedPresenterProtocol!
     
-    private var categories: [String]?
-
     @IBOutlet weak var url: UITextField!
     @IBOutlet weak var categoriesTable: UITableView!
     @IBOutlet weak var feedTitle: UITextField!
     @IBAction func titleChanged(_ sender: UITextField) {
-        presenter?.textFieldShouldReturn(tag: sender.tag, textFieldText: sender.text)
+        presenter.textFieldShouldReturn(tag: sender.tag, textFieldText: sender.text)
     }
     
     override func viewDidLoad() {
@@ -25,7 +23,7 @@ class AddEditFeedViewController: UIViewController, StoryboardInit {
         url.delegate = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveChanges))
         self.disableSaveButton()
-        presenter?.viewDidLoad()
+        presenter.viewDidLoad()
     }
     
     override func viewWillLayoutSubviews() {
@@ -72,13 +70,13 @@ extension AddEditFeedViewController: AddFeedViewProtocol {
     }
     
     @objc func saveChanges() {
-        presenter?.saveChanges()
+        presenter.saveChanges()
     }
     
-    func updateUI(url: String, title: String, categories: [String]) {
+    func updateUI(url: String, title: String) {
         self.url.text = url
         self.feedTitle.text = title
-        categories.count > 0 ?
+        presenter.numberOfRowsInSection > 0 ?
             self.categoriesTable.reloadData() :
             self.showPlaceholder()
     }
@@ -87,7 +85,7 @@ extension AddEditFeedViewController: AddFeedViewProtocol {
 extension AddEditFeedViewController: UITextFieldDelegate {
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField == url {
-            presenter?.textFieldShouldReturn(tag: textField.tag, textFieldText: textField.text)
+            presenter.textFieldShouldReturn(tag: textField.tag, textFieldText: textField.text)
         }
         return true
     }
@@ -107,12 +105,12 @@ extension AddEditFeedViewController: UITextFieldDelegate {
 
 extension AddEditFeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories?.count ?? 0
+        return presenter.numberOfRowsInSection
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = categories?[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell") ?? UITableViewCell()
+        cell.textLabel?.text = presenter.titleForRowAt(indexPath: indexPath)
         return cell
     }
 }

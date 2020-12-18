@@ -12,7 +12,7 @@ protocol AddFeedViewProtocol: class {
     var feedUrl: String { get }
     var feedCategories: [String] { get }
     
-    func updateUI(url: String, title: String, categories: [String])
+    func updateUI(url: String, title: String)
     func saveChanges()
     func showSpinner()
     func removeSpinner()
@@ -23,7 +23,9 @@ protocol AddFeedViewProtocol: class {
 }
 
 protocol AddFeedPresenterProtocol: class {
+    var numberOfRowsInSection: Int { get }
     init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: AddFeedViewProtocol, rss: RealmRss?)
+    func titleForRowAt(indexPath: IndexPath) -> String?
     func textFieldShouldReturn(tag: Int, textFieldText: String?)
     func saveChanges()
     func viewDidLoad()
@@ -37,6 +39,15 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
     
     private var currentFeed: RealmRss?
     private var newFeed: RealmRss?
+    
+    var numberOfRowsInSection: Int {
+        if let current = currentFeed {
+            return current.categories.count
+        } else if let new = newFeed {
+            return new.categories.count
+        }
+        return 0
+    }
         
     required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: AddFeedViewProtocol, rss: RealmRss?) {
         self.coordinator = coordinator
@@ -44,6 +55,15 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
         self.networkService = networkService
         self.view = view
         self.currentFeed = rss
+    }
+    
+    func titleForRowAt(indexPath: IndexPath) -> String? {
+        if let current = currentFeed {
+            return current.categories[indexPath.row]
+        } else if let new = newFeed {
+            return new.categories[indexPath.row]
+        }
+        return nil
     }
     
     func textFieldShouldReturn(tag: Int, textFieldText: String?) {
@@ -61,7 +81,7 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
                         if let feed = feed {
                             self.newFeed = feed
                             self.newFeed?.url = textFieldText
-                            self.view.updateUI(url: textFieldText, title: feed.title, categories: Array(feed.categories))
+                            self.view.updateUI(url: textFieldText, title: feed.title)
                         }
                         self.view.activateSaveButton()
                     case .failure(let error):
@@ -98,7 +118,7 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
     
     func viewDidLoad() {
         if let feed = currentFeed {
-            self.view.updateUI(url: feed.url, title: feed.title, categories: Array(feed.categories))
+            self.view.updateUI(url: feed.url, title: feed.title)
         } else {
             self.view.showPlaceholder()
         }
