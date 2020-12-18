@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class Filter: Object {
-    let rssFeed = LinkingObjects(fromType: RealmRss.self, property: "filter")
+    let rssFeed = LinkingObjects(fromType: Feed.self, property: "filter")
     @objc dynamic var favorite = false
     @objc dynamic var read = false
     @objc dynamic var date = false

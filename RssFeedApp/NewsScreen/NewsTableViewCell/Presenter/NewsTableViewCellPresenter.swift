@@ -15,11 +15,11 @@ protocol NewsCellPresenterProtocol {
     var description: String { get }
     var imageUrl: String { get }
     var isRead: Bool { get }
-    init (news: RealmNews)
+    init (news: News)
 }
 
 class NewsTableViewCellPresenter: NewsCellPresenterProtocol {
-    private var news: RealmNews
+    private var news: News
     
     var description: String {
         return news.title
@@ -33,7 +33,7 @@ class NewsTableViewCellPresenter: NewsCellPresenterProtocol {
         return news.isRead
     }
     
-    required init(news: RealmNews) {
+    required init(news: News) {
         self.news = news
     }
 }

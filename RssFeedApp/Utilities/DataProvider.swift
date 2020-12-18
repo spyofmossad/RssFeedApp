@@ -9,36 +9,36 @@ import Foundation
 import RealmSwift
 
 protocol DataProviderProtocol {
-    var feedsList: Results<RealmRss> { get }
+    var feedsList: Results<Feed> { get }
     var foldersList: Results<Folder> { get }
     
     func save(folder: Folder)
-    func save(feed: RealmRss, to folder: Folder?)
-    func delete(news: RealmNews)
-    func delete(feed: RealmRss)
+    func save(feed: Feed, to folder: Folder?)
+    func delete(news: News)
+    func delete(feed: Feed)
     func delete(folder: Folder)
-    func update(news: RealmNews, isRead: Bool)
-    func update(news: RealmNews, addToFavorite: Bool)
-    func update(feed: RealmRss, _ url: String?, _ title: String?, _ categories: [String]?)
-    func update(feed: RealmRss, with news: [RealmNews])
+    func update(news: News, isRead: Bool)
+    func update(news: News, addToFavorite: Bool)
+    func update(feed: Feed, _ url: String?, _ title: String?, _ categories: [String]?)
+    func update(feed: Feed, with news: [News])
     func update(folder: Folder, title: String)
     func update(filter: Filter, property: String, new value: Bool)
     func update(filter: Filter, new date: Date)
-    func move(feed: RealmRss, to folder: Folder)
-    func moveToDefault(feed: RealmRss, from folder: Folder)
-    func replace(old feed: RealmRss, with newFeed: RealmRss)
+    func move(feed: Feed, to folder: Folder)
+    func moveToDefault(feed: Feed, from folder: Folder)
+    func replace(old feed: Feed, with newFeed: Feed)
 }
 
 class DataProvider: DataProviderProtocol {
     private var realm: Realm
     private var defaultFolder: Folder
         
-    var feedsList: Results<RealmRss>
+    var feedsList: Results<Feed>
     var foldersList: Results<Folder>
             
     init() {
         realm = try! Realm()
-        feedsList = realm.objects(RealmRss.self)
+        feedsList = realm.objects(Feed.self)
         foldersList = realm.objects(Folder.self)
         
         if let defaultFolder = foldersList.first(where: {$0.name == Constants.defaultFolder}) {
@@ -56,7 +56,7 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    func save(feed: RealmRss, to folder: Folder?) {
+    func save(feed: Feed, to folder: Folder?) {
         write {
             if let folder = folder {
                 folder.feeds.append(feed)
@@ -66,13 +66,13 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    func delete(news: RealmNews) {
+    func delete(news: News) {
         write {
             realm.delete(news)
         }
     }
     
-    func delete(feed: RealmRss) {
+    func delete(feed: Feed) {
         self.delete(news: feed.news)
         write {
             realm.delete(feed)
@@ -86,19 +86,19 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    func update(news: RealmNews, isRead: Bool) {
+    func update(news: News, isRead: Bool) {
         write {
             news.isRead = isRead
         }
     }
     
-    func update(news: RealmNews, addToFavorite: Bool) {
+    func update(news: News, addToFavorite: Bool) {
         write {
             news.favorite = addToFavorite
         }
     }
     
-    func update(feed: RealmRss, _ url: String?, _ title: String?, _ categories: [String]?) {
+    func update(feed: Feed, _ url: String?, _ title: String?, _ categories: [String]?) {
         write {
             feed.title = title ?? ""
             feed.url = url ?? ""
@@ -109,7 +109,7 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    func update(feed: RealmRss, with news: [RealmNews]) {
+    func update(feed: Feed, with news: [News]) {
         write {
             feed.news.append(objectsIn: news)
         }
@@ -133,7 +133,7 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    func move(feed: RealmRss, to folder: Folder) {
+    func move(feed: Feed, to folder: Folder) {
         write {
             guard let index = defaultFolder.feeds.index(of: feed) else {
                 assertionFailure("No such feed in default folder")
@@ -144,7 +144,7 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    func moveToDefault(feed: RealmRss, from folder: Folder) {
+    func moveToDefault(feed: Feed, from folder: Folder) {
         write {
             guard let index = folder.feeds.index(of: feed) else {
                 assertionFailure("No such feed in folder \(folder.name)")
@@ -155,7 +155,7 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    func replace(old feed: RealmRss, with newFeed: RealmRss) {
+    func replace(old feed: Feed, with newFeed: Feed) {
         update(feed: feed, newFeed.url, newFeed.title, Array(newFeed.categories))
         delete(news: feed.news)
         write {
@@ -163,13 +163,13 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    private func delete(feeds: List<RealmRss>) {
+    private func delete(feeds: List<Feed>) {
         write {
             realm.delete(feeds)
         }
     }
     
-    private func delete(news: List<RealmNews>) {
+    private func delete(news: List<News>) {
         self.write {
             realm.delete(news)
         }

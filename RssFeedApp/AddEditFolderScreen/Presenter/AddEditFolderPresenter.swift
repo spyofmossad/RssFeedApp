@@ -18,8 +18,8 @@ import Foundation
 }
 
 protocol AddEditFolderProtocol {
-    var freeFeedsList: [RealmRss] { get }
-    var selectedFeeds: [RealmRss] { get }
+    var freeFeedsList: [Feed] { get }
+    var selectedFeeds: [Feed] { get }
     var folderName: String? { get set }
     
     init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: AddEditFolderView, folder: Folder?)
@@ -36,8 +36,8 @@ class AddEditFolderPresenter: AddEditFolderProtocol {
     
     public unowned var view: AddEditFolderView
     
-    var freeFeedsList: [RealmRss] = []
-    var selectedFeeds: [RealmRss] = []
+    var freeFeedsList: [Feed] = []
+    var selectedFeeds: [Feed] = []
     var folderName: String?
     
     required init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: AddEditFolderView, folder: Folder?) {

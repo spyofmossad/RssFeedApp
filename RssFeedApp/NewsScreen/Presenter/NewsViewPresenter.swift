@@ -9,7 +9,7 @@ import Foundation
 
 protocol NewsViewPresenterProtocol {
     var numberOfSections: Int { get }
-    init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, feed: RealmRss)
+    init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, feed: Feed)
     
     func updateUI()
     func onRefresh()
@@ -34,32 +34,32 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
     private var dataProvider: DataProviderProtocol
     private var networkService: NetworkServiceProtocol
     private var coordinator: AppCoordinator
-    private var feed: RealmRss
-    private var filteredNews: [RealmNews] {
+    private var feed: Feed
+    private var filteredNews: [News] {
         return feed.news.filter(filterNews)
     }
     
-    private var todayNews: [RealmNews] {
+    private var todayNews: [News] {
         return filteredNews.filter{ (news) in
             news.date! > Date().beginOfDay && news.date! < Date()
         }
     }
-    private var yesterdayNews: [RealmNews] {
+    private var yesterdayNews: [News] {
         return filteredNews.filter { (news) in
             news.date! > Date().yesterday.beginOfDay && news.date! < Date().yesterday.endOfDay
         }
     }
-    private var lastWeekNews: [RealmNews] {
+    private var lastWeekNews: [News] {
         return filteredNews.filter { (news) in
             news.date! > Date().lastWeek.beginOfDay && news.date! < Date().yesterday.beginOfDay
         }
     }
-    private var olderNews: [RealmNews] {
+    private var olderNews: [News] {
         return filteredNews.filter { (news) in
             news.date! < Date().lastWeek.beginOfDay
         }
     }
-    private var allNews: [[RealmNews]] {
+    private var allNews: [[News]] {
         if feed.filter?.date == true {
             return [filteredNews]
         }
@@ -70,7 +70,7 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
         return allNews.count
     }
         
-    required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, feed: RealmRss) {
+    required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, feed: Feed) {
         self.dataProvider = dataProvider
         self.networkService = networkService
         self.coordinator = coordinator
@@ -158,7 +158,7 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
         coordinator.goToNewsFilterScreen(filter: filter)
     }
     
-    private func filterNews(news: [RealmNews], filter: Filter) -> [RealmNews]{
+    private func filterNews(news: [News], filter: Filter) -> [News]{
         var filtered = filter.date == false ? news :
             news.filter{$0.date! >= filter.dateTime.beginOfDay && $0.date! <= filter.dateTime.endOfDay}
         
@@ -173,7 +173,7 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
         return filtered
     }
     
-    private func filterNews(news: RealmNews) -> Bool {
+    private func filterNews(news: News) -> Bool {
         if feed.filter?.date == true {
             if !news.date!.isBetween((feed.filter?.dateTime.beginOfDay)!, and: (feed.filter?.dateTime.endOfDay)!) {
                 return false

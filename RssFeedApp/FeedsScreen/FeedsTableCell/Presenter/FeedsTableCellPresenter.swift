@@ -16,14 +16,14 @@ protocol FeedsTableCellPresenterProtocol {
     var category: String { get }
     var newsCount: Int { get }
     
-    init(feed: RealmRss)
+    init(feed: Feed)
 }
 
 class FeedsTableCellPresenter: FeedsTableCellPresenterProtocol {
     
-    private var feed: RealmRss
+    private var feed: Feed
     
-    required init(feed: RealmRss) {
+    required init(feed: Feed) {
         self.feed = feed
     }
     

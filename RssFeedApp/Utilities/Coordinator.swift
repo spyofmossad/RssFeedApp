@@ -33,7 +33,7 @@ class AppCoordinator: Coordinator {
         navigationController.setViewControllers([feedsView], animated: false)
     }
     
-    func goToAddEditFeedScreen(feed: RealmRss?) {
+    func goToAddEditFeedScreen(feed: Feed?) {
         let addFeedView = screenBuilder.addEditFeedView(coordinator: self, feed: feed)
         navigationController.pushViewController(addFeedView, animated: true)
     }
@@ -43,7 +43,7 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(addEditFolderView, animated: true)
     }
     
-    func goToNewsScren(feed: RealmRss) {
+    func goToNewsScren(feed: Feed) {
         let newsView = screenBuilder.newsView(coordinator: self, feed: feed)
         navigationController.pushViewController(newsView, animated: true)
     }
@@ -53,7 +53,7 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(newsFilterView, animated: true)
     }
     
-    func goToNewsDetailsScreen(news: RealmNews) {
+    func goToNewsDetailsScreen(news: News) {
         let newsDetailsView = screenBuilder.newsDetailsView(coordinator: self, news: news)
         navigationController.pushViewController(newsDetailsView, animated: true)
     }
