@@ -22,7 +22,7 @@ protocol AddEditFolderProtocol {
     var selectedFeeds: [Feed] { get }
     var folderName: String? { get set }
     
-    init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: AddEditFolderView, folder: Folder?)
+    init(dataProvider: DataProviderProtocol, coordinator: Coordinator, view: AddEditFolderView, folder: Folder?)
     
     func updateUI()
     func saveChanges()
@@ -31,7 +31,7 @@ protocol AddEditFolderProtocol {
 
 class AddEditFolderPresenter: AddEditFolderProtocol {
     private var dataProvider: DataProviderProtocol
-    private var coordinator: AppCoordinator
+    private var coordinator: Coordinator
     private var currentFolder: Folder?
     
     public unowned var view: AddEditFolderView
@@ -40,7 +40,7 @@ class AddEditFolderPresenter: AddEditFolderProtocol {
     var selectedFeeds: [Feed] = []
     var folderName: String?
     
-    required init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: AddEditFolderView, folder: Folder?) {
+    required init(dataProvider: DataProviderProtocol, coordinator: Coordinator, view: AddEditFolderView, folder: Folder?) {
         self.coordinator = coordinator
         self.dataProvider = dataProvider
         self.view = view

@@ -10,12 +10,12 @@ import UIKit
 
 protocol ScreenBuilderProtocol: class {
     init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol)
-    func feedsView(coordinator: AppCoordinator) -> UIViewController
-    func addEditFeedView(coordinator: AppCoordinator, feed: Feed?) -> UIViewController
-    func addEditFolderView(coordinator: AppCoordinator, folder: Folder?) -> UIViewController
-    func newsView(coordinator: AppCoordinator, feed: Feed) -> UIViewController
-    func newsFilterView(coordinator: AppCoordinator, filter: Filter) -> UIViewController
-    func newsDetailsView(coordinator: AppCoordinator, news: News) -> UIViewController
+    func feedsView(coordinator: Coordinator) -> UIViewController
+    func addEditFeedView(coordinator: Coordinator, feed: Feed?) -> UIViewController
+    func addEditFolderView(coordinator: Coordinator, folder: Folder?) -> UIViewController
+    func newsView(coordinator: Coordinator, feed: Feed) -> UIViewController
+    func newsFilterView(coordinator: Coordinator, filter: Filter) -> UIViewController
+    func newsDetailsView(coordinator: Coordinator, news: News) -> UIViewController
 }
 
 class ScreenBuilder: ScreenBuilderProtocol {
@@ -27,7 +27,7 @@ class ScreenBuilder: ScreenBuilderProtocol {
         self.networkService = networkService
     }
     
-    func feedsView(coordinator: AppCoordinator) -> UIViewController {
+    func feedsView(coordinator: Coordinator) -> UIViewController {
         let feedsView = FeedsViewController.instantiate()
         let feedsPresenter = FeedsPresenter(dataProvider: dataProvider, coordinator: coordinator, view: feedsView)
         feedsView.presenter = feedsPresenter
@@ -35,7 +35,7 @@ class ScreenBuilder: ScreenBuilderProtocol {
         return feedsView
     }
     
-    func addEditFeedView(coordinator: AppCoordinator, feed: Feed?) -> UIViewController {
+    func addEditFeedView(coordinator: Coordinator, feed: Feed?) -> UIViewController {
         let addEditFeedView = AddEditFeedViewController.instantiate()
         let addEditFeedPresenter = AddEditFeedPresenter(dataProvider: dataProvider, networkService: networkService, coordinator: coordinator, view: addEditFeedView, rss: feed)
         addEditFeedView.presenter = addEditFeedPresenter
@@ -43,7 +43,7 @@ class ScreenBuilder: ScreenBuilderProtocol {
         return addEditFeedView
     }
     
-    func addEditFolderView(coordinator: AppCoordinator, folder: Folder?) -> UIViewController {
+    func addEditFolderView(coordinator: Coordinator, folder: Folder?) -> UIViewController {
         let addEditFolderView = AddEditFolderViewController.instantiate()
         let addEditFolderPresenter = AddEditFolderPresenter(dataProvider: dataProvider, coordinator: coordinator, view: addEditFolderView, folder: folder)
         addEditFolderView.presenter = addEditFolderPresenter
@@ -51,7 +51,7 @@ class ScreenBuilder: ScreenBuilderProtocol {
         return addEditFolderView
     }
     
-    func newsView(coordinator: AppCoordinator, feed: Feed) -> UIViewController {
+    func newsView(coordinator: Coordinator, feed: Feed) -> UIViewController {
         let newsView = NewsViewController.instantiate()
         let newsViewPresenter = NewsViewPresenter(dataProvider: dataProvider, networkService: networkService, coordinator: coordinator, view: newsView, feed: feed)
         newsView.presenter = newsViewPresenter
@@ -59,7 +59,7 @@ class ScreenBuilder: ScreenBuilderProtocol {
         return newsView
     }
     
-    func newsFilterView(coordinator: AppCoordinator, filter: Filter) -> UIViewController {
+    func newsFilterView(coordinator: Coordinator, filter: Filter) -> UIViewController {
         let newsFilterView = NewsFilterViewController.instantiate()
         let newsFilterPresenter = NewsFilterPresenter(coordinator: coordinator,dataProvider: dataProvider, view: newsFilterView, filter: filter)
         newsFilterView.presenter = newsFilterPresenter
@@ -67,7 +67,7 @@ class ScreenBuilder: ScreenBuilderProtocol {
         return newsFilterView
     }
     
-    func newsDetailsView(coordinator: AppCoordinator, news: News) -> UIViewController {
+    func newsDetailsView(coordinator: Coordinator, news: News) -> UIViewController {
         let newsDetailsView = NewsDetailsViewController.instantiate()
         let newsDetailsPresenter = NewsDetailsPresenter(dataProvider: dataProvider, coordinator: coordinator, view: newsDetailsView, news: news)
         newsDetailsView.presenter = newsDetailsPresenter

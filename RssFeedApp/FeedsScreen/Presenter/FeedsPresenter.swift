@@ -16,7 +16,7 @@ protocol FeedsViewProtocol: class {
 protocol FeedsPresenterProtocol: class {
     var numberOfSections: Int { get }
     
-    init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: FeedsViewProtocol)
+    init(dataProvider: DataProviderProtocol, coordinator: Coordinator, view: FeedsViewProtocol)
     
     func updateUI()
     func onTapAddFeed()
@@ -40,7 +40,7 @@ protocol FeedsPresenterProtocol: class {
 class FeedsPresenter: FeedsPresenterProtocol {
     
     private let dataProvider: DataProviderProtocol
-    private let coordinator: AppCoordinator
+    private let coordinator: Coordinator
     
     private unowned var view: FeedsViewProtocol
     
@@ -48,7 +48,7 @@ class FeedsPresenter: FeedsPresenterProtocol {
         return dataProvider.foldersList.count
     }
     
-    required init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: FeedsViewProtocol) {
+    required init(dataProvider: DataProviderProtocol, coordinator: Coordinator, view: FeedsViewProtocol) {
         self.dataProvider = dataProvider
         self.coordinator = coordinator
         self.view = view

@@ -9,7 +9,7 @@ import Foundation
 
 protocol NewsViewPresenterProtocol {
     var numberOfSections: Int { get }
-    init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, feed: Feed)
+    init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: Coordinator, view: NewsViewProtocol, feed: Feed)
     
     func updateUI()
     func onRefresh()
@@ -33,7 +33,7 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
     private unowned var view: NewsViewProtocol
     private var dataProvider: DataProviderProtocol
     private var networkService: NetworkServiceProtocol
-    private var coordinator: AppCoordinator
+    private var coordinator: Coordinator
     private var feed: Feed
     private var filteredNews: [News] {
         return feed.news.filter(filterNews)
@@ -70,7 +70,7 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
         return allNews.count
     }
         
-    required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, feed: Feed) {
+    required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: Coordinator, view: NewsViewProtocol, feed: Feed) {
         self.dataProvider = dataProvider
         self.networkService = networkService
         self.coordinator = coordinator

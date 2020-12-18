@@ -11,7 +11,7 @@ protocol NewsFilterPresenterProtocol {
     var date: Date { get }
     var numberOfRowsInSection: Int { get }
     
-    init(coordinator: AppCoordinator, dataProvider: DataProviderProtocol,  view: NewsFilterViewProtocol, filter: Filter)
+    init(coordinator: Coordinator, dataProvider: DataProviderProtocol,  view: NewsFilterViewProtocol, filter: Filter)
     
     func applyOnTap()
     func resetOnTap()
@@ -24,7 +24,7 @@ class NewsFilterPresenter: NewsFilterPresenterProtocol {
     
     private unowned var view: NewsFilterViewProtocol
     private var dataProvider: DataProviderProtocol
-    private var coordinator: AppCoordinator
+    private var coordinator: Coordinator
     private var filter: Filter
     
     var date: Date {
@@ -44,7 +44,7 @@ class NewsFilterPresenter: NewsFilterPresenterProtocol {
         return filterNames.count
     }
     
-    required init(coordinator: AppCoordinator, dataProvider: DataProviderProtocol, view: NewsFilterViewProtocol, filter: Filter) {
+    required init(coordinator: Coordinator, dataProvider: DataProviderProtocol, view: NewsFilterViewProtocol, filter: Filter) {
         self.coordinator = coordinator
         self.dataProvider = dataProvider
         self.view = view

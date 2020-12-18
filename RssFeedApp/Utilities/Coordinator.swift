@@ -9,17 +9,23 @@ import Foundation
 import UIKit
 
 protocol Coordinator {
-    var navigationController: UINavigationController { get set }
-    var screenBuilder: ScreenBuilderProtocol { get set }
+    init(naviationController: UINavigationController, screenBuilder: ScreenBuilderProtocol)
     func start()
+    func goToFeedsView()
+    func goToAddEditFeedScreen(feed: Feed?)
+    func goToAddEditFolderScreen(folder: Folder?)
+    func goToNewsScren(feed: Feed)
+    func goToNewsFilterScreen(filter: Filter)
+    func goToNewsDetailsScreen(news: News)
+    func popViewController()
     func popToRoot()
 }
 
 class AppCoordinator: Coordinator {
-    var screenBuilder: ScreenBuilderProtocol
-    var navigationController: UINavigationController
+    private var screenBuilder: ScreenBuilderProtocol
+    private var navigationController: UINavigationController
         
-    init(naviationController: UINavigationController, screenBuilder: ScreenBuilderProtocol) {
+    required init(naviationController: UINavigationController, screenBuilder: ScreenBuilderProtocol) {
         self.navigationController = naviationController
         self.screenBuilder = screenBuilder
     }

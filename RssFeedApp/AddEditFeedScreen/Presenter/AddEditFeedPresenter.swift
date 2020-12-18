@@ -24,7 +24,7 @@ protocol AddFeedViewProtocol: class {
 
 protocol AddFeedPresenterProtocol: class {
     var numberOfRowsInSection: Int { get }
-    init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: AddFeedViewProtocol, rss: Feed?)
+    init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: Coordinator, view: AddFeedViewProtocol, rss: Feed?)
     func titleForRowAt(indexPath: IndexPath) -> String?
     func textFieldShouldReturn(tag: Int, textFieldText: String?)
     func saveChanges()
@@ -34,7 +34,7 @@ protocol AddFeedPresenterProtocol: class {
 class AddEditFeedPresenter: AddFeedPresenterProtocol {
     private unowned var view: AddFeedViewProtocol
     private var dataProvider: DataProviderProtocol
-    private var coordinator: AppCoordinator
+    private var coordinator: Coordinator
     private var networkService: NetworkServiceProtocol
     
     private var currentFeed: Feed?
@@ -49,7 +49,7 @@ class AddEditFeedPresenter: AddFeedPresenterProtocol {
         return 0
     }
         
-    required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: AddFeedViewProtocol, rss: Feed?) {
+    required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: Coordinator, view: AddFeedViewProtocol, rss: Feed?) {
         self.coordinator = coordinator
         self.dataProvider = dataProvider
         self.networkService = networkService

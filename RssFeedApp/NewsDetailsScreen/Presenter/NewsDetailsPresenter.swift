@@ -19,7 +19,7 @@ protocol NewsDetailsViewProtocol: class {
 }
 
 protocol NewsDetailsPresenterProtocol {
-    init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: NewsDetailsViewProtocol, news: News)
+    init(dataProvider: DataProviderProtocol, coordinator: Coordinator, view: NewsDetailsViewProtocol, news: News)
     func updateUI()
     func safariOnTap()
     func favOnTap()
@@ -28,11 +28,11 @@ protocol NewsDetailsPresenterProtocol {
 
 class NewsDetailsPresenter: NewsDetailsPresenterProtocol {
     private unowned var view: NewsDetailsViewProtocol
-    private var coordinator: AppCoordinator
+    private var coordinator: Coordinator
     private var dataProvider: DataProviderProtocol
     private var news: News
     
-    required init(dataProvider: DataProviderProtocol, coordinator: AppCoordinator, view: NewsDetailsViewProtocol, news: News) {
+    required init(dataProvider: DataProviderProtocol, coordinator: Coordinator, view: NewsDetailsViewProtocol, news: News) {
         self.coordinator = coordinator
         self.dataProvider = dataProvider
         self.view = view
