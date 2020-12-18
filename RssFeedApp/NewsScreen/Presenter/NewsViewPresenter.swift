@@ -7,13 +7,6 @@
 
 import Foundation
 
-protocol NewsViewProtocol: class {
-    func updateUI()
-    func onRefresh()
-    func endRefresh()
-    func filterOnTap()
-}
-
 protocol NewsViewPresenterProtocol {
     var numberOfSections: Int { get }
     init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, feed: RealmRss)
@@ -37,53 +30,52 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
         case older = "Older"
     }
     
+    private unowned var view: NewsViewProtocol
     private var dataProvider: DataProviderProtocol
     private var networkService: NetworkServiceProtocol
     private var coordinator: AppCoordinator
     private var feed: RealmRss
+    private var filteredNews: [RealmNews] {
+        return feed.news.filter(filterNews)
+    }
+    
     private var todayNews: [RealmNews] {
-        return feed.news.filter{ (news) in
+        return filteredNews.filter{ (news) in
             news.date! > Date().beginOfDay && news.date! < Date()
         }
     }
     private var yesterdayNews: [RealmNews] {
-        return feed.news.filter { (news) in
+        return filteredNews.filter { (news) in
             news.date! > Date().yesterday.beginOfDay && news.date! < Date().yesterday.endOfDay
         }
     }
     private var lastWeekNews: [RealmNews] {
-        return feed.news.filter { (news) in
+        return filteredNews.filter { (news) in
             news.date! > Date().lastWeek.beginOfDay && news.date! < Date().yesterday.beginOfDay
         }
     }
     private var olderNews: [RealmNews] {
-        return feed.news.filter { (news) in
+        return filteredNews.filter { (news) in
             news.date! < Date().lastWeek.beginOfDay
         }
     }
     private var allNews: [[RealmNews]] {
+        if feed.filter?.date == true {
+            return [filteredNews]
+        }
         return [todayNews, yesterdayNews, lastWeekNews, olderNews]
     }
     
-    private unowned var view: NewsViewProtocol
-    
-    var numberOfRowsInSection: Int {
-        return feed.news.count
-    }
-    
     var numberOfSections: Int {
-        return 4
+        return allNews.count
     }
-    
-    private var filter: Filter
-    
+        
     required init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: AppCoordinator, view: NewsViewProtocol, feed: RealmRss) {
         self.dataProvider = dataProvider
         self.networkService = networkService
         self.coordinator = coordinator
         self.view = view
         self.feed = feed
-        self.filter = Filter(favorite: false, read: false, date: false, dateTime: nil)
     }
     
     func updateUI() {
@@ -96,6 +88,9 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
     }
     
     func titleForHeaderInSection(section: Int) -> String {
+        if feed.filter?.date == true {
+            return DateHelper.shared.toString(from: feed.filter?.dateTime ?? Date())
+        }
         switch section {
         case 0:
             return TimePeriod.today.rawValue
@@ -156,6 +151,44 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
     }
     
     func filterOnTap() {
+        guard let filter = feed.filter else {
+            assertionFailure("Filter entity wasn't initialized")
+            return
+        }
         coordinator.goToNewsFilterScreen(filter: filter)
+    }
+    
+    private func filterNews(news: [RealmNews], filter: Filter) -> [RealmNews]{
+        var filtered = filter.date == false ? news :
+            news.filter{$0.date! >= filter.dateTime.beginOfDay && $0.date! <= filter.dateTime.endOfDay}
+        
+        if filter.read == true {
+            filtered.removeAll(where: {$0.isRead != filter.read})
+        }
+        
+        if filter.favorite == true {
+            filtered.removeAll(where: {$0.favorite != filter.favorite})
+        }
+        
+        return filtered
+    }
+    
+    private func filterNews(news: RealmNews) -> Bool {
+        if feed.filter?.date == true {
+            if !news.date!.isBetween((feed.filter?.dateTime.beginOfDay)!, and: (feed.filter?.dateTime.endOfDay)!) {
+                return false
+            }
+            
+        }
+        
+        if feed.filter?.read == true && news.isRead != feed.filter?.read {
+            return false
+        }
+        
+        if feed.filter?.favorite == true && news.favorite != feed.filter?.favorite {
+            return false
+        }
+        
+        return true
     }
 }

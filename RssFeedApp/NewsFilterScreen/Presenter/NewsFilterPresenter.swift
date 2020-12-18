@@ -7,42 +7,46 @@
 
 import Foundation
 
-protocol NewsFilterViewProtocol: class {
-    func applyOnTap()
-}
-
 protocol NewsFilterPresenterProtocol {
+    var date: Date { get }
     var numberOfRowsInSection: Int { get }
-    init(coordinator: AppCoordinator, view: NewsFilterViewProtocol, filter: Filter)
+    
+    init(coordinator: AppCoordinator, dataProvider: DataProviderProtocol,  view: NewsFilterViewProtocol, filter: Filter)
+    
     func applyOnTap()
+    func resetOnTap()
     func filterLabelAt(indexPath: IndexPath) -> String
     func setOnAt(indexPath: IndexPath) -> Bool
-    func viewWillDisappear()
     func didSelectRowAt(indexPath: IndexPath)
 }
 
 class NewsFilterPresenter: NewsFilterPresenterProtocol {
+    
     private unowned var view: NewsFilterViewProtocol
+    private var dataProvider: DataProviderProtocol
     private var coordinator: AppCoordinator
     private var filter: Filter
     
-    var numberOfRowsInSection: Int {
-        return 3
+    var date: Date {
+        return filter.dateTime
     }
     
     var filterNames: [String] {
-        var labels = [String]()
-        let mirror = Mirror(reflecting: filter)
-        for child in mirror.children {
-            if child.value is Bool {
-                labels.append(child.label ?? "")
+        return filter.objectSchema.properties.compactMap { (property) in
+            if property.type == .bool {
+                return property.name
             }
+            return nil
         }
-        return labels
     }
     
-    required init(coordinator: AppCoordinator, view: NewsFilterViewProtocol, filter: Filter) {
+    var numberOfRowsInSection: Int {
+        return filterNames.count
+    }
+    
+    required init(coordinator: AppCoordinator, dataProvider: DataProviderProtocol, view: NewsFilterViewProtocol, filter: Filter) {
         self.coordinator = coordinator
+        self.dataProvider = dataProvider
         self.view = view
         self.filter = filter
     }
@@ -52,20 +56,27 @@ class NewsFilterPresenter: NewsFilterPresenterProtocol {
     }
     
     func setOnAt(indexPath: IndexPath) -> Bool {
-        let propertyName = filterNames[indexPath.row]
-        let status = Mirror(reflecting: filter).children.first{ $0.label == propertyName}!.value as! Bool
-        return status
-    }
-    
-    func applyOnTap() {
-        
+        let property = filterNames[indexPath.row]
+        let status = filter[property] as? Bool
+        return status ?? false
     }
     
     func didSelectRowAt(indexPath: IndexPath) {
-        filter.read = true
+        let name = filterNames[indexPath.row]
+        if let value = filter[name] as? Bool {
+            dataProvider.update(filter: filter, property: name, new: !value)
+        }
     }
     
-    func viewWillDisappear() {
-        
+    func applyOnTap() {
+        dataProvider.update(filter: filter, new: view.dateTime)
+        coordinator.popViewController()
+    }
+    
+    func resetOnTap() {
+        filterNames.forEach { (name) in
+            dataProvider.update(filter: filter, property: name, new: false)
+        }
+        coordinator.popViewController()
     }
 }

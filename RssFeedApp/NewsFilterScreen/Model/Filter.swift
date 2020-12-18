@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Filter {
-    var favorite: Bool
-    var read: Bool
-    var date: Bool
-    var dateTime: Date?
+class Filter: Object {
+    let rssFeed = LinkingObjects(fromType: RealmRss.self, property: "filter")
+    @objc dynamic var favorite = false
+    @objc dynamic var read = false
+    @objc dynamic var date = false
+    @objc dynamic var dateTime = Date()
 }

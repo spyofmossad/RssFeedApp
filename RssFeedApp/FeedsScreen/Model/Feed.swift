@@ -63,6 +63,7 @@ class RealmRss: Object {
     @objc dynamic var title = ""
     var categories = List<String>()
     var news = List<RealmNews>()
+    @objc dynamic var filter: Filter?
     
     convenience init(feed: Rss) {
         self.init()
@@ -72,6 +73,7 @@ class RealmRss: Object {
         if let news = feed.channel.news {
             self.news.append(objectsIn: news.map({RealmNews(news: $0)}))
         }
+        self.filter = Filter()
     }
 }
 

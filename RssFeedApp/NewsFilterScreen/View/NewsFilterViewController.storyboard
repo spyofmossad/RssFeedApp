@@ -36,7 +36,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8FK-pw-bpt">
+                                                <switch opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8FK-pw-bpt">
                                                     <rect key="frame" x="345" y="6.5" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
@@ -65,20 +65,34 @@
                                     <constraint firstAttribute="height" constant="50" id="p04-ra-4Z3"/>
                                 </constraints>
                             </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dK-JV-Rvw">
+                                <rect key="frame" x="32" y="246" width="350" height="40"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="R3Y-Vz-moM"/>
+                                </constraints>
+                                <state key="normal" title="Apply filter">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WkP-aB-cyl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vGr-Vx-T1x" firstAttribute="leading" secondItem="WkP-aB-cyl" secondAttribute="leading" id="4qw-IA-egx"/>
                             <constraint firstItem="vGr-Vx-T1x" firstAttribute="top" secondItem="WkP-aB-cyl" secondAttribute="top" id="9n7-uz-tHv"/>
+                            <constraint firstItem="6dK-JV-Rvw" firstAttribute="top" secondItem="soC-4z-0Jp" secondAttribute="bottom" constant="16" id="Bw6-NO-H5G"/>
                             <constraint firstItem="vGr-Vx-T1x" firstAttribute="trailing" secondItem="WkP-aB-cyl" secondAttribute="trailing" id="NPh-26-rEu"/>
+                            <constraint firstItem="WkP-aB-cyl" firstAttribute="trailing" secondItem="6dK-JV-Rvw" secondAttribute="trailing" constant="32" id="WLI-j0-nfM"/>
                             <constraint firstItem="soC-4z-0Jp" firstAttribute="trailing" secondItem="WkP-aB-cyl" secondAttribute="trailing" constant="8" id="ciH-SK-5yI"/>
+                            <constraint firstItem="6dK-JV-Rvw" firstAttribute="leading" secondItem="WkP-aB-cyl" secondAttribute="leading" constant="32" id="dgP-OE-Gxe"/>
                             <constraint firstItem="soC-4z-0Jp" firstAttribute="leading" secondItem="WkP-aB-cyl" secondAttribute="leading" constant="8" id="q14-vX-84l"/>
                             <constraint firstItem="soC-4z-0Jp" firstAttribute="top" secondItem="vGr-Vx-T1x" secondAttribute="bottom" constant="8" id="tU2-pA-OPD"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="dateTime" destination="soC-4z-0Jp" id="Rmu-Y0-qpp"/>
+                        <outlet property="apply" destination="6dK-JV-Rvw" id="OnH-0U-OOd"/>
+                        <outlet property="dateTimePicker" destination="soC-4z-0Jp" id="Rmu-Y0-qpp"/>
                         <outlet property="filtersTable" destination="vGr-Vx-T1x" id="7Y9-zP-gB3"/>
                     </connections>
                 </viewController>
@@ -90,6 +104,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

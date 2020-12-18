@@ -22,6 +22,8 @@ protocol DataProviderProtocol {
     func update(feed: RealmRss, _ url: String?, _ title: String?, _ categories: [String]?)
     func update(feed: RealmRss, with news: [RealmNews])
     func update(folder: Folder, title: String)
+    func update(filter: Filter, property: String, new value: Bool)
+    func update(filter: Filter, new date: Date)
     func move(feed: RealmRss, to folder: Folder)
     func moveToDefault(feed: RealmRss, from folder: Folder)
     func replace(old feed: RealmRss, with newFeed: RealmRss)
@@ -116,6 +118,18 @@ class DataProvider: DataProviderProtocol {
     func update(folder: Folder, title: String) {
         write {
             folder.name = title
+        }
+    }
+    
+    func update(filter: Filter, property: String, new value: Bool) {
+        write {
+            filter[property] = value
+        }
+    }
+    
+    func update(filter: Filter, new date: Date) {
+        write {
+            filter.dateTime = date
         }
     }
     

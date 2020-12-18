@@ -22,4 +22,9 @@ class DateHelper {
         dateFormatter.locale = Locale.current
         return dateFormatter.date(from: date)
     }
+    
+    func toString(from date: Date) -> String {
+        dateFormatter.dateStyle = .medium
+        return dateFormatter.string(from: date)
+    }
 }

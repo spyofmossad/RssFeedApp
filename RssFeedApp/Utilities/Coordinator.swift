@@ -58,6 +58,10 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(newsDetailsView, animated: true)
     }
     
+    func popViewController() {
+        navigationController.popViewController(animated: true)
+    }
+    
     func popToRoot() {
         navigationController.popToRootViewController(animated: true)
     }

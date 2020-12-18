@@ -7,9 +7,16 @@
 
 import UIKit
 
+protocol NewsViewProtocol: class {
+    func updateUI()
+    func onRefresh()
+    func endRefresh()
+    func filterOnTap()
+}
+
 class NewsViewController: UIViewController, StoryboardInit {
     
-    var presenter: NewsViewPresenterProtocol?
+    var presenter: NewsViewPresenterProtocol!
     
     @IBOutlet weak var newsTable: UITableView!
     
@@ -20,12 +27,11 @@ class NewsViewController: UIViewController, StoryboardInit {
         newsTable.refreshControl = UIRefreshControl()
         newsTable.refreshControl?.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
         navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filterOnTap))]
-        presenter?.updateUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        newsTable.reloadData()
+        presenter?.updateUI()
     }
 }
 
@@ -35,7 +41,7 @@ extension NewsViewController: NewsViewProtocol {
     }
     
     @objc func onRefresh() {
-        presenter?.onRefresh()
+        presenter.onRefresh()
     }
     
     func endRefresh() {
@@ -43,21 +49,21 @@ extension NewsViewController: NewsViewProtocol {
     }
     
     @objc func filterOnTap() {
-        presenter?.filterOnTap()
+        presenter.filterOnTap()
     }
 }
 
 extension NewsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter?.numberOfSections ?? 0
+        return presenter.numberOfSections
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return presenter?.titleForHeaderInSection(section: section)
+        return presenter.titleForHeaderInSection(section: section)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.numberOfRowsInSection(section: section) ?? 0
+        return presenter.numberOfRowsInSection(section: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,14 +73,14 @@ extension NewsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let cellPresenter = presenter?.tableViewCellPresenterAt(indexPath: indexPath, cell: tableCell)
+        let cellPresenter = presenter.tableViewCellPresenterAt(indexPath: indexPath, cell: tableCell)
         tableCell.presenter = cellPresenter
         
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.didSelectRowAt(indexPath)
+        presenter.didSelectRowAt(indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -85,9 +91,9 @@ extension NewsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let actionTitle = presenter?.swipeActionTitleForRowAt(indexPath: indexPath)
+        let actionTitle = presenter.swipeActionTitleForRowAt(indexPath: indexPath)
         let markAsRead = UIContextualAction(style: .normal, title: actionTitle) { (_, _, completion) in
-            self.presenter?.markAsRead(at: indexPath)
+            self.presenter.markAsRead(at: indexPath)
             self.newsTable.reloadRows(at: [indexPath], with: .automatic)
             completion(true)
         }
