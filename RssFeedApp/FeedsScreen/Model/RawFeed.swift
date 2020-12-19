@@ -8,7 +8,6 @@
 import Foundation
 import XMLCoder
 
-
 struct RawFeed: Decodable {
     var channel: Channel
 }

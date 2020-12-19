@@ -26,7 +26,7 @@ class NetworkService: NetworkServiceProtocol {
                     let feed = try decoder.decode(RawFeed.self, from: data)
                     let rssFeed = Feed(feed: feed)
                     completion(.success(rssFeed))
-                } catch (let error) {
+                } catch {
                     completion(.failure(error))
                 }
             }

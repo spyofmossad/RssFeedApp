@@ -43,23 +43,23 @@ class NewsPresenter: NewsPresenterProtocol {
     }
     
     private var todayNews: [News] {
-        return filteredNews.filter{ (news) in
-            news.date! > Date().beginOfDay && news.date! < Date()
+        return filteredNews.filter { (news) in
+            news.date > Date().beginOfDay && news.date < Date()
         }
     }
     private var yesterdayNews: [News] {
         return filteredNews.filter { (news) in
-            news.date! > Date().yesterday.beginOfDay && news.date! < Date().yesterday.endOfDay
+            news.date > Date().yesterday.beginOfDay && news.date < Date().yesterday.endOfDay
         }
     }
     private var lastWeekNews: [News] {
         return filteredNews.filter { (news) in
-            news.date! > Date().lastWeek.beginOfDay && news.date! < Date().yesterday.beginOfDay
+            news.date > Date().lastWeek.beginOfDay && news.date < Date().yesterday.beginOfDay
         }
     }
     private var olderNews: [News] {
         return filteredNews.filter { (news) in
-            news.date! < Date().lastWeek.beginOfDay
+            news.date < Date().lastWeek.beginOfDay
         }
     }
     private var allNews: [[News]] {
@@ -129,10 +129,8 @@ class NewsPresenter: NewsPresenterProtocol {
                 case .success(let update):
                     if let update = update {
                         let newNewsCollection = update.news.filter { (updNews) in
-                            for news in self.feed.news {
-                                if news.link == updNews.link {
-                                    return false
-                                }
+                            for news in self.feed.news where news.link == updNews.link {
+                                return false
                             }
                             return true
                         }
@@ -169,11 +167,10 @@ class NewsPresenter: NewsPresenterProtocol {
     }
     
     private func filterNews(news: News) -> Bool {
-        if feed.filter?.date == true {
-            if !news.date!.isBetween((feed.filter?.dateTime.beginOfDay)!, and: (feed.filter?.dateTime.endOfDay)!) {
+        if feed.filter?.date == true, let filterDate = feed.filter?.dateTime {
+            if !news.date.isBetween(filterDate.beginOfDay, and: filterDate.endOfDay) {
                 return false
             }
-            
         }
         
         if feed.filter?.read == true && news.read != feed.filter?.read {

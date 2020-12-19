@@ -22,7 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let networkService = NetworkService()
         let screenBuilder = ScreenBuilder(dataProvider: dataProvider, networkService: networkService)
         
-        
         appCoordinator = AppCoordinator(naviationController: navController, screenBuilder: screenBuilder)
         appCoordinator?.start()
         
@@ -57,7 +56,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
-

@@ -77,7 +77,7 @@ extension AddEditFolderViewController: AddEditFolderView {
     @objc func deleteOnTap() {
         let alert = UIAlertController(title: R.string.localizable.deleteFolderTitle(), message: R.string.localizable.deleteFolderMsg(), preferredStyle: .alert)
         let alertCancelAction = UIAlertAction(title: R.string.localizable.cancelLabel(), style: .cancel, handler: nil)
-        let alertOkAction = UIAlertAction(title: R.string.localizable.deleteLabel(), style: .destructive) { (action) in
+        let alertOkAction = UIAlertAction(title: R.string.localizable.deleteLabel(), style: .destructive) { (_) in
             self.presenter.deleteOnTap()
         }
         alert.addAction(alertCancelAction)
@@ -108,11 +108,17 @@ extension AddEditFolderViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableView {
         case freeFeedsTable:
-            let cell = freeFeedsTable.dequeueReusableCell(withIdentifier: "freeFeedCell") as! FeedsTableViewCell
+            guard let cell = freeFeedsTable.dequeueReusableCell(withIdentifier: R.reuseIdentifier.freeFeedCell, for: indexPath) else {
+                assertionFailure("Unable to init FreeFeedCell")
+                return UITableViewCell()
+            }
             cell.textLabel?.text = presenter!.freeFeedsList[indexPath.row].title
             return cell
         case selectedFeedsTable:
-            let cell = selectedFeedsTable.dequeueReusableCell(withIdentifier: "feedInFolderCell") as! FeedsTableViewCell
+            guard let cell = selectedFeedsTable.dequeueReusableCell(withIdentifier: R.reuseIdentifier.feedInFolderCell, for: indexPath) else {
+                assertionFailure("Unable to init FeedInFolderCell")
+                return UITableViewCell()
+            }
             cell.textLabel?.text = presenter!.selectedFeeds[indexPath.row].title
             return cell
         default:

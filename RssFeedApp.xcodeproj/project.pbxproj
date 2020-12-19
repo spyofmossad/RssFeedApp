@@ -451,11 +451,12 @@
 			buildConfigurationList = 0A696C2B2562B68F009FBAC7 /* Build configuration list for PBXNativeTarget "RssFeedApp" */;
 			buildPhases = (
 				2723B8F57534AB5DEA77909B /* [CP] Check Pods Manifest.lock */,
-				0AB3B904258E242C00E01963 /* ShellScript */,
+				0AB3B904258E242C00E01963 /* R.swift */,
 				0A696C132562B68F009FBAC7 /* Sources */,
 				0A696C142562B68F009FBAC7 /* Frameworks */,
 				0A696C152562B68F009FBAC7 /* Resources */,
 				2B5533F6E4A04E61E2AB92CD /* [CP] Embed Pods Frameworks */,
+				0A96526D258E524B0048E092 /* Lint */,
 			);
 			buildRules = (
 			);
@@ -520,7 +521,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0AB3B904258E242C00E01963 /* ShellScript */ = {
+		0A96526D258E524B0048E092 /* Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Lint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		0AB3B904258E242C00E01963 /* R.swift */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -530,6 +549,7 @@
 			inputPaths = (
 				"$TEMP_DIR/rswift-lastrun",
 			);
+			name = R.swift;
 			outputFileListPaths = (
 			);
 			outputPaths = (

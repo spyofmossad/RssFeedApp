@@ -37,7 +37,7 @@ class News: Object {
     @objc dynamic var link = ""
     @objc dynamic var newsDescription = ""
     @objc dynamic var imageUrl = ""
-    @objc dynamic var date: Date? = nil
+    @objc dynamic var date: Date = Date()
     @objc dynamic var read: Bool = false
     @objc dynamic var favorite: Bool = false
     
@@ -48,7 +48,7 @@ class News: Object {
         self.newsDescription = news.description ?? ""
         self.imageUrl = news.content?.imageUrl ?? ""
         if let pubDate = news.pubDate {
-            self.date = DateHelper.shared.parse(from: pubDate)
+            self.date = DateHelper.shared.parse(from: pubDate) ?? Date()
         }
     }
 }

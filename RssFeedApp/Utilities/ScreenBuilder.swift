@@ -61,7 +61,7 @@ class ScreenBuilder: ScreenBuilderProtocol {
     
     func newsFilterView(coordinator: Coordinator, filter: Filter) -> UIViewController {
         let newsFilterView = NewsFilterViewController.instantiate()
-        let newsFilterPresenter = NewsFilterPresenter(coordinator: coordinator,dataProvider: dataProvider, view: newsFilterView, filter: filter)
+        let newsFilterPresenter = NewsFilterPresenter(coordinator: coordinator, dataProvider: dataProvider, view: newsFilterView, filter: filter)
         newsFilterView.presenter = newsFilterPresenter
         
         return newsFilterView

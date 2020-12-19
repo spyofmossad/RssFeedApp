@@ -73,7 +73,7 @@ class DataProvider: DataProviderProtocol {
                 self.delete(entity: filter)
             }
         case let folder as Folder:
-            folder.feeds.forEach{ self.delete(entities: $0.news) }
+            folder.feeds.forEach { self.delete(entities: $0.news) }
             self.delete(entities: folder.feeds)
         default:
             break
@@ -152,7 +152,7 @@ class DataProvider: DataProviderProtocol {
     
     private func write(_ completion: () -> Void) {
         do {
-            try realm.write{
+            try realm.write {
                 completion()
             }
         } catch let error {

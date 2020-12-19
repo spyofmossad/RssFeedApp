@@ -9,8 +9,8 @@ import Foundation
 import RealmSwift
 
 enum FilterBoolProperties: String {
-    case favorite = "favorite"
-    case read = "read"
+    case favorite
+    case read
 }
 
 class Filter: Object {
