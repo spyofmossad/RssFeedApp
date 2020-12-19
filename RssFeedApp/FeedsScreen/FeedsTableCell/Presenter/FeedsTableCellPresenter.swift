@@ -36,6 +36,6 @@ class FeedsTableCellPresenter: FeedsTableCellPresenterProtocol {
     }
     
     var newsCount: Int {
-        return feed.news.filter({$0.isRead == false}).count
+        return feed.news.filter({$0.read == false}).count
     }
 }

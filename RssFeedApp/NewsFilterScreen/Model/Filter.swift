@@ -8,6 +8,11 @@
 import Foundation
 import RealmSwift
 
+enum FilterBoolProperties: String {
+    case favorite = "favorite"
+    case read = "read"
+}
+
 class Filter: Object {
     let rssFeed = LinkingObjects(fromType: Feed.self, property: "filter")
     @objc dynamic var favorite = false

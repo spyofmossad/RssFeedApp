@@ -38,7 +38,7 @@ class News: Object {
     @objc dynamic var newsDescription = ""
     @objc dynamic var imageUrl = ""
     @objc dynamic var date: Date? = nil
-    @objc dynamic var isRead: Bool = false
+    @objc dynamic var read: Bool = false
     @objc dynamic var favorite: Bool = false
     
     convenience init(news: RawFeedNews) {

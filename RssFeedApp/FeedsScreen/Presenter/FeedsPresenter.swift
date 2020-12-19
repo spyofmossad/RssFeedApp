@@ -67,8 +67,8 @@ class FeedsPresenter: FeedsPresenterProtocol {
     }
     
     func onTapDelete(at indexPath: IndexPath) {
-        let deletedFeed = dataProvider.foldersList[indexPath.section].feeds[indexPath.row]
-        dataProvider.delete(feed: deletedFeed)
+        let feed = dataProvider.foldersList[indexPath.section].feeds[indexPath.row]
+        dataProvider.delete(entity: feed)
     }
     
     func titleForHeaderInSection(_ section: Int) -> String {

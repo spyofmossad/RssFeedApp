@@ -37,7 +37,7 @@ class NewsDetailsPresenter: NewsDetailsPresenterProtocol {
         self.dataProvider = dataProvider
         self.view = view
         self.news = news
-        dataProvider.update(news: self.news, isRead: true)
+        dataProvider.update(news: self.news, property: .read, value: true)
     }
     
     func updateUI() {
@@ -52,9 +52,8 @@ class NewsDetailsPresenter: NewsDetailsPresenterProtocol {
     }
     
     func favOnTap() {
-        let flag = !news.favorite
-        dataProvider.update(news: news, addToFavorite: flag)
-        view.updateTabBar(addToFav: flag)
+        dataProvider.update(news: news, property: .favorite, value: !news.favorite)
+        view.updateTabBar(addToFav: news.favorite)
     }
     
     func shareOnTap() {

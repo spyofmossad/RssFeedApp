@@ -7,16 +7,6 @@
 
 import Foundation
 
-@objc protocol AddEditFolderView: class {
-    var freeFeedsTableSelectedRows: [IndexPath]? { get }
-    var selectedFeedsTableSelectedRows: [IndexPath]? { get }
-    var folderTitle: String? { get }
-    
-    func updateUI(with folder: String?)
-    @objc func deleteOnTap()
-    func showAlert()
-}
-
 protocol AddEditFolderProtocol {
     var freeFeedsList: [Feed] { get }
     var selectedFeeds: [Feed] { get }
@@ -58,18 +48,21 @@ class AddEditFolderPresenter: AddEditFolderProtocol {
     }
     
     func saveChanges() {
+        guard let defaulfFolder = dataProvider.foldersList.first(where: {$0.name == Constants.defaultFolder}) else {
+            assertionFailure("Default folder does'n exists")
+            return
+        }
         if let folderName = view.folderTitle, !folderName.isEmpty {
-            
             if let currentFolder = self.currentFolder {
                 dataProvider.update(folder: currentFolder, title: folderName)
                 if let selectedRows = self.view.freeFeedsTableSelectedRows {
                     selectedRows.forEach { (indexPath) in
-                        dataProvider.move(feed: freeFeedsList[indexPath.row], to: currentFolder)
+                        dataProvider.move(feed: freeFeedsList[indexPath.row], from: defaulfFolder, to: currentFolder)
                     }
                 }
                 if let deselectedRows = self.view.selectedFeedsTableSelectedRows {
                     deselectedRows.forEach { (indexPath) in
-                        dataProvider.moveToDefault(feed: selectedFeeds[indexPath.row], from: currentFolder)
+                        dataProvider.move(feed: selectedFeeds[indexPath.row], from: currentFolder, to: defaulfFolder)
                     }
                 }
             } else {
@@ -78,7 +71,7 @@ class AddEditFolderPresenter: AddEditFolderProtocol {
                 dataProvider.save(folder: folder)
                 if let selectedRows = self.view.freeFeedsTableSelectedRows {
                     selectedRows.forEach { (indexPath) in
-                        dataProvider.move(feed: freeFeedsList[indexPath.row], to: folder)
+                        dataProvider.move(feed: freeFeedsList[indexPath.row], from: defaulfFolder, to: folder)
                     }
                 }
             }
@@ -95,7 +88,7 @@ class AddEditFolderPresenter: AddEditFolderProtocol {
             assertionFailure("Trying to delete nil? folder")
             return
         }
-        dataProvider.delete(folder: folder)
+        dataProvider.delete(entity: folder)
         coordinator.popToRoot()
     }
 }

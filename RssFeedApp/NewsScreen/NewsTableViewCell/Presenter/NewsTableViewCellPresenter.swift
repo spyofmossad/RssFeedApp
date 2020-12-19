@@ -30,7 +30,7 @@ class NewsTableViewCellPresenter: NewsCellPresenterProtocol {
     }
     
     var isRead: Bool {
-        return news.isRead
+        return news.read
     }
     
     required init(news: News) {

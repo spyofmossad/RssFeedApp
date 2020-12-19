@@ -111,7 +111,7 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
     
     func markAsRead(at indexPath: IndexPath) {
         let news = allNews[indexPath.section][indexPath.row]
-        dataProvider.update(news: news, isRead: !news.isRead)
+        dataProvider.update(news: news, property: .read, value: !news.read)
     }
     
     func didSelectRowAt(_ indexPath: IndexPath) {
@@ -121,7 +121,7 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
     
     func swipeActionTitleForRowAt(indexPath: IndexPath) -> String {
         let news = allNews[indexPath.section][indexPath.row]
-        return news.isRead ? "Mark as unread" : "Mask as read"
+        return news.read ? "Mark as unread" : "Mask as read"
     }
     
     func onRefresh() {
@@ -163,7 +163,7 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
             news.filter{$0.date! >= filter.dateTime.beginOfDay && $0.date! <= filter.dateTime.endOfDay}
         
         if filter.read == true {
-            filtered.removeAll(where: {$0.isRead != filter.read})
+            filtered.removeAll(where: {$0.read != filter.read})
         }
         
         if filter.favorite == true {
@@ -181,7 +181,7 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
             
         }
         
-        if feed.filter?.read == true && news.isRead != feed.filter?.read {
+        if feed.filter?.read == true && news.read != feed.filter?.read {
             return false
         }
         

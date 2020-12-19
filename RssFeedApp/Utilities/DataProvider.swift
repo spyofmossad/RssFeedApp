@@ -14,22 +14,21 @@ protocol DataProviderProtocol {
     
     func save(folder: Folder)
     func save(feed: Feed, to folder: Folder?)
-    func delete(news: News)
-    func delete(feed: Feed)
-    func delete(folder: Folder)
-    func update(news: News, isRead: Bool)
-    func update(news: News, addToFavorite: Bool)
+    
+    func update(news: News, property: FilterBoolProperties, value: Bool)
     func update(feed: Feed, _ url: String?, _ title: String?, _ categories: [String]?)
     func update(feed: Feed, with news: [News])
     func update(folder: Folder, title: String)
     func update(filter: Filter, property: String, new value: Bool)
     func update(filter: Filter, new date: Date)
-    func move(feed: Feed, to folder: Folder)
-    func moveToDefault(feed: Feed, from folder: Folder)
+    
+    func delete<T>(entity: T) where T: Object
+    
+    func move(feed: Feed, from oldFolder: Folder, to newFolder: Folder)
     func replace(old feed: Feed, with newFeed: Feed)
 }
 
-class DataProvider: DataProviderProtocol {
+class DataProvider: DataProviderProtocol {    
     private var realm: Realm
     private var defaultFolder: Folder
         
@@ -66,35 +65,28 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    func delete(news: News) {
+    func delete<T>(entity: T) where T: Object {
+        switch entity {
+        case let feed as Feed:
+            self.delete(entities: feed.news)
+            if let filter = feed.filter {
+                self.delete(entity: filter)
+            }
+        case let folder as Folder:
+            folder.feeds.forEach{ self.delete(entities: $0.news) }
+            self.delete(entities: folder.feeds)
+        default:
+            break
+        }
+        
         write {
-            realm.delete(news)
+            realm.delete(entity)
         }
     }
     
-    func delete(feed: Feed) {
-        self.delete(news: feed.news)
+    func update(news: News, property: FilterBoolProperties, value: Bool) {
         write {
-            realm.delete(feed)
-        }
-    }
-    
-    func delete(folder: Folder) {
-        self.delete(feeds: folder.feeds)
-        write {
-            realm.delete(folder)
-        }
-    }
-    
-    func update(news: News, isRead: Bool) {
-        write {
-            news.isRead = isRead
-        }
-    }
-    
-    func update(news: News, addToFavorite: Bool) {
-        write {
-            news.favorite = addToFavorite
+            news[property.rawValue] = value
         }
     }
     
@@ -133,45 +125,28 @@ class DataProvider: DataProviderProtocol {
         }
     }
     
-    func move(feed: Feed, to folder: Folder) {
+    func move(feed: Feed, from oldFolder: Folder, to newFolder: Folder) {
         write {
-            guard let index = defaultFolder.feeds.index(of: feed) else {
-                assertionFailure("No such feed in default folder")
+            guard let index = oldFolder.feeds.index(of: feed) else {
+                assertionFailure("No such feed in folder \(oldFolder.name)")
                 return
             }
-            defaultFolder.feeds.remove(at: index)
-            folder.feeds.append(feed)
-        }
-    }
-    
-    func moveToDefault(feed: Feed, from folder: Folder) {
-        write {
-            guard let index = folder.feeds.index(of: feed) else {
-                assertionFailure("No such feed in folder \(folder.name)")
-                return
-            }
-            folder.feeds.remove(at: index)
-            defaultFolder.feeds.append(feed)
+            oldFolder.feeds.remove(at: index)
+            newFolder.feeds.append(feed)
         }
     }
     
     func replace(old feed: Feed, with newFeed: Feed) {
         update(feed: feed, newFeed.url, newFeed.title, Array(newFeed.categories))
-        delete(news: feed.news)
+        delete(entities: feed.news)
         write {
             feed.news.append(objectsIn: newFeed.news)
         }
     }
     
-    private func delete(feeds: List<Feed>) {
-        write {
-            realm.delete(feeds)
-        }
-    }
-    
-    private func delete(news: List<News>) {
+    private func delete<T>(entities: List<T>) where T: Object {
         self.write {
-            realm.delete(news)
+            realm.delete(entities)
         }
     }
     

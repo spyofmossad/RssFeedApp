@@ -7,6 +7,16 @@
 
 import UIKit
 
+protocol AddEditFolderView: class {
+    var freeFeedsTableSelectedRows: [IndexPath]? { get }
+    var selectedFeedsTableSelectedRows: [IndexPath]? { get }
+    var folderTitle: String? { get }
+    
+    func updateUI(with folder: String?)
+    func deleteOnTap()
+    func showAlert()
+}
+
 class AddEditFolderViewController: UIViewController, StoryboardInit {
     
     var presenter: AddEditFolderProtocol!
@@ -64,7 +74,7 @@ extension AddEditFolderViewController: AddEditFolderView {
         selectedFeedsTable.reloadData()
     }
     
-    func deleteOnTap() {
+    @objc func deleteOnTap() {
         let alert = UIAlertController(title: "Are you sure?", message: "All feeds in this folder will be deleted as well", preferredStyle: .alert)
         let alertCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let alertOkAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
