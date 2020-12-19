@@ -23,7 +23,7 @@ class NewsFilterViewController: UIViewController, StoryboardInit {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetOnTap))]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: R.string.localizable.resetLabel(), style: .plain, target: self, action: #selector(resetOnTap))]
         apply.addTarget(self, action: #selector(applyOnTap), for: .touchUpInside)
     }
     
@@ -68,7 +68,7 @@ extension NewsFilterViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "filterCell") as? FilterTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.filterCell, for: indexPath)
         guard let tableCell = cell else {
             assertionFailure("Unable to init FilterTableViewCell")
             return UITableViewCell()

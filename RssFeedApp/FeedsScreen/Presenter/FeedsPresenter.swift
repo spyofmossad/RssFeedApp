@@ -7,12 +7,6 @@
 
 import Foundation
 
-protocol FeedsViewProtocol: class {
-    func updateUI()
-    func showPlaceholder(with text: String)
-    func expandCollapse(_ section: Int)
-}
-
 protocol FeedsPresenterProtocol: class {
     var numberOfSections: Int { get }
     
@@ -29,12 +23,15 @@ protocol FeedsPresenterProtocol: class {
     func indexPaths(for section: Int) -> [IndexPath]
     
     func headerPresenter(for section: Int) -> FeedsTableHeaderPresenterProtocol
-    func cellPresenter(for indexPath: IndexPath) -> FeedsTableCellPresenterProtocol
     func headerOnTap(section: Int)
     func headerOnLongTap(section: Int)
     func heightForHeaderInSection(section: Int) -> Int
     
     func didSelectRowAt(indexPath: IndexPath)
+    
+    func cellTitleAt(indexPath: IndexPath) -> String
+    func cellCategoryAt(indexPath: IndexPath) -> String
+    func cellNewsCountAt(indexPath: IndexPath) -> String
 }
 
 class FeedsPresenter: FeedsPresenterProtocol {
@@ -58,7 +55,7 @@ class FeedsPresenter: FeedsPresenterProtocol {
         if dataProvider.foldersList.contains(where: {$0.name != Constants.defaultFolder}) || dataProvider.feedsList.count > 0 {
             view.updateUI()
         } else {
-            view.showPlaceholder(with: "No feeds found. Tap '+' to add new rss feed.")
+            view.showPlaceholder(with: R.string.localizable.noFeedsPlaceholder())
         }
     }
     
@@ -88,11 +85,6 @@ class FeedsPresenter: FeedsPresenterProtocol {
         return TableHeaderPresenter(parentPresenter: self, section: section)
     }
     
-    func cellPresenter(for indexPath: IndexPath) -> FeedsTableCellPresenterProtocol {
-        let feed = dataProvider.foldersList[indexPath.section].feeds[indexPath.row]
-        return FeedsTableCellPresenter(feed: feed)
-    }
-    
     func headerOnTap(section: Int) {
         view.expandCollapse(section)
     }
@@ -100,6 +92,18 @@ class FeedsPresenter: FeedsPresenterProtocol {
     func heightForHeaderInSection(section: Int) -> Int {
         if dataProvider.foldersList[section].name == Constants.defaultFolder { return 0 }
         return 44
+    }
+    
+    func cellTitleAt(indexPath: IndexPath) -> String {
+        return dataProvider.foldersList[indexPath.section].feeds[indexPath.row].title
+    }
+    
+    func cellCategoryAt(indexPath: IndexPath) -> String {
+        dataProvider.foldersList[indexPath.section].feeds[indexPath.row].categories.joined(separator: ", ")
+    }
+    
+    func cellNewsCountAt(indexPath: IndexPath) -> String {
+        dataProvider.foldersList[indexPath.section].feeds[indexPath.row].news.filter({$0.read == false}).count.description
     }
     
     // MARK: - Navigation

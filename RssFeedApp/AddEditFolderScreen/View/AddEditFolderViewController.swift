@@ -75,9 +75,9 @@ extension AddEditFolderViewController: AddEditFolderView {
     }
     
     @objc func deleteOnTap() {
-        let alert = UIAlertController(title: "Are you sure?", message: "All feeds in this folder will be deleted as well", preferredStyle: .alert)
-        let alertCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let alertOkAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+        let alert = UIAlertController(title: R.string.localizable.deleteFolderTitle(), message: R.string.localizable.deleteFolderMsg(), preferredStyle: .alert)
+        let alertCancelAction = UIAlertAction(title: R.string.localizable.cancelLabel(), style: .cancel, handler: nil)
+        let alertOkAction = UIAlertAction(title: R.string.localizable.deleteLabel(), style: .destructive) { (action) in
             self.presenter.deleteOnTap()
         }
         alert.addAction(alertCancelAction)
@@ -86,8 +86,8 @@ extension AddEditFolderViewController: AddEditFolderView {
     }
     
     func showAlert() {
-        let alert = UIAlertController(title: "Oops!", message: "Folder name is required", preferredStyle: .alert)
-        let alertCancelAction = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+        let alert = UIAlertController(title: R.string.localizable.folderNameValidationTitle(), message: R.string.localizable.folderNameValidationMsg(), preferredStyle: .alert)
+        let alertCancelAction = UIAlertAction(title: R.string.localizable.closeLabel(), style: .cancel, handler: nil)
         alert.addAction(alertCancelAction)
         self.present(alert, animated: true, completion: nil)
     }

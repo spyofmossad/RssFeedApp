@@ -15,9 +15,9 @@ class TableViewHeaderCell: UITableViewHeaderFooterView, TableHeaderCellProtocol 
     @IBOutlet weak var arrow: UIImageView!
     @IBOutlet weak var button: UIButton!
     
-    var presenter: FeedsTableHeaderPresenterProtocol? {
+    var presenter: FeedsTableHeaderPresenterProtocol! {
         didSet {
-            self.folderTitle.text = presenter?.headerTitle
+            self.folderTitle.text = presenter.headerTitle
             let longTap = UILongPressGestureRecognizer(target: self, action: #selector(onLongTap))
             let shortTap = UITapGestureRecognizer(target: self, action: #selector(onShorTap))
             shortTap.numberOfTapsRequired = 1
@@ -28,7 +28,7 @@ class TableViewHeaderCell: UITableViewHeaderFooterView, TableHeaderCellProtocol 
     
     @objc private func onLongTap(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .ended {
-            self.presenter?.buttonOnLongTap()
+            self.presenter.buttonOnLongTap()
         }
     }
     
@@ -37,6 +37,6 @@ class TableViewHeaderCell: UITableViewHeaderFooterView, TableHeaderCellProtocol 
             self.arrow.transform = CGAffineTransform(rotationAngle: self.isExpanded ? .pi : (.pi*2))
             self.isExpanded = !self.isExpanded
         }
-        self.presenter?.buttonOnTap()
+        self.presenter.buttonOnTap()
     }
 }

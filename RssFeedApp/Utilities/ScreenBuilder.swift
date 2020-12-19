@@ -53,7 +53,7 @@ class ScreenBuilder: ScreenBuilderProtocol {
     
     func newsView(coordinator: Coordinator, feed: Feed) -> UIViewController {
         let newsView = NewsViewController.instantiate()
-        let newsViewPresenter = NewsViewPresenter(dataProvider: dataProvider, networkService: networkService, coordinator: coordinator, view: newsView, feed: feed)
+        let newsViewPresenter = NewsPresenter(dataProvider: dataProvider, networkService: networkService, coordinator: coordinator, view: newsView, feed: feed)
         newsView.presenter = newsViewPresenter
         
         return newsView

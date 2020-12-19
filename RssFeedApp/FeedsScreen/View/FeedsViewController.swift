@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol FeedsViewProtocol: class {
+    func updateUI()
+    func showPlaceholder(with text: String)
+    func expandCollapse(_ section: Int)
+}
+
 class FeedsViewController: UIViewController, StoryboardInit {
     
     private var hiddenSections = Set<Int>()
@@ -20,8 +26,7 @@ class FeedsViewController: UIViewController, StoryboardInit {
         let addEditFeedItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFeed))
         let addEditFolderItem = UIBarButtonItem(image: UIImage(systemName: "folder.badge.plus"), style: .plain, target: self, action: #selector(addFolder))
         navigationItem.rightBarButtonItems = [addEditFeedItem, addEditFolderItem]
-        let nib = UINib(nibName: "TableViewHeaderCell", bundle: nil)
-        feedsTable.register(nib, forHeaderFooterViewReuseIdentifier: "customHeader")
+        feedsTable.register(UINib(resource: R.nib.tableViewHeaderCell), forHeaderFooterViewReuseIdentifier: Constants.feedsTableHeader)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,43 +82,38 @@ extension FeedsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = feedsTable.dequeueReusableHeaderFooterView(withIdentifier: "customHeader") as? TableViewHeaderCell
-        let headerPresenter = presenter.headerPresenter(for: section)
-        
-        guard let header = headerView else {
+        guard let header = feedsTable.dequeueReusableHeaderFooterView(withIdentifier: Constants.feedsTableHeader) as? TableViewHeaderCell else {
             assertionFailure("Failed to init TableViewHeaderCell")
             return UIView()
         }
-        
+        let headerPresenter = presenter.headerPresenter(for: section)
         header.presenter = headerPresenter
         
         return header
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = feedsTable.dequeueReusableCell(withIdentifier: "feedCell", for: indexPath) as? FeedTableViewCell
-        let cellPresenter = presenter.cellPresenter(for: indexPath)
-        
-        guard let tableCell = cell else {
+        guard let cell = feedsTable.dequeueReusableCell(withIdentifier: R.reuseIdentifier.feedCell, for: indexPath) else {
             assertionFailure("Failed to init FeedTableViewCell")
             return UITableViewCell()
         }
+        cell.prepare(with: presenter.cellTitleAt(indexPath: indexPath),
+                     category: presenter.cellCategoryAt(indexPath: indexPath),
+                     newsCount: presenter.cellNewsCountAt(indexPath: indexPath))
         
-        tableCell.presenter = cellPresenter
-        
-        return tableCell
+        return cell
     }
 }
 
 extension FeedsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
+        let delete = UIContextualAction(style: .destructive, title: R.string.localizable.deleteLabel()) { (_, _, _) in
             self.feedsTable.beginUpdates()
             self.presenter.onTapDelete(at: indexPath)
             self.feedsTable.deleteRows(at: [indexPath], with: .fade)
             self.feedsTable.endUpdates()
         }
-        let edit = UIContextualAction(style: .normal, title: "Edit") { (_, _, _) in
+        let edit = UIContextualAction(style: .normal, title: R.string.localizable.editLabel()) { (_, _, _) in
             self.presenter.onTapEditFeed(at: indexPath)
         }
         

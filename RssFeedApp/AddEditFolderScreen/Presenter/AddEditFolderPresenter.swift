@@ -85,7 +85,7 @@ class AddEditFolderPresenter: AddEditFolderProtocol {
     
     func deleteOnTap() {
         guard let folder = currentFolder else {
-            assertionFailure("Trying to delete nil? folder")
+            assertionFailure("Trying to delete nil folder")
             return
         }
         dataProvider.delete(entity: folder)

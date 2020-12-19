@@ -7,21 +7,6 @@
 
 import Foundation
 
-protocol AddFeedViewProtocol: class {
-    var feedTitleText: String { get }
-    var feedUrl: String { get }
-    var feedCategories: [String] { get }
-    
-    func updateUI(url: String, title: String)
-    func saveChanges()
-    func showSpinner()
-    func removeSpinner()
-    func showError(message: String)
-    func showPlaceholder()
-    func activateSaveButton()
-    func disableSaveButton()
-}
-
 protocol AddFeedPresenterProtocol: class {
     var numberOfRowsInSection: Int { get }
     init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: Coordinator, view: AddFeedViewProtocol, rss: Feed?)

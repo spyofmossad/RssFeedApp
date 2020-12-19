@@ -7,6 +7,21 @@
 
 import UIKit
 
+protocol AddFeedViewProtocol: class {
+    var feedTitleText: String { get }
+    var feedUrl: String { get }
+    var feedCategories: [String] { get }
+    
+    func updateUI(url: String, title: String)
+    func saveChanges()
+    func showSpinner()
+    func removeSpinner()
+    func showError(message: String)
+    func showPlaceholder()
+    func activateSaveButton()
+    func disableSaveButton()
+}
+
 class AddEditFeedViewController: UIViewController, StoryboardInit {
     
     var presenter: AddFeedPresenterProtocol!
@@ -54,7 +69,7 @@ extension AddEditFeedViewController: AddFeedViewProtocol {
     }
     
     func showPlaceholder() {
-        showPlaceholder(in: categoriesTable, with: "No categories")
+        showPlaceholder(in: categoriesTable, with: R.string.localizable.noCategoriesPlaceholcer())
     }
     
     func showError(message: String) {
@@ -109,7 +124,10 @@ extension AddEditFeedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell") ?? UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.categoryCell, for: indexPath) else {
+            assertionFailure("Unable to init Category cell")
+            return UITableViewCell()
+        }
         cell.textLabel?.text = presenter.titleForRowAt(indexPath: indexPath)
         return cell
     }

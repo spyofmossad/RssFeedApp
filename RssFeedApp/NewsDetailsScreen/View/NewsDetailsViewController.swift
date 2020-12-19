@@ -8,6 +8,17 @@
 import UIKit
 import SDWebImage
 
+protocol NewsDetailsViewProtocol: class {
+    func updateUI(imageUrl: String, title: String, descr: String, favorite: Bool)
+    func updateTabBar(addToFav: Bool)
+    func favOnTap()
+    func shareOnTap()
+    func safariOnTap()
+    func openSafari(url: URL)
+    func share(url: URL)
+    func showAlert(title: String, text: String)
+}
+
 class NewsDetailsViewController: UIViewController, StoryboardInit {
     
     var presenter: NewsDetailsPresenterProtocol!
@@ -52,7 +63,7 @@ extension NewsDetailsViewController: NewsDetailsViewProtocol {
     
     func showAlert(title: String, text: String) {
         let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
-        let okButton = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let okButton = UIAlertAction(title: R.string.localizable.okLabel(), style: .cancel, handler: nil)
         alert.addAction(okButton)
         self.present(alert, animated: true, completion: nil)
     }

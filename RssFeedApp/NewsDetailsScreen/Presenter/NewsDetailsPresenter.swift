@@ -7,17 +7,6 @@
 
 import Foundation
 
-protocol NewsDetailsViewProtocol: class {
-    func updateUI(imageUrl: String, title: String, descr: String, favorite: Bool)
-    func updateTabBar(addToFav: Bool)
-    func favOnTap()
-    func shareOnTap()
-    func safariOnTap()
-    func openSafari(url: URL)
-    func share(url: URL)
-    func showAlert(title: String, text: String)
-}
-
 protocol NewsDetailsPresenterProtocol {
     init(dataProvider: DataProviderProtocol, coordinator: Coordinator, view: NewsDetailsViewProtocol, news: News)
     func updateUI()
@@ -48,7 +37,7 @@ class NewsDetailsPresenter: NewsDetailsPresenterProtocol {
         if let url = URL(string: news.link) {
             return view.openSafari(url: url)
         }
-        view.showAlert(title: "Unable to proceed", text: "Link is corrupted or empry, unable to open link")
+        view.showAlert(title: R.string.localizable.linkValidationTitle(), text: R.string.localizable.linkValidationMsg())
     }
     
     func favOnTap() {
@@ -60,6 +49,6 @@ class NewsDetailsPresenter: NewsDetailsPresenterProtocol {
         if let url = URL(string: news.link) {
             return view.share(url: url)
         }
-        view.showAlert(title: "Unable to proceed", text: "Link is corrupted or empry, unable to open link")
+        view.showAlert(title: R.string.localizable.linkValidationTitle(), text: R.string.localizable.linkValidationMsg())
     }
 }

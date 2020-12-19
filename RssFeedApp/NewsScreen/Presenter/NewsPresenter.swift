@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol NewsViewPresenterProtocol {
+protocol NewsPresenterProtocol {
     var numberOfSections: Int { get }
     init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol, coordinator: Coordinator, view: NewsViewProtocol, feed: Feed)
     
@@ -15,14 +15,17 @@ protocol NewsViewPresenterProtocol {
     func onRefresh()
     func titleForHeaderInSection(section: Int) -> String
     func numberOfRowsInSection(section: Int) -> Int
-    func tableViewCellPresenterAt(indexPath: IndexPath, cell: NewsCellViewProtocol) -> NewsCellPresenterProtocol
     func markAsRead(at indexPath: IndexPath)
     func didSelectRowAt(_ indexPath: IndexPath)
     func swipeActionTitleForRowAt(indexPath: IndexPath) -> String
     func filterOnTap()
+    
+    func titleAt(_ indexPath: IndexPath) -> String
+    func imageUrlAt(_ indexPath: IndexPath) -> String
+    func readNewsAt(_ indexPath: IndexPath) -> Bool
 }
 
-class NewsViewPresenter: NewsViewPresenterProtocol {
+class NewsPresenter: NewsPresenterProtocol {
     private enum TimePeriod: String {
         case today = "Today"
         case yesterday = "Yesterday"
@@ -82,11 +85,6 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
         view.updateUI()
     }
     
-    func tableViewCellPresenterAt(indexPath: IndexPath, cell: NewsCellViewProtocol) -> NewsCellPresenterProtocol {
-        let singleNews = allNews[indexPath.section][indexPath.row]
-        return NewsTableViewCellPresenter(news: singleNews)
-    }
-    
     func titleForHeaderInSection(section: Int) -> String {
         if feed.filter?.date == true {
             return DateHelper.shared.toString(from: feed.filter?.dateTime ?? Date())
@@ -121,7 +119,7 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
     
     func swipeActionTitleForRowAt(indexPath: IndexPath) -> String {
         let news = allNews[indexPath.section][indexPath.row]
-        return news.read ? "Mark as unread" : "Mask as read"
+        return news.read ? R.string.localizable.markAsUnread() : R.string.localizable.markAsRead()
     }
     
     func onRefresh() {
@@ -158,19 +156,16 @@ class NewsViewPresenter: NewsViewPresenterProtocol {
         coordinator.goToNewsFilterScreen(filter: filter)
     }
     
-    private func filterNews(news: [News], filter: Filter) -> [News]{
-        var filtered = filter.date == false ? news :
-            news.filter{$0.date! >= filter.dateTime.beginOfDay && $0.date! <= filter.dateTime.endOfDay}
-        
-        if filter.read == true {
-            filtered.removeAll(where: {$0.read != filter.read})
-        }
-        
-        if filter.favorite == true {
-            filtered.removeAll(where: {$0.favorite != filter.favorite})
-        }
-        
-        return filtered
+    func titleAt(_ indexPath: IndexPath) -> String {
+        return allNews[indexPath.section][indexPath.row].title
+    }
+    
+    func imageUrlAt(_ indexPath: IndexPath) -> String {
+        return allNews[indexPath.section][indexPath.row].imageUrl
+    }
+    
+    func readNewsAt(_ indexPath: IndexPath) -> Bool {
+        return allNews[indexPath.section][indexPath.row].read
     }
     
     private func filterNews(news: News) -> Bool {

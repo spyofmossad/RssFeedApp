@@ -22,10 +22,10 @@ protocol FeedsTableHeaderPresenterProtocol {
 class TableHeaderPresenter: FeedsTableHeaderPresenterProtocol {
     
     private var section: Int
-    private weak var tablePresenter: FeedsPresenterProtocol?
+    private weak var tablePresenter: FeedsPresenterProtocol!
     
     var headerTitle: String {
-        return tablePresenter?.titleForHeaderInSection(section) ?? ""
+        return tablePresenter.titleForHeaderInSection(section)
     }
     
     required init(parentPresenter: FeedsPresenterProtocol, section: Int) {
@@ -34,10 +34,10 @@ class TableHeaderPresenter: FeedsTableHeaderPresenterProtocol {
     }
     
     func buttonOnTap() {
-        tablePresenter?.headerOnTap(section: section)
+        tablePresenter.headerOnTap(section: section)
     }
     
     func buttonOnLongTap() {
-        tablePresenter?.headerOnLongTap(section: section)
+        tablePresenter.headerOnLongTap(section: section)
     }
 }

@@ -10,4 +10,5 @@ target 'RssFeedApp' do
   pod 'XMLCoder', '~> 0.11.1'
   pod 'RealmSwift'
   pod 'SDWebImage', '~> 5.0'
+  pod 'R.swift'
 end

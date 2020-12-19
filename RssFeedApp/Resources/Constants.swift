@@ -9,4 +9,5 @@ import Foundation
 
 struct Constants {
     static let defaultFolder = "Default"
+    static let feedsTableHeader = "customHeader"
 }

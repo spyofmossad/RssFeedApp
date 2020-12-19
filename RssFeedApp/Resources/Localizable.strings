@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  RssFeedApp
+
+  Created by Dmitry on 19.12.2020.
+  
+*/
+"DeleteLabel" = "Delete";
+"EditLabel" = "Edit";
+"CloseLabel" = "Close";
+"CancelLabel" = "Cancel";
+"FilterLabel" = "Filter";
+"ResetLabel" = "Reset";
+"OkLabel" = "OK";
+
+"DeleteFolderTitle" = "Are you sure?";
+"DeleteFolderMsg" = "All feeds in this folder will be deleted as well";
+
+"FolderNameValidationTitle" = "Oops!";
+"FolderNameValidationMsg" = "Folder name is required";
+
+"NoFeedsPlaceholder" = "No feeds found. Tap '+' to add new rss feed.";
+"NoCategoriesPlaceholcer" = "No categories";
+
+"MarkAsUnread" = "Mark as unread";
+"MarkAsRead" = "Mark as read";
+
+"LinkValidationTitle" = "Unable to proceed";
+"LinkValidationMsg" = "Link is corrupted or empry, unable to open link";

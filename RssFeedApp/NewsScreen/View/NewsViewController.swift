@@ -16,17 +16,16 @@ protocol NewsViewProtocol: class {
 
 class NewsViewController: UIViewController, StoryboardInit {
     
-    var presenter: NewsViewPresenterProtocol!
+    var presenter: NewsPresenterProtocol!
     
     @IBOutlet weak var newsTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
-        newsTable.register(nib, forCellReuseIdentifier: "newsCell")
+        newsTable.register(UINib(resource: R.nib.newsTableViewCell), forCellReuseIdentifier: R.reuseIdentifier.newsCell.identifier)
         newsTable.refreshControl = UIRefreshControl()
         newsTable.refreshControl?.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filterOnTap))]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: R.string.localizable.filterLabel(), style: .plain, target: self, action: #selector(filterOnTap))]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,16 +66,15 @@ extension NewsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as? NewsTableViewCell
-        guard let tableCell = cell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.newsCell, for: indexPath) else {
             assertionFailure("Unable to init NewsTableViewCell")
             return UITableViewCell()
         }
-        
-        let cellPresenter = presenter.tableViewCellPresenterAt(indexPath: indexPath, cell: tableCell)
-        tableCell.presenter = cellPresenter
-        
-        return cell!
+        cell.prepare(with: presenter.titleAt(indexPath),
+                          imageUrl: presenter.imageUrlAt(indexPath),
+                          read: presenter.readNewsAt(indexPath))
+
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
