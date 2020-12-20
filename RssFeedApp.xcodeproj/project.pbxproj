@@ -30,6 +30,7 @@
 		0A696C222562B68F009FBAC7 /* FeedsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A696C202562B68F009FBAC7 /* FeedsViewController.storyboard */; };
 		0A696C242562B68F009FBAC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A696C232562B68F009FBAC7 /* Assets.xcassets */; };
 		0A696C272562B68F009FBAC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A696C252562B68F009FBAC7 /* LaunchScreen.storyboard */; };
+		0A965270258F50110048E092 /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96526F258F50110048E092 /* NetworkErrors.swift */; };
 		0AA2DA65258E428100C07809 /* NewsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2DA64258E428100C07809 /* NewsPresenter.swift */; };
 		0AB3B8F0258CF79900E01963 /* RawFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3B8EF258CF79900E01963 /* RawFeed.swift */; };
 		0AB3B8F9258E208700E01963 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AB3B8F8258E208700E01963 /* Localizable.strings */; };
@@ -82,6 +83,7 @@
 		0A696C232562B68F009FBAC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A696C262562B68F009FBAC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A696C282562B68F009FBAC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A96526F258F50110048E092 /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
 		0AA2DA64258E428100C07809 /* NewsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPresenter.swift; sourceTree = "<group>"; };
 		0AB3B8EF258CF79900E01963 /* RawFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawFeed.swift; sourceTree = "<group>"; };
 		0AB3B8F8258E208700E01963 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				0AC668B825650A12009F5732 /* DataProvider.swift */,
 				0AC6687C2563B7A2009F5732 /* Coordinator.swift */,
 				0AC668D125656314009F5732 /* NetworkService.swift */,
+				0A96526F258F50110048E092 /* NetworkErrors.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				0A2D8EB2258765DA00200C53 /* NewsFilterViewController.swift in Sources */,
 				0AA2DA65258E428100C07809 /* NewsPresenter.swift in Sources */,
 				0A46ED4B2582311A00431BE1 /* DateHelper.swift in Sources */,
+				0A965270258F50110048E092 /* NetworkErrors.swift in Sources */,
 				0A2D8EAB2587654900200C53 /* Filter.swift in Sources */,
 				0AC668CD25651E74009F5732 /* AddEditFeedPresenter.swift in Sources */,
 				0A696C1F2562B68F009FBAC7 /* FeedsViewController.swift in Sources */,

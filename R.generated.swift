@@ -293,7 +293,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 17 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 20 localization keys.
     struct localizable {
       /// Value: All feeds in this folder will be deleted as well
       static let deleteFolderMsg = Rswift.StringResource(key: "DeleteFolderMsg", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
@@ -311,12 +311,16 @@ struct R: Rswift.Validatable {
       static let filterLabel = Rswift.StringResource(key: "FilterLabel", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Folder name is required
       static let folderNameValidationMsg = Rswift.StringResource(key: "FolderNameValidationMsg", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Invalid URL. Please, provide  valid direct url to RSS feeds
+      static let urlError = Rswift.StringResource(key: "UrlError", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Link is corrupted or empry, unable to open link
       static let linkValidationMsg = Rswift.StringResource(key: "LinkValidationMsg", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Mark as read
       static let markAsRead = Rswift.StringResource(key: "MarkAsRead", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Mark as unread
       static let markAsUnread = Rswift.StringResource(key: "MarkAsUnread", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Network error. Please, try again
+      static let networkError = Rswift.StringResource(key: "NetworkError", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: No categories
       static let noCategoriesPlaceholcer = Rswift.StringResource(key: "NoCategoriesPlaceholcer", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: No feeds found. Tap '+' to add new rss feed.
@@ -329,6 +333,8 @@ struct R: Rswift.Validatable {
       static let resetLabel = Rswift.StringResource(key: "ResetLabel", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Unable to proceed
       static let linkValidationTitle = Rswift.StringResource(key: "LinkValidationTitle", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Unable to read RSS. Make sure valid URL provided
+      static let parsingError = Rswift.StringResource(key: "ParsingError", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
 
       /// Value: All feeds in this folder will be deleted as well
       static func deleteFolderMsg(preferredLanguages: [String]? = nil) -> String {
@@ -434,6 +440,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("FolderNameValidationMsg", bundle: bundle, comment: "")
       }
 
+      /// Value: Invalid URL. Please, provide  valid direct url to RSS feeds
+      static func urlError(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("UrlError", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "UrlError"
+        }
+
+        return NSLocalizedString("UrlError", bundle: bundle, comment: "")
+      }
+
       /// Value: Link is corrupted or empry, unable to open link
       static func linkValidationMsg(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -471,6 +490,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("MarkAsUnread", bundle: bundle, comment: "")
+      }
+
+      /// Value: Network error. Please, try again
+      static func networkError(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("NetworkError", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "NetworkError"
+        }
+
+        return NSLocalizedString("NetworkError", bundle: bundle, comment: "")
       }
 
       /// Value: No categories
@@ -549,6 +581,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("LinkValidationTitle", bundle: bundle, comment: "")
+      }
+
+      /// Value: Unable to read RSS. Make sure valid URL provided
+      static func parsingError(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("ParsingError", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "ParsingError"
+        }
+
+        return NSLocalizedString("ParsingError", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

@@ -27,3 +27,7 @@
 
 "LinkValidationTitle" = "Unable to proceed";
 "LinkValidationMsg" = "Link is corrupted or empry, unable to open link";
+
+"UrlError" = "Invalid URL. Please, provide  valid direct url to RSS feeds";
+"NetworkError" = "Network error. Please, try again";
+"ParsingError" = "Unable to read RSS. Make sure valid URL provided";

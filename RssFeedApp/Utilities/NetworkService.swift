@@ -14,10 +14,13 @@ protocol NetworkServiceProtocol {
 
 class NetworkService: NetworkServiceProtocol {
     func fetchData(from url: String, completion: @escaping ((Result<Feed?, Error>) -> Void)) {
-        guard let url = URL(string: url) else { return }
+        guard let url = URL(string: url), UIApplication.shared.canOpenURL(url) else {
+            completion(.failure(NetworkErrors.invalidUrl))
+            return
+        }
         URLSession.shared.dataTask(with: url) { (data, _, error) in
-            if let error = error {
-                completion(.failure(error))
+            if error != nil {
+                completion(.failure(NetworkErrors.networkError))
             }
             if let data = data {
                 do {
@@ -27,7 +30,7 @@ class NetworkService: NetworkServiceProtocol {
                     let rssFeed = Feed(feed: feed)
                     completion(.success(rssFeed))
                 } catch {
-                    completion(.failure(error))
+                    completion(.failure(NetworkErrors.parsingFailure))
                 }
             }
         }.resume()
