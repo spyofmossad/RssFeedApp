@@ -31,6 +31,7 @@ struct RawFeedNews: Decodable {
     let link: String?
     let description: String?
     let content: Content?
+    let thumbnail: Content?
     let pubDate: String?
 }
 
