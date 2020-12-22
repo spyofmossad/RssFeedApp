@@ -21,7 +21,9 @@ class NewsTableViewCell: UITableViewCell {
     
     func prepare(with title: String, imageUrl: String, read: Bool) {
         let url = URL(string: imageUrl)
-        self.newsImage.sd_setImage(with: url, completed: nil)
+        let scale = UIScreen.main.scale
+        let thimbnailSize = CGSize(width: 50 * scale, height: 50 * scale)
+        self.newsImage.sd_setImage(with: url, placeholderImage: nil, options: SDWebImageOptions(), context: [.imageThumbnailPixelSize: thimbnailSize])
         self.newsDescr.text = title
         self.unreadMark.isHidden = read
     }
