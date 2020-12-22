@@ -45,8 +45,10 @@ class News: Object {
         self.init()
         self.title = news.title ?? ""
         self.link = news.link ?? ""
-        self.newsDescription = news.description ?? ""
         self.imageUrl = news.content?.imageUrl ?? news.thumbnail?.imageUrl ?? ""
+        if let description = news.description {
+            self.newsDescription = description.trimmedHtml
+        }
         if let pubDate = news.pubDate {
             self.date = DateHelper.shared.parse(from: pubDate) ?? Date()
         }
