@@ -13,6 +13,7 @@ protocol NewsFilterPresenterProtocol {
     
     init(coordinator: Coordinator, dataProvider: DataProviderProtocol, view: NewsFilterViewProtocol, filter: Filter)
     
+    func updateUI()
     func applyOnTap()
     func resetOnTap()
     func filterLabelAt(indexPath: IndexPath) -> String
@@ -51,6 +52,10 @@ class NewsFilterPresenter: NewsFilterPresenterProtocol {
         self.filter = filter
     }
     
+    func updateUI() {
+        view.switchDate(flag: filter.date, animated: false)
+    }
+    
     func filterLabelAt(indexPath: IndexPath) -> String {
         return filterNames[indexPath.row].capitalized
     }
@@ -65,6 +70,10 @@ class NewsFilterPresenter: NewsFilterPresenterProtocol {
         let name = filterNames[indexPath.row]
         if let value = filter[name] as? Bool {
             dataProvider.update(filter: filter, property: name, new: !value)
+            
+            if name == "date" {
+                view.switchDate(flag: !value, animated: true)
+            }
         }
     }
     

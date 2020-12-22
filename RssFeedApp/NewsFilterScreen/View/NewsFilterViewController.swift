@@ -11,14 +11,18 @@ protocol NewsFilterViewProtocol: class {
     var dateTime: Date { get }
     func applyOnTap()
     func resetOnTap()
+    func switchDate(flag: Bool, animated: Bool)
+    func dateFilterOnTap()
 }
 
 class NewsFilterViewController: UIViewController, StoryboardInit {
     
     var presenter: NewsFilterPresenterProtocol!
-    
+
+    @IBOutlet weak var container: UIView!
     @IBOutlet weak var filtersTable: UITableView!
-    @IBOutlet weak var dateTimePicker: UIDatePicker!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var pickerHeight: NSLayoutConstraint!
     @IBOutlet weak var apply: UIButton!
     
     override func viewDidLoad() {
@@ -30,14 +34,15 @@ class NewsFilterViewController: UIViewController, StoryboardInit {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         apply.layer.cornerRadius = apply.bounds.height / 2
-        dateTimePicker.datePickerMode = .date
-        dateTimePicker.date = presenter.date
+        datePicker.datePickerMode = .date
+        datePicker.date = presenter.date
+        presenter.updateUI()
     }
 }
 
 extension NewsFilterViewController: NewsFilterViewProtocol {
     var dateTime: Date {
-        return self.dateTimePicker.date
+        return self.datePicker.date
     }
     
     @objc func applyOnTap() {
@@ -46,6 +51,22 @@ extension NewsFilterViewController: NewsFilterViewProtocol {
     
     @objc func resetOnTap() {
         presenter.resetOnTap()
+    }
+    
+    func switchDate(flag: Bool, animated: Bool) {
+        self.pickerHeight.constant = flag ? 200 : 0
+        self.container.isHidden = !flag
+        if animated {
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
+            return
+        }
+        self.view.layoutIfNeeded()
+    }
+    
+    func dateFilterOnTap() {
+        
     }
 }
 

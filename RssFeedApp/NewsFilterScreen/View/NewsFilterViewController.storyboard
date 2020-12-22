@@ -59,14 +59,24 @@
                                     <outlet property="delegate" destination="hHq-YA-gRM" id="JsE-ZZ-DTa"/>
                                 </connections>
                             </tableView>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="soC-4z-0Jp">
-                                <rect key="frame" x="8" y="180" width="414" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mRO-g3-XFd" userLabel="Container View">
+                                <rect key="frame" x="0.0" y="172" width="414" height="216"/>
+                                <subviews>
+                                    <datePicker clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="soC-4z-0Jp">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
+                                    </datePicker>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="p04-ra-4Z3"/>
+                                    <constraint firstAttribute="bottom" secondItem="soC-4z-0Jp" secondAttribute="bottom" id="8KB-KU-2bm"/>
+                                    <constraint firstAttribute="height" priority="999" constant="216" id="8or-UF-MD6"/>
+                                    <constraint firstAttribute="trailing" secondItem="soC-4z-0Jp" secondAttribute="trailing" id="RLM-XO-sQM"/>
+                                    <constraint firstItem="soC-4z-0Jp" firstAttribute="top" secondItem="mRO-g3-XFd" secondAttribute="top" id="cfQ-K3-aze"/>
+                                    <constraint firstItem="soC-4z-0Jp" firstAttribute="leading" secondItem="mRO-g3-XFd" secondAttribute="leading" id="pQY-fN-eAE"/>
                                 </constraints>
-                            </datePicker>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dK-JV-Rvw">
-                                <rect key="frame" x="32" y="246" width="350" height="40"/>
+                                <rect key="frame" x="32" y="396" width="350" height="40"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="R3Y-Vz-moM"/>
@@ -79,21 +89,23 @@
                         <viewLayoutGuide key="safeArea" id="WkP-aB-cyl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="6dK-JV-Rvw" firstAttribute="top" secondItem="mRO-g3-XFd" secondAttribute="bottom" constant="8" id="3Ka-CT-14G"/>
                             <constraint firstItem="vGr-Vx-T1x" firstAttribute="leading" secondItem="WkP-aB-cyl" secondAttribute="leading" id="4qw-IA-egx"/>
                             <constraint firstItem="vGr-Vx-T1x" firstAttribute="top" secondItem="WkP-aB-cyl" secondAttribute="top" id="9n7-uz-tHv"/>
-                            <constraint firstItem="6dK-JV-Rvw" firstAttribute="top" secondItem="soC-4z-0Jp" secondAttribute="bottom" constant="16" id="Bw6-NO-H5G"/>
                             <constraint firstItem="vGr-Vx-T1x" firstAttribute="trailing" secondItem="WkP-aB-cyl" secondAttribute="trailing" id="NPh-26-rEu"/>
+                            <constraint firstItem="mRO-g3-XFd" firstAttribute="top" secondItem="vGr-Vx-T1x" secondAttribute="bottom" id="OUK-n6-wZf"/>
+                            <constraint firstItem="mRO-g3-XFd" firstAttribute="leading" secondItem="WkP-aB-cyl" secondAttribute="leading" id="SrL-zi-xw2"/>
                             <constraint firstItem="WkP-aB-cyl" firstAttribute="trailing" secondItem="6dK-JV-Rvw" secondAttribute="trailing" constant="32" id="WLI-j0-nfM"/>
-                            <constraint firstItem="soC-4z-0Jp" firstAttribute="trailing" secondItem="WkP-aB-cyl" secondAttribute="trailing" constant="8" id="ciH-SK-5yI"/>
                             <constraint firstItem="6dK-JV-Rvw" firstAttribute="leading" secondItem="WkP-aB-cyl" secondAttribute="leading" constant="32" id="dgP-OE-Gxe"/>
-                            <constraint firstItem="soC-4z-0Jp" firstAttribute="leading" secondItem="WkP-aB-cyl" secondAttribute="leading" constant="8" id="q14-vX-84l"/>
-                            <constraint firstItem="soC-4z-0Jp" firstAttribute="top" secondItem="vGr-Vx-T1x" secondAttribute="bottom" constant="8" id="tU2-pA-OPD"/>
+                            <constraint firstItem="mRO-g3-XFd" firstAttribute="trailing" secondItem="WkP-aB-cyl" secondAttribute="trailing" id="tLk-r9-rCh"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="apply" destination="6dK-JV-Rvw" id="OnH-0U-OOd"/>
-                        <outlet property="dateTimePicker" destination="soC-4z-0Jp" id="Rmu-Y0-qpp"/>
+                        <outlet property="container" destination="mRO-g3-XFd" id="bor-a0-sjh"/>
+                        <outlet property="datePicker" destination="soC-4z-0Jp" id="PqD-U8-dM4"/>
                         <outlet property="filtersTable" destination="vGr-Vx-T1x" id="7Y9-zP-gB3"/>
+                        <outlet property="pickerHeight" destination="8or-UF-MD6" id="icc-1j-VEe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0c0-Rr-zlx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
