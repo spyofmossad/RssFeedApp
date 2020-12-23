@@ -13,7 +13,7 @@ extension UIViewController {
     func showPlaceholder(in container: UIView, with text: String) {
         DispatchQueue.main.async {
             let placeholderView = UIView(frame: container.bounds)
-            placeholderView.backgroundColor = .white
+            placeholderView.backgroundColor = R.color.background()
             let label = UILabel(frame: placeholderView.bounds)
             label.center = placeholderView.center
             label.text = text
