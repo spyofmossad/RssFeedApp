@@ -16,15 +16,16 @@ protocol FeedsPresenterProtocol: class {
     func onTapAddFeed()
     func onTapEditFeed(at indexPath: IndexPath)
     func onTapDelete(at indexPath: IndexPath)
+    
     func onTapAddFolder()
+    func onTapEditFolder(section: Int)
     
     func titleForHeaderInSection(_ section: Int) -> String
     func numberOfRowsInSection(_ section: Int) -> Int
     func indexPaths(for section: Int) -> [IndexPath]
     
-    func headerPresenter(for section: Int) -> FeedsTableHeaderPresenterProtocol
+    func headerPresenter(for section: Int, view: TableViewHeaderCell) -> FeedsTableHeaderPresenterProtocol
     func headerOnTap(section: Int)
-    func headerOnLongTap(section: Int)
     func heightForHeaderInSection(section: Int) -> Int
     
     func didSelectRowAt(indexPath: IndexPath)
@@ -32,14 +33,20 @@ protocol FeedsPresenterProtocol: class {
     func cellTitleAt(indexPath: IndexPath) -> String
     func cellCategoryAt(indexPath: IndexPath) -> String
     func cellNewsCountAt(indexPath: IndexPath) -> String
+    
+    func headerInEditMode(_ yMin: Float, _ yMax: Float)
+    func onTouch(y: Float)
 }
 
 class FeedsPresenter: FeedsPresenterProtocol {
-    
+    private var headerInEditYmin: Float?
+    private var headerInEditYmax: Float?
     private let dataProvider: DataProviderProtocol
     private let coordinator: Coordinator
     
     private unowned var view: FeedsViewProtocol
+    
+    var headerPresenters = [FeedsTableHeaderPresenterProtocol]()
     
     var numberOfSections: Int {
         return dataProvider.foldersList.count
@@ -81,8 +88,10 @@ class FeedsPresenter: FeedsPresenterProtocol {
         return indexPaths
     }
     
-    func headerPresenter(for section: Int) -> FeedsTableHeaderPresenterProtocol {
-        return TableHeaderPresenter(parentPresenter: self, section: section)
+    func headerPresenter(for section: Int, view: TableViewHeaderCell) -> FeedsTableHeaderPresenterProtocol {
+        let presenter = TableHeaderPresenter(parentPresenter: self, section: section, view: view)
+        headerPresenters.append(presenter)
+        return presenter
     }
     
     func headerOnTap(section: Int) {
@@ -106,6 +115,24 @@ class FeedsPresenter: FeedsPresenterProtocol {
         dataProvider.foldersList[indexPath.section].feeds[indexPath.row].news.filter({$0.read == false}).count.description
     }
     
+    func headerInEditMode(_ yMin: Float, _ yMax: Float) {
+        headerInEditYmin = yMin
+        headerInEditYmax = yMax
+    }
+    
+    func onTouch(y: Float) {
+        if let yMin = headerInEditYmin, let yMax = headerInEditYmax {
+            if y > yMax || y < yMin {
+                headerPresenters.forEach({$0.swipeToDefaultPosition()})
+            }
+        }
+    }
+    
+    func onTapEditFolder(section: Int) {
+        let folder = dataProvider.foldersList[section]
+        coordinator.goToAddEditFolderScreen(folder: folder)
+    }
+    
     // MARK: - Navigation
     func onTapAddFeed() {
         coordinator.goToAddEditFeedScreen(feed: nil)
@@ -117,11 +144,6 @@ class FeedsPresenter: FeedsPresenterProtocol {
     
     func onTapAddFolder() {
         coordinator.goToAddEditFolderScreen(folder: nil)
-    }
-    
-    func headerOnLongTap(section: Int) {
-        let folder = dataProvider.foldersList[section]
-        coordinator.goToAddEditFolderScreen(folder: folder)
     }
     
     func didSelectRowAt(indexPath: IndexPath) {

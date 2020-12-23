@@ -81,11 +81,19 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="ERr-JA-pge"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKS-a3-a11" customClass="GestureProxyView" customModule="RssFeedApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="VKS-a3-a11" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="138-Bl-ZhN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="VKS-a3-a11" secondAttribute="bottom" id="3P1-jj-vM7"/>
                             <constraint firstItem="hbw-9t-aEV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5PR-yt-c9o"/>
+                            <constraint firstItem="VKS-a3-a11" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6HU-4Z-wXS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VKS-a3-a11" secondAttribute="trailing" id="81t-4V-Gns"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hbw-9t-aEV" secondAttribute="trailing" id="9sT-wG-jIk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hbw-9t-aEV" secondAttribute="bottom" id="dxg-uC-NsZ"/>
                             <constraint firstItem="hbw-9t-aEV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hK4-cS-E8A"/>
@@ -93,6 +101,7 @@
                     </view>
                     <connections>
                         <outlet property="feedsTable" destination="hbw-9t-aEV" id="irs-rH-aji"/>
+                        <outlet property="gestureProxy" destination="VKS-a3-a11" id="uxx-C1-sms"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

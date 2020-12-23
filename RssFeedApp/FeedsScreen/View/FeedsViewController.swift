@@ -20,6 +20,7 @@ class FeedsViewController: UIViewController, StoryboardInit {
     var presenter: FeedsPresenterProtocol!
         
     @IBOutlet weak var feedsTable: UITableView!
+    @IBOutlet weak var gestureProxy: GestureProxyView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,10 @@ class FeedsViewController: UIViewController, StoryboardInit {
         let addEditFolderItem = UIBarButtonItem(image: UIImage(systemName: "folder.badge.plus"), style: .plain, target: self, action: #selector(addFolder))
         navigationItem.rightBarButtonItems = [addEditFeedItem, addEditFolderItem]
         feedsTable.register(UINib(resource: R.nib.tableViewHeaderCell), forHeaderFooterViewReuseIdentifier: Constants.feedsTableHeader)
+        gestureProxy.onTouch = { [weak self] result in
+            guard let self = self else { return }
+            self.presenter.onTouch(y: result)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,7 +91,7 @@ extension FeedsViewController: UITableViewDataSource {
             assertionFailure("Failed to init TableViewHeaderCell")
             return UIView()
         }
-        let headerPresenter = presenter.headerPresenter(for: section)
+        let headerPresenter = presenter.headerPresenter(for: section, view: header)
         header.presenter = headerPresenter
         
         return header
