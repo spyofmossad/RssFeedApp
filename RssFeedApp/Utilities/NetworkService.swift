@@ -14,7 +14,7 @@ protocol NetworkServiceProtocol {
 
 class NetworkService: NetworkServiceProtocol {
     func fetchData(from url: String, completion: @escaping ((Result<Feed?, Error>) -> Void)) {
-        guard let url = URL(string: url), UIApplication.shared.canOpenURL(url) else {
+        guard let url = URL(string: url) else {
             completion(.failure(NetworkErrors.invalidUrl))
             return
         }
