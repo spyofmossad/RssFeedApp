@@ -49,7 +49,7 @@ class FeedsPresenter: FeedsPresenterProtocol {
     var headerPresenters = [FeedsTableHeaderPresenterProtocol]()
     
     var numberOfSections: Int {
-        return dataProvider.foldersList.count
+        return dataProvider.foldersListArray.count
     }
     
     required init(dataProvider: DataProviderProtocol, coordinator: Coordinator, view: FeedsViewProtocol) {
@@ -59,7 +59,7 @@ class FeedsPresenter: FeedsPresenterProtocol {
     }
     
     func updateUI() {
-        if dataProvider.foldersList.contains(where: {$0.name != Constants.defaultFolder}) || dataProvider.feedsList.count > 0 {
+        if dataProvider.foldersListArray.contains(where: {$0.name != Constants.defaultFolder}) || dataProvider.feedsCount > 0 {
             view.updateUI()
         } else {
             view.showPlaceholder(with: R.string.localizable.noFeedsPlaceholder())
@@ -67,21 +67,21 @@ class FeedsPresenter: FeedsPresenterProtocol {
     }
     
     func numberOfRowsInSection(_ section: Int) -> Int {
-        return dataProvider.foldersList[section].feeds.count
+        return dataProvider.foldersListArray[section].feeds.count
     }
     
     func onTapDelete(at indexPath: IndexPath) {
-        let feed = dataProvider.foldersList[indexPath.section].feeds[indexPath.row]
+        let feed = dataProvider.foldersListArray[indexPath.section].feeds[indexPath.row]
         dataProvider.delete(entity: feed)
     }
     
     func titleForHeaderInSection(_ section: Int) -> String {
-        return dataProvider.foldersList[section].name
+        return dataProvider.foldersListArray[section].name
     }
     
     func indexPaths(for section: Int) -> [IndexPath] {
         var indexPaths = [IndexPath]()
-        for row in 0..<dataProvider.foldersList[section].feeds.count {
+        for row in 0..<dataProvider.foldersListArray[section].feeds.count {
             indexPaths.append(IndexPath(row: row, section: section))
         }
         
@@ -99,20 +99,25 @@ class FeedsPresenter: FeedsPresenterProtocol {
     }
     
     func heightForHeaderInSection(section: Int) -> Int {
-        if dataProvider.foldersList[section].name == Constants.defaultFolder { return 0 }
+        if dataProvider.foldersListArray[section].name == Constants.defaultFolder { return 0 }
         return 44
     }
     
     func cellTitleAt(indexPath: IndexPath) -> String {
-        return dataProvider.foldersList[indexPath.section].feeds[indexPath.row].title
+        return dataProvider.foldersListArray[indexPath.section].feeds[indexPath.row].title
     }
     
     func cellCategoryAt(indexPath: IndexPath) -> String {
-        dataProvider.foldersList[indexPath.section].feeds[indexPath.row].categories.joined(separator: ", ")
+        dataProvider.foldersListArray[indexPath.section].feeds[indexPath.row].categories.joined(separator: ", ")
     }
     
     func cellNewsCountAt(indexPath: IndexPath) -> String {
-        dataProvider.foldersList[indexPath.section].feeds[indexPath.row].news.filter({$0.read == false}).count.description
+        dataProvider
+            .foldersListArray[indexPath.section]
+            .feeds[indexPath.row]
+            .news.filter({$0.read == false})
+            .count
+            .description
     }
     
     func headerInEditMode(_ yMin: Float, _ yMax: Float) {
@@ -128,18 +133,19 @@ class FeedsPresenter: FeedsPresenterProtocol {
         }
     }
     
+    // MARK: - Navigation
+    
     func onTapEditFolder(section: Int) {
-        let folder = dataProvider.foldersList[section]
+        let folder = dataProvider.foldersListArray[section]
         coordinator.goToAddEditFolderScreen(folder: folder)
     }
     
-    // MARK: - Navigation
     func onTapAddFeed() {
         coordinator.goToAddEditFeedScreen(feed: nil)
     }
     
     func onTapEditFeed(at indexPath: IndexPath) {
-        coordinator.goToAddEditFeedScreen(feed: dataProvider.foldersList[indexPath.section].feeds[indexPath.row])
+        coordinator.goToAddEditFeedScreen(feed: dataProvider.foldersListArray[indexPath.section].feeds[indexPath.row])
     }
     
     func onTapAddFolder() {
@@ -147,7 +153,7 @@ class FeedsPresenter: FeedsPresenterProtocol {
     }
     
     func didSelectRowAt(indexPath: IndexPath) {
-        let feed = dataProvider.foldersList[indexPath.section].feeds[indexPath.row]
+        let feed = dataProvider.foldersListArray[indexPath.section].feeds[indexPath.row]
         coordinator.goToNewsScren(feed: feed)
     }
 }

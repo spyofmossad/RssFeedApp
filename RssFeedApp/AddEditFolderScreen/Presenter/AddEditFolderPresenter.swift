@@ -38,7 +38,7 @@ class AddEditFolderPresenter: AddEditFolderProtocol {
         if let currentFolderFeeds = self.currentFolder?.feeds {
             selectedFeeds = Array(currentFolderFeeds)
         }
-        if let defaultFolderFeeds = dataProvider.foldersList.first(where: {$0.name == Constants.defaultFolder})?.feeds {
+        if let defaultFolderFeeds = dataProvider.foldersListArray.first(where: {$0.name == Constants.defaultFolder})?.feeds {
             freeFeedsList = Array(defaultFolderFeeds)
         }
     }
@@ -48,8 +48,8 @@ class AddEditFolderPresenter: AddEditFolderProtocol {
     }
     
     func saveChanges() {
-        guard let defaulfFolder = dataProvider.foldersList.first(where: {$0.name == Constants.defaultFolder}) else {
-            assertionFailure("Default folder does'n exists")
+        guard let defaulfFolder = dataProvider.foldersListArray.first(where: {$0.name == Constants.defaultFolder}) else {
+            assertionFailure("Default folder doesn't exists")
             return
         }
         if let folderName = view.folderTitle, !folderName.isEmpty {

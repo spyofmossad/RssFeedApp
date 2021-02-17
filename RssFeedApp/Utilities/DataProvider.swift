@@ -8,9 +8,9 @@
 import Foundation
 import RealmSwift
 
-protocol DataProviderProtocol {
-    var feedsList: Results<Feed> { get }
-    var foldersList: Results<Folder> { get }
+protocol DataProviderProtocol: AutoMockable {
+    var feedsCount: Int { get }
+    var foldersListArray: [Folder] { get }
     
     func save(folder: Folder)
     func save(feed: Feed, to folder: Folder?)
@@ -28,12 +28,18 @@ protocol DataProviderProtocol {
     func replace(old feed: Feed, with newFeed: Feed)
 }
 
-class DataProvider: DataProviderProtocol {    
+class DataProvider: DataProviderProtocol {
     private var realm: Realm
     private var defaultFolder: Folder
-        
-    var feedsList: Results<Feed>
-    var foldersList: Results<Folder>
+    private var feedsList: Results<Feed>
+    private var foldersList: Results<Folder>
+    
+    var feedsCount: Int {
+        feedsList.count
+    }
+    var foldersListArray: [Folder] {
+        Array(foldersList)
+    }
             
     init() {
         realm = try! Realm()

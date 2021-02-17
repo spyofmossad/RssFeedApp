@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol Coordinator {
+protocol Coordinator: AutoMockable {
     init(naviationController: UINavigationController, screenBuilder: ScreenBuilderProtocol)
     func start()
     func goToFeedsView()
@@ -40,8 +40,8 @@ class AppCoordinator: Coordinator {
     }
     
     func goToAddEditFeedScreen(feed: Feed?) {
-        let addFeedView = screenBuilder.addEditFeedView(coordinator: self, feed: feed)
-        navigationController.pushViewController(addFeedView, animated: true)
+        let addEditFeedView = screenBuilder.addEditFeedView(coordinator: self, feed: feed)
+        navigationController.pushViewController(addEditFeedView, animated: true)
     }
     
     func goToAddEditFolderScreen(folder: Folder?) {

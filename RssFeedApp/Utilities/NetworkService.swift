@@ -8,7 +8,7 @@
 import Foundation
 import XMLCoder
 
-protocol NetworkServiceProtocol {
+protocol NetworkServiceProtocol: AutoMockable {
     func fetchData(from url: String, completion: @escaping ((Result<Feed?, Error>) -> Void))
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol ScreenBuilderProtocol: class {
+protocol ScreenBuilderProtocol: class, AutoMockable {
     init(dataProvider: DataProviderProtocol, networkService: NetworkServiceProtocol)
     func feedsView(coordinator: Coordinator) -> UIViewController
     func addEditFeedView(coordinator: Coordinator, feed: Feed?) -> UIViewController
